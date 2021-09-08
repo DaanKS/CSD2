@@ -1,6 +1,12 @@
 import simpleaudio as sa
 
-wave_obj = sa.WaveObject.from_wave_file("/Users/dean/Documents/CSD2/python_basics/HHOP_9.mp3")
-print("playing")
-play_obj = wave_obj.play()
-play_obj.wait_done()
+
+nPlays = int(input("how many times you wanna hear this? "))
+wave_obj = sa.WaveObjs
+
+while(nPlays > 0):
+    play_obj = wave_obj.play()
+    play_obj.wait_done()
+    nPlays -= 1
+    if nPlays == 0:
+        print("Done playing ")
