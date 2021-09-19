@@ -20,4 +20,8 @@ for i in triggers:
     play_obj = wave_obj.play()
     sleep(i)
 
+#van wat ik heb begrepen maakt het gebruik van de hardware om te sleepen
+#en als daar performance issues ontstaan is de sleep time niet langer accuraat.
+
 #Perhaps adding Multithreading is a fun idea for polyrhythms and polyphone playback
+#ik heb 't geprobeerd, was moeilijk. '
