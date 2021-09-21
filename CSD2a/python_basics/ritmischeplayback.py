@@ -21,7 +21,4 @@ for i in triggers:
     sleep(i)
 
 #van wat ik heb begrepen maakt het gebruik van de hardware om te sleepen
-#en als daar performance issues ontstaan is de sleep time niet langer accuraat.
-
-#Perhaps adding Multithreading is a fun idea for polyrhythms and polyphone playback
-#ik heb 't geprobeerd, was moeilijk. '
+#en als daar performance issues ontstaan is de sleep time niet langer accuraat
