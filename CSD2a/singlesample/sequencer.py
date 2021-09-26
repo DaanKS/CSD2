@@ -1,7 +1,7 @@
 # import simpleaudio as sa
 import time
 
-#using comments to emulate use of simpleaudio
+#using strings to emulate use of simpleaudio
 
 #load sample in variable
 #wave_obj = sa.WaveObject.from_wave_file("/home/daanaanaaan/Documents/Samples/Kick_bip.wav")
@@ -38,9 +38,15 @@ print(timeStamps)
 
 #measuring point for time
 time_zero = time.time()
-
-
-
-for i in triggers:
-    play(wave_obj)
-    time.sleep(i)
+#a loop that calcuates the elapsed time and based on that decides whether
+#a note is played or not.
+print(numTrigger)
+#check time
+for trigger in range(numTrigger):
+    print(trigger)
+    currentTime = time.time() - time_zero
+    if(currentTime >= timeStamps[0]):
+        timeStamps.pop(0)
+        print(timeStamps[0])
+        play(wave_obj)
+    time.sleep(0.001)
