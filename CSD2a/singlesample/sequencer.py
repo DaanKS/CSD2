@@ -42,11 +42,10 @@ time_zero = time.time()
 #a note is played or not.
 print(numTrigger)
 #check time
-for trigger in range(numTrigger):
-    print(trigger)
+while len(timeStamps) > 0:
+
     currentTime = time.time() - time_zero
     if(currentTime >= timeStamps[0]):
-        timeStamps.pop(0)
-        print(timeStamps[0])
+        timeStamps.pop(0)        
         play(wave_obj)
     time.sleep(0.001)
