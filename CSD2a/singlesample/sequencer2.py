@@ -20,14 +20,20 @@ theGroove = [0, 1, 3, 7, 11, 12, 15]
 timeStamps=[0]
 #timeLength = 0
 #transform 16th notes into timestamps
-#step1 from 16th notes to time durations
-#step2 from time durations to timestamps
 while len(theGroove) > 0:
     timeStamps.append(theGroove[0] * (quarterNote/4))
     theGroove.pop(0)
 
-print(timeDurations)
 
+#measuring point for time
+time_zero = time.time()
+#a loop that calcuates the elapsed time and based on that decides whether
+#a note is played or not.
 
-
-#playtimestamps
+#check time
+while len(timeStamps) > 0:
+    currentTime = time.time() - time_zero
+    if(currentTime >= timeStamps[0]):
+        timeStamps.pop(0)
+        play(wave_obj)
+    time.sleep(0.001)
