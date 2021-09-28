@@ -19,23 +19,22 @@ for trigger in range(numTrigger):
     #insert sleep durations per trigger in the  array
     triggers.append(float(input("Note Length float ")))
 
-
+#theGroove is a list that holds 16th notes
 theGroove = [0]
 #add function to transform quarternote time values to 16th notes
 for trigger in triggers:
     theGroove.append(theGroove[-1] + (4 * trigger))
-    
+#remove the last one, because it displays the end of the final hit
+theGroove.pop()
 print (theGroove)
 
-
-
-
-timeStamps=[0]
+timeStamps=[]
 #transform 16th notes into timestamps
 while len(theGroove) > 0:
     timeStamps.append(theGroove[0] * (quarterNote/4))
     theGroove.pop(0)
 #measuring point for time
+print(timeStamps)
 time_zero = time.time()
 #a loop that calcuates the elapsed time and based on that decides whether...
 #...a note is played or not.
