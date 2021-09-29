@@ -1,13 +1,13 @@
-# import simpleaudio as sa
+import simpleaudio as sa
 import time
 
 #using strings to emulate use of simpleaudio
 
 #load sample in variable
-#wave_obj = sa.WaveObject.from_wave_file("/home/daanaanaaan/Documents/Samples/Kick_bip.wav")
-wave_obj = "Kick"
+wave_obj = sa.WaveObject.from_wave_file("/home/daanaanaaan/Documents/Samples/Kick_bip.wav")
+
 def play(wave_obj):
-    print(wave_obj)
+    play_obj=wave_obj.play()
 
 #calculate time length of a quarternote
 beatsPerMin = int(input("Enter # for BPM "))
