@@ -3,7 +3,7 @@ import time
 
 #testing event things and dictionaries.
 
-#loading up samples
+#loading up samples #using strings for now to emulate use of simpleaudio
 kick = "kick"#sa.WaveObject.from_wave_file("../Samples/Kick_bip.wav")
 mid = "mid"#sa.WaveObject.from_wave_file("../Samples/Mid_bip.wav")
 tom = "tom"#sa.WaveObject.from_wave_file("../Samples/Tom_bip.wav")
