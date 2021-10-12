@@ -8,8 +8,8 @@ kick = "kick"#sa.WaveObject.from_wave_file("../Samples/Kick_bip.wav")
 mid = "mid"#sa.WaveObject.from_wave_file("../Samples/Mid_bip.wav")
 tom = "tom"#sa.WaveObject.from_wave_file("../Samples/Tom_bip.wav")
 
-def play(instrument):
-    print(instrument)
+def play(event):
+    print(event['instrument'])
 
 bpm = 120
 quarterNote = 60 / bpm
@@ -20,23 +20,42 @@ def make_event(timestamp, instrument):
     return {'timeStamp': timestamp, 'instrument' : instrument}
 events = []
 
-#TODO make this different
-theGroove=[0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5]
-while len(theGroove) > 0:
-    timeStamps.append(theGroove[0] * (quarterNote/4))
-    theGroove.pop(0)
+#turn theGroove (durations) into timeStamps
+theGroove=[1, 1, 1, 1]
+timeLength = 0
+for notes in theGroove:
+    timeLength += notes
+    timeStamps.append(timeLength)
 #remove extraneous timestamp
 timeStamps.pop()
+count = 0
 
 for i in range(len(timeStamps)):
     events.append(make_event(timeStamps[count], instruments[random.randint(0, 1)]))
     count += 1
 #fill in 16th notes
 for sixteenthNote in range(16):
-    events.append(make_event(sixteenthNote, instruments[2]))
+    events.append(make_event(sixteenthNote * 0.25, instruments[2]))
 
 #Took this line from Wouter Ensink
 events.sort(key=lambda x: x['timeStamp'])
 
 
+#________Play Sequence_________
+
+#design a 16th step counter
+sixTeenths = []
+for i in range(16):
+    sixTeenths.append(i * 0.25)
+print (sixTeenths)
+
 time_zero = time.time()
+for i in range(16):
+    running = True
+    while running:
+        currentTime = time.time() - time_zero
+        if currentTime <= sixTeenths[i]:
+            print(bang)
+            running = False
+        else:
+            time.sleep(0.001)
