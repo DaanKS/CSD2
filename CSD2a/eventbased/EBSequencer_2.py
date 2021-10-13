@@ -15,7 +15,7 @@ def play(event):
 bpm = 120
 quarterNote = 60 / bpm
 instruments = [kick, mid, tom]
-timeStamps = []
+timeStamps = [0]
 
 #event maker method() returns dictionary
 def make_event(timestamp, instrument):
