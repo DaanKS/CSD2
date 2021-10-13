@@ -43,19 +43,26 @@ events.sort(key=lambda x: x['timeStamp'])
 
 #________Play Sequence_________
 
-#design a 16th step counter
+    #design a 16th step counter
 sixTeenths = []
 for i in range(16):
     sixTeenths.append(i * 0.25)
-print (sixTeenths)
 
+
+        #counter
 time_zero = time.time()
-for i in range(16):
+    #amount of steps
+for index in range(16):
+        #on button for while loop
     running = True
+        #targetTime is where the next hit should be. We use the sixTeenths[]
+    targetTime = sixTeenths[index]
     while running:
+            #what is the time now
         currentTime = time.time() - time_zero
-        if currentTime <= sixTeenths[i]:
-            print(bang)
+            #has the clock hit the targetTime?
+        if currentTime >= targetTime:
+                #turn off the while loop to go to the next step
             running = False
         else:
             time.sleep(0.001)
