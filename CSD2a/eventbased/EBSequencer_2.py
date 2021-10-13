@@ -8,6 +8,7 @@ kick = "kick"#sa.WaveObject.from_wave_file("../Samples/Kick_bip.wav")
 mid = "mid"#sa.WaveObject.from_wave_file("../Samples/Mid_bip.wav")
 tom = "tom"#sa.WaveObject.from_wave_file("../Samples/Tom_bip.wav")
 
+#event handler method()
 def play(event):
     print(event['instrument'])
 
@@ -16,6 +17,7 @@ quarterNote = 60 / bpm
 instruments = [kick, mid, tom]
 timeStamps = []
 
+#event maker method() returns dictionary
 def make_event(timestamp, instrument):
     return {'timeStamp': timestamp, 'instrument' : instrument}
 events = []
@@ -64,6 +66,9 @@ for repeats in range(4):
             currentTime = time.time() - time_zero
                 #has the clock hit the targetTime?
             if currentTime >= targetTime:
+                for event in events:
+                    if event['timeStamp'] == sixTeenths[index]:
+                        play(event)
                     #turn off the while loop to go to the next step
                 running = False
             else:
