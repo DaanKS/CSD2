@@ -79,11 +79,11 @@ def fillMid(amountSixTeenthNote):
 #reroll events
 def reRollAll(amountSixTeenthNote):
     for i in range(amountSixTeenthNote):
-            if random.randint(0, 101) >= kickPercentage[i]:
+            if random.randint(0, 101) <= kickPercentage[i]:
                 events.append(make_event(allSteps[i], kick))
-            if random.randint(0, 101) >= tomPercentage[i]:
+            if random.randint(0, 101) <= tomPercentage[i]:
                 events.append(make_event(allSteps[i], tom))
-            if random.randint(0, 101) >= midPercentage[i]:
+            if random.randint(0, 101) <= midPercentage[i]:
                 events.append(make_event(allSteps[i], mid))
 #reroll events seperately
 def reRollKick(amountSixTeenthNote):
@@ -116,6 +116,7 @@ print("Calculating...")
 reRollAll(greg)
 time.sleep(0.5)
 print("Ready To Play")
+print(events)
 
 #_________playing___________
 
