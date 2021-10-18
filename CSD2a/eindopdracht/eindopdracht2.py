@@ -34,10 +34,13 @@ def play(event):
 def changeBPM():
     BPM = float(input("Enter BPM: "))
     sixTeenthStep = (60 / BPM) / 4
+    return sixTeenthStep
 #change maatsoort
-def changeMaat():
+def changeMaat(sixTeenthStep):
     topMaat = int(input("Enter topMaat: "))
     botMaat = int(input("Enter botMaat: "))
+    #resetevents because it won't work anymore after redoing this.
+    events = []
 #checking if the botMaat makes sense
     if botMaat == 4:
         amountSixTeenthNote = topMaat * 4
@@ -52,27 +55,29 @@ def changeMaat():
     else:
         amountSixTeenthNote = 4
         print("Maatsoort Error - Maatsoort now: ", topMaat, " / 4 ")
-
+    return amountSixTeenthNote
+    #calculate the amount of steps per bpm
+def calculateSteps(amountSixTeenthNote, sixTeenthStep):
     for i in range(amountSixTeenthNote):
-        allSteps.append(i * sixTeethStep)
+        allSteps.append((i+1) * sixTeenthStep)
     allSteps.pop() #remove the last step
 
 #fill in percentages
-def fillKick():
+def fillKick(amountSixTeenthNote):
     for i in range(amountSixTeenthNote):
         print ("Kick step ", i + 1)
         kickPercentage.append(int(input("Chance 0 - 100: ")))
-def fillTom():
+def fillTom(amountSixTeenthNote):
     for i in range(amountSixTeenthNote):
         print ("Tom step ", i + 1)
         tomPercentage.append(int(input("Chance 0 - 100: ")))
-def fillMid():
+def fillMid(amountSixTeenthNote):
     for i in range(amountSixTeenthNote):
         print ("Mid step ", i + 1)
         midPercentage.append(int(input("Chance 0 - 100: ")))
 
 #reroll events
-def reRollAll():
+def reRollAll(amountSixTeenthNote):
     for i in range(amountSixTeenthNote):
             if random.randint(0, 101) >= kickPercentage[i]:
                 events.append(make_event(allSteps[i], kick))
@@ -81,15 +86,59 @@ def reRollAll():
             if random.randint(0, 101) >= midPercentage[i]:
                 events.append(make_event(allSteps[i], mid))
 #reroll events seperately
-def reRollKick():
+def reRollKick(amountSixTeenthNote):
     for i in range(amountSixTeenthNote):
-        if random.randint(0, 101) >= kickPercentage[i]:
+        if random.randint(0, 101) <= kickPercentage[i]:
             events.append(make_event(allSteps[i], kick))
-def reRollTom():
+def reRollTom(amountSixTeenthNote):
     for i in range(amountSixTeenthNote):
-        if random.randint(0, 101) >= tomPercentage[i]:
+        if random.randint(0, 101) <= tomPercentage[i]:
             events.append(make_event(allSteps[i], tom))
-def reRollMid():
+def reRollMid(amountSixTeenthNote):
     for i in range(amountSixTeenthNote):
-        if random.randint(0, 101) >= midPercentage[i]:
+        if random.randint(0, 101) <= midPercentage[i]:
             events.append(make_event(allSteps[i], mid))
+
+#__________running__________
+print("Welcome")
+peter = changeBPM()
+greg = changeMaat(peter)
+calculateSteps(greg, peter)
+print("Fill in percenages")
+fillKick(greg)
+fillTom(greg)
+fillMid(greg)
+print("Calculating.")
+time.sleep(1)
+print("Calculating..")
+time.sleep(1)
+print("Calculating...")
+reRollAll(greg)
+time.sleep(0.5)
+print("Ready To Play")
+
+#_________playing___________
+
+for repeats in range(4): #could be replaced by a while loop for infinite repeats
+        #counter
+    time_zero = time.time()
+        #amount of steps
+    for index in range(greg):
+        print(index)
+
+            #on button for while loop
+        running = True
+            #targetTime is where the next hit should be. We use the sixTeenths[]
+        targetTime = allSteps[index]
+        while running:
+                #what is the time now
+            currentTime = time.time() - time_zero
+                #has the clock hit the targetTime?
+            if currentTime >= targetTime:
+                for event in events:
+                    if event['timeStamp'] == allSteps[index]:
+                            play(event)
+                    #turn off the while loop to go to the next step
+                running = False
+            else:
+                time.sleep(0.001)
