@@ -4,9 +4,9 @@ import random
 
 #___________setup___________
 
-kick = "kick"
-mid = "mid"
-tom = "tom"
+kick = sa.WaveObject.from_wave_file("/home/daanaanaaan/Documents/Samples/Kick_bip.wav")
+mid = sa.WaveObject.from_wave_file("/home/daanaanaaan/Documents/Samples/Mid_bip.wav")
+tom = sa.WaveObject.from_wave_file("/home/daanaanaaan/Documents/Samples/Tom_bip.wav")
 instruments = [kick, mid, tom]
 
 BPM = 120
@@ -27,7 +27,8 @@ events=[]
 def make_event(timeStamp, instrument):
     return {'timeStamp' : timeStamp, 'instrument':instrument}
 #playing events
-def play(event):
+def playEvent(event):
+    event['instrument'].play()
     print(event['instrument'])
 
 #ChangeBPM
@@ -138,7 +139,7 @@ for repeats in range(4): #could be replaced by a while loop for infinite repeats
             if currentTime >= targetTime:
                 for event in events:
                     if event['timeStamp'] == allSteps[index]:
-                            play(event)
+                            playEvent(event)
                     #turn off the while loop to go to the next step
                 running = False
             else:
