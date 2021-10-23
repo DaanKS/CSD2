@@ -8,24 +8,25 @@ from midiutil import MIDIFile
 #___________setup___________
 kick = {'instrument':"kick", 'instrumentName': "kick"}
 mid = {'instrument':"mid",'instrumentName': "mid"}
-tom = {'instrument':"tom", 'instrumentName': "tom"}
+high = {'instrument':"high", 'instrumentName': "high"}
 instruments = [kick, mid, tom]
 instrumentMidiNums = [36, 40, 45]
 instrumentNames = ["kick", "mid", "tom"]
-
+events = []
 BPM = 120
 
 #make use of time_signature to conform to assignment
 numerator =  4
 denominator = 4
-
+kickPercentage = []
+midPercentage = []
 #because lindenmayer systems work recursively we have to make it stop somewhere
 #numGenerations is the depth of recursiveness.
 numGenerations = 1
 #1 = hit, 0 = rest.
 #if 1 is given, send 1-0
 # if 0 is given, send 1
-rules = {1 : [1,0], 0 : [1] }
+rules = {1 : [1,0,0], 0 : [1,0,1] }
 linden = [1]
 
 #___________methods__________
@@ -34,13 +35,28 @@ linden = [1]
 def spawnSystem(linden, numGeneration):
     for i in range(numGeneration):
         linden += lindenCompute(linden)
+    linden.pop(0)
 #applies the predetermined rules of the system
 #checks last element of the system to decide what must come next.
 def lindenCompute(linden):
     return rules[linden[len(linden) - 1]]
 
+#event builder
+def makeEvent(timeStamp, instrument, instrumentName):
+    return {'timeStamp': timeStamp, 'instrument':instrument,'instrumentName':instrumentName}
+#event handler
+def playEvent(event):
+    #event['instrument'].play
+    print(event['instrumentName'])
 
-print(linden)
-spawnSystem(linden, 1)
-linden.pop(0)
-print (linden)
+def askUserBPM():
+    BPM = float(input("Enter BPM: "))
+    #calculate length of sixteenth note by converting to quarternote, and then dividing by 4.
+    sixteenthStep = (60 / BPM) / 4
+    return sixteenthStep
+
+def askUserTimesig(sixteenthStep):
+    numerator = int(input("Enter numerator: "))
+    denominator = int(input("Enter denominator: "))
+    #calculate the amount of beats per bar
+    return int(numerator * (16 / denominator))
