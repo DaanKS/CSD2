@@ -11,7 +11,7 @@ mid = {'instrument':"mid",'instrumentName': "mid"}
 high = {'instrument':"high", 'instrumentName': "high"}
 instruments = [kick, mid, tom]
 instrumentMidiNums = [36, 40, 45]
-instrumentNames = ["kick", "mid", "tom"]
+instrumentNames = ["kick", "mid", "high"]
 events = []
 BPM = 120
 
@@ -60,3 +60,21 @@ def askUserTimesig(sixteenthStep):
     denominator = int(input("Enter denominator: "))
     #calculate the amount of beats per bar
     return int(numerator * (16 / denominator))
+
+#TODO refactorize duplicate code
+def fillKickPercentages(numBeats):
+    for step in range(numBeats):
+        print ("Kick Step: ", step + 1)
+        kickPercentage.append(int(input("Chance 0-100: ")))
+def fillMidPercentage(numBeats):
+    for step in range(numBeats):
+        print ("Mid Step: ", step + 1)
+        midPercentage.append(int(input("Chance 0-100: ")))
+
+#rerolling events
+def reRollAll(amountSixTeenthNote):
+    for i in range(amountSixTeenthNote):
+            if random.randint(0, 101) <= kickPercentage[i]:
+                events.append(make_event(allSteps[i], kick))
+            if random.randint(0, 101) <= midPercentage[i]:
+                events.append(make_event(allSteps[i], mid))
