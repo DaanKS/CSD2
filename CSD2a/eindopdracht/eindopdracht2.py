@@ -1,17 +1,20 @@
 import simpleaudio as sa
 import time
 import random
+from midiutil import MIDIFile
 
 #___________setup___________
 
-kick = sa.WaveObject.from_wave_file("/home/daanaanaaan/Documents/Samples/Kick_bip.wav")
-mid = sa.WaveObject.from_wave_file("/home/daanaanaaan/Documents/Samples/Mid_bip.wav")
-tom = sa.WaveObject.from_wave_file("/home/daanaanaaan/Documents/Samples/Tom_bip.wav")
+kick = {'instrument':"kick", 'instrumentName': "kick"}
+mid = {'instrument':"mid",'instrumentName': "mid"}
+tom = {'instrument':"tom", 'instrumentName': "tom"}
 instruments = [kick, mid, tom]
+instrumentMidiNums = [36, 40, 45]
+instrumentNames = ["kick", "mid", "tom"]
 
 BPM = 120
 
-allSteps = [0]
+allSteps = []
 topMaat = 4
 botMaat = 4
 
@@ -24,12 +27,12 @@ events=[]
 #__________methods___________
 
 #making events
-def make_event(timeStamp, instrument):
-    return {'timeStamp' : timeStamp, 'instrument':instrument}
+def make_event(timeStamp, instrument, instrumentName):
+    return {'timeStamp' : timeStamp, 'instrument':instrument, 'instrumentName': instrumentName}
 #playing events
 def playEvent(event):
-    event['instrument'].play()
-    print(event['instrument'])
+    #event['instrument'].play()
+    print(event['instrumentName'])
 
 #ChangeBPM
 def changeBPM():
@@ -43,24 +46,14 @@ def changeMaat(sixTeenthStep):
     #resetevents because it won't work anymore after redoing this.
     events = []
 #checking if the botMaat makes sense
-    if botMaat == 4:
-        amountSixTeenthNote = topMaat * 4
-    elif botMaat == 8:
-        amountSixTeenthNote = topMaat * 2
-    elif botMaat == 16:
-        amountSixTeenthNote = topMaat
-    elif botMaat == 32:
-        amountSixTeenthNote = topMaat / 2
-    elif botMaat == 2:
-        amountSixTeenthNote = topMaat * 8
-    else:
-        amountSixTeenthNote = 4
-        print("Maatsoort Error - Maatsoort now: ", topMaat, " / 4 ")
+    amountSixTeenthNote = int(topMaat * (16 / botMaat))
+    print(amountSixTeenthNote)
     return amountSixTeenthNote
+
     #calculate the amount of steps per bpm
 def calculateSteps(amountSixTeenthNote, sixTeenthStep):
     for i in range(amountSixTeenthNote):
-        allSteps.append((i+1) * sixTeenthStep)
+        allSteps.append(i * sixTeenthStep)
     allSteps.pop() #remove the last step
 
 #fill in percentages
@@ -99,48 +92,61 @@ def reRollMid(amountSixTeenthNote):
     for i in range(amountSixTeenthNote):
         if random.randint(0, 101) <= midPercentage[i]:
             events.append(make_event(allSteps[i], mid))
+def sortEvents():
+    events.sort(key=lambda x: x['timeStamp'])
+
+#___________MIDI____________
+midiFile = MIDIFile(1)
+track = 0
+time = 0
+duration = 1
+volume = 100
+midiFile.addTrackName(track, time, "eindopdracht")
+midiFile.addTempo(track, time, BPM)
+
+#unpack event and turn into a midinote
+def retrievePitch(event):
+    for i in range(3):
+        if event['instrumentName'] == instrumentNames[i]:
+            return instrumentMidiNums[i]
+def retrieveTime(event):
+    return int(event['timeStamp'] /  lengthSixteenthNote)
+def addMidiNote(pitch, time):
+    midiFile.addNote(track, channel, pitch, time, duration, volume)
 
 #__________running__________
 print("Welcome")
-peter = changeBPM()
-greg = changeMaat(peter)
-calculateSteps(greg, peter)
+lengthSixteenthNote = changeBPM()
+numSixteenthNote = changeMaat(lengthSixteenthNote)
+calculateSteps(numSixteenthNote, lengthSixteenthNote)
 print("Fill in percenages")
-fillKick(greg)
-fillTom(greg)
-fillMid(greg)
+fillKick(numSixteenthNote)
+fillTom(numSixteenthNote)
+fillMid(numSixteenthNote)
 print("Calculating.")
 time.sleep(1)
 print("Calculating..")
 time.sleep(1)
 print("Calculating...")
-reRollAll(greg)
+reRollAll(numSixteenthNote)
+sortEvents()
 time.sleep(0.5)
 print("Ready To Play")
-print(events)
 
 #_________playing___________
 
 for repeats in range(4): #could be replaced by a while loop for infinite repeats
-        #counter
-    time_zero = time.time()
-        #amount of steps
-    for index in range(greg):
-        print(index)
-
-            #on button for while loop
-        running = True
-            #targetTime is where the next hit should be. We use the sixTeenths[]
-        targetTime = allSteps[index]
+    timeZero = time.time() #begin point for time
+    for index in range(numSixteenthNote):  #amount of steps
+        running = True  #on button for while loop
         while running:
-                #what is the time now
-            currentTime = time.time() - time_zero
-                #has the clock hit the targetTime?
-            if currentTime >= targetTime:
-                for event in events:
-                    if event['timeStamp'] == allSteps[index]:
-                            playEvent(event)
-                    #turn off the while loop to go to the next step
-                running = False
-            else:
-                time.sleep(0.001)
+            currentTime = time.time() - time_zero #what is the time now
+            for event in events:
+                #Look through every element of the events list:
+                #It may seem arbitrary to look through the entire list, but for now
+                #I am of the opinion that it is an effective method to loop a beat without
+                #pop(). So I can just iterate through events instead of removing them.
+                if event['timeStamp'] == currentTime:
+                        playEvent(event)
+                        running = False
+            time.sleep(0.001)
