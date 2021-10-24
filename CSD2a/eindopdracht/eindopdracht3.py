@@ -128,18 +128,19 @@ reRollAll(numBeatsPerBar, events, allSteps)
 sortEvents(events)
 
 #___________running_____________
-for repeats in range(4): #could be replaced by a while loop for infinite repeats
-    timeZero = ti.time() #begin point for time
-     #amount of steps
-    running = True  #on button for while loop
-    while running:
-        currentTime = ti.time() - timeZero #what is the time now
-        for event in events:
-            #Look through every element of the events list:
-            #It may seem arbitrary to look through the entire list, but for now
-            #I am of the opinion that it is an effective method to loop a beat without
-            #pop(). So I can just iterate through events instead of removing them.
-            if event['timeStamp'] == currentTime:
-                    playEvent(event)
+#for repeats in range(4): #could be replaced by a while loop for infinite repeats
+timeZero = ti.time() #begin point for time
+ #amount of steps
+running = True  #on button for while loop
+while running:
+    currentTime = ti.time() - timeZero #what is the time now
+    print(currentTime)
+    for event in events:
+        #Look through every element of the events list:
+        #It may seem arbitrary to look through the entire list, but for now
+        #I am of the opinion that it is an effective method to loop a beat without
+        #pop(). So I can just iterate through events instead of removing them.
+        if event['timeStamp'] == currentTime:
+                playEvent(event)
 
-        ti.sleep(0.001)
+    ti.sleep(0.001)
