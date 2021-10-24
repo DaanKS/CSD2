@@ -1,5 +1,5 @@
 import simpleaudio as sa
-import time
+import time as ti
 import random
 from midiutil import MIDIFile
 
@@ -9,12 +9,12 @@ from midiutil import MIDIFile
 kick = {'instrument':"kick", 'instrumentName': "kick"}
 mid = {'instrument':"mid",'instrumentName': "mid"}
 high = {'instrument':"high", 'instrumentName': "high"}
-instruments = [kick, mid, tom]
+instruments = [kick, mid, high]
 instrumentMidiNums = [36, 40, 45]
 instrumentNames = ["kick", "mid", "high"]
 events = []
 BPM = 120
-
+allSteps = []
 #make use of time_signature to conform to assignment
 numerator =  4
 denominator = 4
@@ -66,24 +66,26 @@ def fillKickPercentages(numBeats):
     for step in range(numBeats):
         print ("Kick Step: ", step + 1)
         kickPercentage.append(int(input("Chance 0-100: ")))
-def fillMidPercentage(numBeats):
+def fillMidPercentages(numBeats):
     for step in range(numBeats):
         print ("Mid Step: ", step + 1)
         midPercentage.append(int(input("Chance 0-100: ")))
 
 #calculate position of 16th note in time
-def calculateSteps(numBeats, sixteenthStep):
+def calculateSteps(numBeats, sixteenthStep, allSteps):
     for i in range(numBeats):
-        allSteps.append(i * sixteenthStep)
-    allSteps.pop() #remove the last step
+        allSteps.append((i * sixteenthStep))
+        allSteps.pop()
+
 
 #using percentages to fill in events.
-def reRollAll(amountSixTeenthNote):
+def reRollAll(amountSixTeenthNote, events, allSteps):
     for i in range(amountSixTeenthNote):
             if random.randint(0, 101) <= kickPercentage[i]:
-                events.append(make_event(allSteps[i], kick))
+
+                events.append(makeEvent(allSteps[i], kick, "kick"))
             if random.randint(0, 101) <= midPercentage[i]:
-                events.append(make_event(allSteps[i], mid))
+                events.append(makeEvent(allSteps[i], mid, "mid"))
 def sortEvents(events):
     events.sort(key=lambda x: x['timeStamp'])
 
@@ -108,38 +110,36 @@ def addMidiNote(pitch, time):
     midiFile.addNote(track, channel, pitch, time, duration, volume)
 
 #___________userInput___________
+print("Welcome ")
+lengthSixteenthNote = askUserBPM()
+print("lengthSixteenthNote: ", lengthSixteenthNote)
+numBeatsPerBar = askUserTimesig(lengthSixteenthNote)
+print("numBeatsPerBar: ", numBeatsPerBar)
+fillKickPercentages(numBeatsPerBar)
+fillMidPercentages(numBeatsPerBar)
+#calculateSteps(numBeatsPerBar, lengthSixteenthNote, allSteps)
 
+for i in range(numBeatsPerBar):
+    allSteps.append(i * lengthSixteenthNote)
+
+
+print(allSteps)
+reRollAll(numBeatsPerBar, events, allSteps)
+sortEvents(events)
 
 #___________running_____________
-#I TOOK THIS CODE FROM /eindopdracht_snippets/11_index_instead_of_pop.py
-#From Ciska Vriezenga, thanks Ciska :)
+for repeats in range(4): #could be replaced by a while loop for infinite repeats
+    timeZero = ti.time() #begin point for time
+     #amount of steps
+    running = True  #on button for while loop
+    while running:
+        currentTime = ti.time() - timeZero #what is the time now
+        for event in events:
+            #Look through every element of the events list:
+            #It may seem arbitrary to look through the entire list, but for now
+            #I am of the opinion that it is an effective method to loop a beat without
+            #pop(). So I can just iterate through events instead of removing them.
+            if event['timeStamp'] == currentTime:
+                    playEvent(event)
 
-# check if events is not empty
-if not events:
-    # list contains no items
-    exit()
-
-# store the current time
-time_zero = time.time()
-print("time zero:", time_zero)
-# start at index 0 and retrieve reference to current timestamp
-index = 0
-event = events[index]
-ts = event["timestamp"]
-
-# iterate through time sequence and play sample
-while True:
-    now = time.time() - time_zero
-    # did we arrive at the new timestamp?
-    if(now > ts):
-        # play sample and fetch new event and timestamp
-        samples[event["sample_index"]].play()
-        if index >= len(events):
-            event = events[index]
-            ts = event["timestamp"]
-        else:
-            # NOTE: or, if you want to loop, you could repeat at index 0
-            # and then add an time-offset for the current bar
-            break
-
-    time.sleep(0.001)
+        ti.sleep(0.001)
