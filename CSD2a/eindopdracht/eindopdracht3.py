@@ -71,10 +71,12 @@ def fillMidPercentage(numBeats):
         print ("Mid Step: ", step + 1)
         midPercentage.append(int(input("Chance 0-100: ")))
 
-#rerolling events
+#using percentages to fill in events.
 def reRollAll(amountSixTeenthNote):
     for i in range(amountSixTeenthNote):
             if random.randint(0, 101) <= kickPercentage[i]:
                 events.append(make_event(allSteps[i], kick))
             if random.randint(0, 101) <= midPercentage[i]:
                 events.append(make_event(allSteps[i], mid))
+def sortEvents(events):
+    events.sort(key=lambda x: x['timeStamp'])
