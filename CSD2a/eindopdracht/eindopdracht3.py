@@ -30,7 +30,7 @@ rules = {1 : [1,0,0], 0 : [1,0,1] }
 linden = [1]
 
 #___________methods__________
-
+#lindenmayer system
 #to avoid infinite recursion, a for loop is used to limit the amount of generations
 def spawnSystem(linden, numGeneration):
     for i in range(numGeneration):
@@ -71,6 +71,12 @@ def fillMidPercentage(numBeats):
         print ("Mid Step: ", step + 1)
         midPercentage.append(int(input("Chance 0-100: ")))
 
+#calculate position of 16th note in time
+def calculateSteps(numBeats, sixteenthStep):
+    for i in range(numBeats):
+        allSteps.append(i * sixteenthStep)
+    allSteps.pop() #remove the last step
+
 #using percentages to fill in events.
 def reRollAll(amountSixTeenthNote):
     for i in range(amountSixTeenthNote):
@@ -80,3 +86,60 @@ def reRollAll(amountSixTeenthNote):
                 events.append(make_event(allSteps[i], mid))
 def sortEvents(events):
     events.sort(key=lambda x: x['timeStamp'])
+
+#___________MIDI____________
+midiFile = MIDIFile(1)
+track = 0
+time = 0
+duration = 1
+volume = 100
+midiFile.addTrackName(track, time, "eindopdracht")
+midiFile.addTempo(track, time, BPM)
+
+def retrievePitch(event, instrumentNames):
+    for i in range(3):
+        if event['instrumentName'] == instrumentNames[i]:
+            return i
+
+def retrieveTime(event, sixteenthStep):
+    return int(event['timeStamp'] / sixteenthStep)
+
+def addMidiNote(pitch, time):
+    midiFile.addNote(track, channel, pitch, time, duration, volume)
+
+#___________userInput___________
+
+
+#___________running_____________
+#I TOOK THIS CODE FROM /eindopdracht_snippets/11_index_instead_of_pop.py
+#From Ciska Vriezenga, thanks Ciska :)
+
+# check if events is not empty
+if not events:
+    # list contains no items
+    exit()
+
+# store the current time
+time_zero = time.time()
+print("time zero:", time_zero)
+# start at index 0 and retrieve reference to current timestamp
+index = 0
+event = events[index]
+ts = event["timestamp"]
+
+# iterate through time sequence and play sample
+while True:
+    now = time.time() - time_zero
+    # did we arrive at the new timestamp?
+    if(now > ts):
+        # play sample and fetch new event and timestamp
+        samples[event["sample_index"]].play()
+        if index >= len(events):
+            event = events[index]
+            ts = event["timestamp"]
+        else:
+            # NOTE: or, if you want to loop, you could repeat at index 0
+            # and then add an time-offset for the current bar
+            break
+
+    time.sleep(0.001)
