@@ -17,7 +17,7 @@ midPercentage = []
 
 #event builder
 def makeEvent(timestamp, instrument, midiNote):
-    return{'timestamp': timestamp, 'sample_index': instrument, 'midiNote', midiNote}
+    return{'timestamp': timestamp, 'sample_index': instrument, 'midiNote': midiNote}
 
 #event handler
 def playEvent(event):
@@ -28,6 +28,9 @@ def askUserBPM():
     while not BPM.isnumeric():
         print("Try a number")
         BPM = input("Enter BPM: ")
+    return int(BPM)
+
+def calculateBeatLength(BPM):
     #calculate length of sixteenth note by converting to quarternote, and then dividing by 4.
     sixteenthStep = (60.0 / float(BPM)) / 4.0
     return sixteenthStep
@@ -99,7 +102,7 @@ def highCompute(lsystem):
     for l in lsystem:
         if l == 100:
             temp += [100, 50, 50]
-        elif l == 50
+        elif l == 50:
             temp += [50, 75, 25, 25]
         elif l == 25:
             temp += [25, 75]
@@ -151,6 +154,7 @@ def runSequencer():
         ti.sleep(0.001)
 
 #___________MIDISETUP____________
+BPM = askUserBPM()
 midiFile = MIDIFile(1)
 track = 0
 time = 0
@@ -168,3 +172,28 @@ def retrieveTime(event, sixteenthStep):
 
 def addMidiNote(pitch, time):
     midiFile.addNote(track, channel, pitch, time, duration, volume)
+
+#___________START_____________
+print("Welcome! ")
+lengthBeat = calculateBeatLength(BPM)
+numBeatsPerBar = askUserTimesig()
+calculateSteps(numBeatsPerBar, lengthBeat, allSteps)
+#source to start Lsystems
+kickSystem = [100]
+midSystem = [75]
+highSystem = [100]
+spawnKicks(kickSystem, 5)
+spawnMids(midSystem, 5)
+spawnHighs(highSystem, 5)
+
+rollProbabilities(numBeatsPerBar, kickSystem, 0, 36)
+rollProbabilities(numBeatsPerBar, midSystem, 1, 40)
+rollProbabilities(numBeatsPerBar, highSystem, 2, 45)
+
+sortEvents(events)
+
+
+
+
+
+#end
