@@ -4,9 +4,9 @@ import random
 from midiutil import MIDIFile
 
 #___________setup___________
-kick = sa.WaveObject.from_wave_file("/home/daanaanaaan/Documents/Samples/Kick_bip.wav")
-mid = sa.WaveObject.from_wave_file("/home/daanaanaaan/Documents/Samples/Mid_bip.wav")
-high = sa.WaveObject.from_wave_file("/home/daanaanaaan/Documents/Samples/Tom_bip.wav")
+kick = sa.WaveObject.from_wave_file("/Users/dean/Documents/samples/kick.wav")
+mid = sa.WaveObject.from_wave_file("//Users/dean/Documents/samples/conga.wav")
+high = sa.WaveObject.from_wave_file("/Users/dean/Documents/samples/block.wav")
 instruments = [kick, mid, high]
 instrumentMidiNums = [36, 40, 45]
 instrumentNames = ["kick", "mid", "high"]
