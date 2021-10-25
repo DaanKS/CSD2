@@ -4,9 +4,9 @@ import random
 from midiutil import MIDIFile
 
 #___________setup___________
-kick = "kick"
-mid = "mid"
-high = "high"
+kick = sa.WaveObject.from_wave_file("/home/daanaanaaan/Documents/Samples/Kick_bip.wav")
+mid = sa.WaveObject.from_wave_file("/home/daanaanaaan/Documents/Samples/Mid_bip.wav")
+high = sa.WaveObject.from_wave_file("/home/daanaanaaan/Documents/Samples/Tom_bip.wav")
 instruments = [kick, mid, high]
 instrumentMidiNums = [36, 40, 45]
 instrumentNames = ["kick", "mid", "high"]
@@ -54,8 +54,8 @@ def makeEvent(timeStamp, instrument, midiNote):
     return{'timeStamp': timeStamp, 'instrument': instrument, 'midiNote': midiNote}
 #event handler
 def playEvent(event):
-    #event['instrument'].play
-    print(event['instrument'])
+    event['instrument'].play()
+    #print(event['instrument'])
 
 def askUserBPM():
     BPM = float(input("Enter BPM: "))
@@ -90,9 +90,9 @@ def reRollAll(amountSixTeenthNote, events, allSteps):
     for i in range(amountSixTeenthNote):
             if random.randint(0, 101) <= kickPercentage[i]:
 
-                events.append(makeEvent(allSteps[i], kick, "kick"))
+                events.append(makeEvent(allSteps[i], kick, 36))
             if random.randint(0, 101) <= midPercentage[i]:
-                events.append(makeEvent(allSteps[i], mid, "mid"))
+                events.append(makeEvent(allSteps[i], mid, 40))
 def sortEvents(events):
     events.sort(key=lambda x: x['timeStamp'])
 
