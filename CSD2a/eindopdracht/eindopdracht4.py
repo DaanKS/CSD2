@@ -4,9 +4,9 @@ import random
 from midiutil import MIDIFile
 
 #___________setup___________
-kick = {'instrument':"kick"}
-mid = {'instrument':"mid"}
-high = {'instrument':"high"}
+kick = "kick"
+mid = "mid"
+high = "high"
 instruments = [kick, mid, high]
 instrumentMidiNums = [36, 40, 45]
 instrumentNames = ["kick", "mid", "high"]
@@ -29,7 +29,7 @@ numGenerations = 1
 #1 = hit, 0 = rest.
 #if 1 is given, send 1-0
 # if 0 is given, send 1
-rules = {1 : [1,0,0], 0 : [1,0,1] }
+rules = {1 : [1,0,0], 0 : [1,0,1,1] }
 linden = [1]
 
 #lindenmethods
@@ -45,7 +45,7 @@ def lindenCompute(linden):
 #add lindenmayer rhythm to events
 def lindenToEvents(numBeats):
     for i in range(numBeats):
-        if linden[i] == 1:
+        if linden[i % len(linden)] == 1:
             events.append(makeEvent(allSteps[i], high, 45))
 
 #___________methods____________
@@ -63,7 +63,7 @@ def askUserBPM():
     sixteenthStep = (60 / BPM) / 4
     return sixteenthStep
 
-def askUserTimesig(sixteenthStep):
+def askUserTimesig():
     numerator = int(input("Enter numerator: "))
     denominator = int(input("Enter denominator: "))
     #calculate the amount of beats per bar
@@ -83,7 +83,7 @@ def fillMidPercentages(numBeats):
 def calculateSteps(numBeats, sixteenthStep, allSteps):
     for i in range(numBeats):
         allSteps.append((i * sixteenthStep))
-        allSteps.pop()
+    #allSteps.pop()
 
 #using percentages to fill in events.
 def reRollAll(amountSixTeenthNote, events, allSteps):
@@ -139,3 +139,18 @@ def retrieveTime(event, sixteenthStep):
 
 def addMidiNote(pitch, time):
     midiFile.addNote(track, channel, pitch, time, duration, volume)
+
+#___________running_____________
+
+print("welcome!")
+beatLength = askUserBPM()
+numBeatsPerBar = askUserTimesig()
+calculateSteps(numBeatsPerBar, beatLength, allSteps)
+
+
+#start with building lindenmayer system
+linden=[int(input("Pick One: 0 or 1? "))]
+generations = int(input("A number between 1 and 100: "))
+spawnSystem(linden, generations)
+print("Lindenmayer Rhythm: ", linden)
+lindenToEvents(numBeatsPerBar)
