@@ -5,8 +5,8 @@ from midiutil import MIDIFile
 
 #___________setup___________
 kick = sa.WaveObject.from_wave_file("/Users/dean/Documents/samples/kick.wav")
-mid = sa.WaveObject.from_wave_file("//Users/dean/Documents/samples/conga.wav")
-high = sa.WaveObject.from_wave_file("/Users/dean/Documents/samples/block.wav")
+mid = sa.WaveObject.from_wave_file("//Users/dean/Documents/samples/block.wav")
+high = sa.WaveObject.from_wave_file("/Users/dean/Documents/samples/hat.wav")
 instruments = [kick, mid, high]
 instrumentMidiNums = [36, 40, 45]
 instrumentNames = ["kick", "mid", "high"]
@@ -29,7 +29,6 @@ numGenerations = 1
 #1 = hit, 0 = rest.
 #if 1 is given, send 1-0
 # if 0 is given, send 1
-rules = {1 : [1,0,0], 0 : [1,0,1,1] }
 linden = [1]
 
 #lindenmethods
@@ -41,7 +40,13 @@ def spawnSystem(linden, numGeneration):
 #applies the predetermined rules of the system
 #checks last element of the system to decide what must come next.
 def lindenCompute(linden):
-    return rules[linden[len(linden) - 1]]
+        temp = [0]
+        for l in linden:
+            if l == 1:
+                temp += [1, 0, 0]
+            elif l == 0:
+                temp += [1, 0, 1]
+        return temp
 #add lindenmayer rhythm to events
 def lindenToEvents(numBeats):
     for i in range(numBeats):
@@ -58,26 +63,44 @@ def playEvent(event):
     #print(event['instrument'])
 
 def askUserBPM():
-    BPM = float(input("Enter BPM: "))
+    BPM = input("Enter BPM: ")
+    while not BPM.isnumeric():
+        print("Try a number")
+        BPM = input("Enter BPM: ")
     #calculate length of sixteenth note by converting to quarternote, and then dividing by 4.
-    sixteenthStep = (60 / BPM) / 4
+    sixteenthStep = (60.0 / float(BPM)) / 4.0
     return sixteenthStep
 
 def askUserTimesig():
-    numerator = int(input("Enter numerator: "))
-    denominator = int(input("Enter denominator: "))
+    numerator = input("Enter numerator: ")
+    while not numerator.isnumeric():
+        print("Try a number")
+        numerator = input("Enter numerator: ")
+    denominator = input("Enter denominator: ")
+    while not denominator.isnumeric():
+        print("Try a number")
+        denominator = input("Enter denominator: ")
     #calculate the amount of beats per bar
-    return int(numerator * (16 / denominator))
+    return int(int(numerator) * (16 / int(denominator)))
 
 #TODO refactorize duplicate code
 def fillKickPercentages(numBeats):
     for step in range(numBeats):
         print ("Kick Step: ", step + 1)
-        kickPercentage.append(int(input("Chance 0-100: ")))
+        kickStep = input("Chance 0-100: ")
+        if kickStep.isnumeric():
+            kickPercentage.append(int(kickStep))
+        else:
+            kickPercentage.append(0)
+
 def fillMidPercentages(numBeats):
     for step in range(numBeats):
         print ("Mid Step: ", step + 1)
-        midPercentage.append(int(input("Chance 0-100: ")))
+        midStep = input("Chance 0-100: ")
+        if midStep.isnumeric():
+            midPercentage.append(int(midStep))
+        else:
+            midPercentage.append(0)
 
 #calculate position of 16th note in time
 def calculateSteps(numBeats, sixteenthStep, allSteps):
@@ -119,20 +142,18 @@ def running():
                 else:
                     ti.sleep(0.001)
 
-
 #___________MIDISETUP____________
 midiFile = MIDIFile(1)
 track = 0
 time = 0
+channel = 0
 duration = 1
 volume = 100
 midiFile.addTrackName(track, time, "eindopdracht")
 midiFile.addTempo(track, time, BPM)
 
-def retrievePitch(event, instrumentNames):
-    for i in range(3):
-        if event['instrumentName'] == instrumentNames[i]:
-            return i
+def retrievePitch(event):
+            return event['midiNote']
 
 def retrieveTime(event, sixteenthStep):
     return int(event['timeStamp'] / sixteenthStep)
@@ -150,7 +171,8 @@ calculateSteps(numBeatsPerBar, beatLength, allSteps)
 #start with building lindenmayer system
 print("Lindenmayer!")
 linden=[int(input("Pick One: 0 or 1? "))]
-generations = int(input("A number between 1 and 100: "))
+generations = int(input("A number between 1 and 9: "))
+
 spawnSystem(linden, generations)
 print("Lindenmayer Rhythm: ", linden)
 lindenToEvents(numBeatsPerBar)
@@ -163,3 +185,23 @@ reRollAll(numBeatsPerBar, events, allSteps)
 sortEvents(events)
 
 running()
+
+while True:
+    print("Would you like to save this one? ")
+    keepThisOne = input("y/n")
+    while keepThisOne == "n":
+        events = []
+        lindenToEvents(numBeatsPerBar)
+        reRollAll(numBeatsPerBar, events, allSteps)
+        sortEvents(events)
+        running()
+        print("Would you like to save this one? ")
+        keepThisOne = input("1 : Yes, 0 : No ")
+    while keepThisOne == "y":
+        print("Good Choice! ")
+        for event in events:
+             addMidiNote(retrievePitch(event),retrieveTime(event, beatLength))
+        with open("mysong.mid",'wb') as outf:
+            midiFile.writeFile(outf)
+
+        exit()
