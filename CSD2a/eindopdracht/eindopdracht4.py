@@ -147,10 +147,19 @@ beatLength = askUserBPM()
 numBeatsPerBar = askUserTimesig()
 calculateSteps(numBeatsPerBar, beatLength, allSteps)
 
-
 #start with building lindenmayer system
+print("Lindenmayer!")
 linden=[int(input("Pick One: 0 or 1? "))]
 generations = int(input("A number between 1 and 100: "))
 spawnSystem(linden, generations)
 print("Lindenmayer Rhythm: ", linden)
 lindenToEvents(numBeatsPerBar)
+
+#percentagebased section
+fillKickPercentages(numBeatsPerBar)
+fillMidPercentages(numBeatsPerBar)
+
+reRollAll(numBeatsPerBar, events, allSteps)
+sortEvents(events)
+
+running()
