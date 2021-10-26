@@ -12,7 +12,7 @@ events = []
 allSteps = []
 kickPercentage = []
 midPercentage = []
-
+numGeneration = 5
 #__________methods___________
 
 #event builder
@@ -52,6 +52,13 @@ def calculateSteps(numBeats, sixteenthStep, allSteps):
     for i in range(numBeats):
         allSteps.append((i * sixteenthStep))
     #allSteps.pop()
+
+def askUserForAnInt():
+    anInteger = input("I need an integer: ")
+    while not anInteger.isnumeric():
+        print("Try Again!")
+        anInteger = input("I need an integer: ")
+    return int(anInteger)
 
 #because lindenmayer systems work recursively we have to make it stop somewhere
 #numGenerations is the depth of recursiveness.
@@ -118,40 +125,31 @@ def rollProbabilities(numBeats, lsystem, instrument, midiNote):
 
 #sort events
 def sortEvents(events):
-    events.sort(key=lambda x: x['timeStamp'])
+    events.sort(key=lambda x: x['timestamp'])
 
 #run sequencer
 def runSequencer():
-    # check if events is not empty
-    if not events:
-        # list contains no items
-        exit()
-
-    # store the current time
-    time_zero = ti.time()
-    print("time zero:", time_zero)
-    # start at index 0 and retrieve reference to current timestamp
-    index = 0
-    event = events[index]
-    ts = event["timestamp"]
-
-    # iterate through time sequence and play sample
-    while True:
-        now = ti.time() - time_zero
-        # did we arrive at the new timestamp?
-        if(now > ts):
-            # play sample and fetch new event and timestamp
-            playEvent(event)
-            if index >= len(events):
-                event = events[index]
-                ts = event["timestamp"]
-                index += 1
-            else:
-                # NOTE: or, if you want to loop, you could repeat at index 0
-                # and then add an time-offset for the current bar
-                break
-
-        ti.sleep(0.001)
+    for repeats in range(1): #could be replaced by a while loop for infinite repeats
+            #counter
+        time_zero = ti.time()
+            #amount of steps
+        for index in range(numBeatsPerBar):
+                #on button for while loop
+            running = True
+                #targetTime is where the next hit should be. We use the sixTeenths[]
+            targetTime = allSteps[index]
+            while running:
+                    #what is the time now
+                currentTime = ti.time() - time_zero
+                    #has the clock hit the targetTime?
+                if currentTime >= targetTime:
+                    for event in events:
+                        if event['timestamp'] == allSteps[index]:
+                                playEvent(event)
+                        #turn off the while loop to go to the next step
+                    running = False
+                else:
+                    ti.sleep(0.001)
 
 #___________MIDISETUP____________
 BPM = askUserBPM()
@@ -168,23 +166,30 @@ def retrievePitch(event):
             return event['midiNote']
 
 def retrieveTime(event, sixteenthStep):
-    return int(event['timeStamp'] / sixteenthStep)
+    return (int(event['timestamp'] / sixteenthStep) / 4)
 
 def addMidiNote(pitch, time):
     midiFile.addNote(track, channel, pitch, time, duration, volume)
 
 #___________START_____________
 print("Welcome! ")
+#playing a sample to improve playback
+start = sa.WaveObject.from_wave_file("/Users/dean/Documents/samples/hat.wav")
+start.play()
 lengthBeat = calculateBeatLength(BPM)
 numBeatsPerBar = askUserTimesig()
 calculateSteps(numBeatsPerBar, lengthBeat, allSteps)
 #source to start Lsystems
-kickSystem = [100]
-midSystem = [75]
-highSystem = [100]
-spawnKicks(kickSystem, 5)
-spawnMids(midSystem, 5)
-spawnHighs(highSystem, 5)
+intForStartingValue = askUserForAnInt()
+kickOutcomes = [0, 25, 100]
+kickSystem = [kickOutcomes[intForStartingValue % 3]]
+midOutcomes = [25, 75]
+midSystem = [intForStartingValue % 2]
+highOutcomes = [100, 50, 25, 75]
+highSystem = [intForStartingValue % 4]
+spawnKicks(kickSystem, numGeneration)
+spawnMids(midSystem, numGeneration)
+spawnHighs(highSystem, numGeneration)
 
 rollProbabilities(numBeatsPerBar, kickSystem, 0, 36)
 rollProbabilities(numBeatsPerBar, midSystem, 1, 40)
@@ -192,8 +197,27 @@ rollProbabilities(numBeatsPerBar, highSystem, 2, 45)
 
 sortEvents(events)
 
+runSequencer()
 
+while True:
+    print("Would you like to save this one? ")
+    keepThisOne = input("y/n ")
+    while keepThisOne == "n":
+        events = []
+        rollProbabilities(numBeatsPerBar, kickSystem, 0, 36)
+        rollProbabilities(numBeatsPerBar, midSystem, 1, 40)
+        rollProbabilities(numBeatsPerBar, highSystem, 2, 45)
+        sortEvents(events)
+        runSequencer()
+        print("Would you like to save this one? ")
+        keepThisOne = input("y/n ")
+    while keepThisOne == "y":
+        print("Good Choice! ")
+        for event in events:
+             addMidiNote(retrievePitch(event),retrieveTime(event, lengthBeat))
+        with open("mysong.mid",'wb') as outf:
+            midiFile.writeFile(outf)
 
-
+        exit()
 
 #end
