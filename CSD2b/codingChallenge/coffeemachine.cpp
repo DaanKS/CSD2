@@ -5,46 +5,48 @@ Coffeemachine::Coffeemachine(){
 }
 Coffeemachine::~Coffeemachine(){}
 
-  void setMilkLevel(double milkLevel){
-    this->milkLevel = milkLevel;
-  }
-  double getMilkLevel(){
-    return milkLevel;
-  }
 
-  void setBeansLevel(double beansLevel){
-    this->beansLevel = beansLevel;
-  }
-  double getBeansLevel(){
-    return beansLevel;
-  }
-
-  void setWaterLevel(double waterLevel){
-    this->waterLevel = waterLevel;
-  }
-  double getWaterLevel(){
-    return waterLevel;
-  }
-
-  void setCoffeeType(std::string coffeeType){
-    this->coffeeType = coffeeType;
-  }
-  std::string getCoffeeType(){
-    return coffeeType;
-  }
+void Coffeemachine::setMilkLevel(double milkLevel){
+  this->milkLevel = milkLevel;
+}
+double Coffeemachine::getMilkLevel(){
+  return milkLevel;
+}
 
 
-void prepMilk(){
+void Coffeemachine::setBeansLevel(double beansLevel){
+  this->beansLevel = beansLevel;
+}
+double Coffeemachine::getBeansLevel(){
+  return beansLevel;
+}
+
+
+void Coffeemachine::setWaterLevel(double waterLevel){
+  this->waterLevel = waterLevel;
+}
+double Coffeemachine::getWaterLevel(){
+  return waterLevel;
+}
+
+
+void Coffeemachine::setCoffeeType(std::string coffeeType){
+  this->coffeeType = coffeeType;
+}
+std::string Coffeemachine::getCoffeeType(){
+  return coffeeType;
+}
+
+
+void Coffeemachine::prepMilk(){
   std::cout << "Preparing Milk" << std::endl;
 }
-void pourMilk(){
+void Coffeemachine::pourMilk(){
   std::cout << "Pouring Milk" << std::endl;
 }
-
-void boiWater(){
+void Coffeemachine::boiWater(){
   std::cout << "Boiling Water" << std::endl;
 }
-
-void makeCoffee(){
+void Coffeemachine::makeCoffee(){
   necessaryCoffeeAmount = mugmeasurementunit->volumeMug() * mugPercentage;
 }
