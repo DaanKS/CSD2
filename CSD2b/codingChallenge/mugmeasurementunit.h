@@ -10,14 +10,14 @@ public:
 
   double volumeMug();
   inline double getMugBase(){
-    return PI * pow(getMugRadius(), 2);
+    return M_PI * pow(getMugRadius(), 2);
   }
   inline double getMugHeight(){
-    std::cout << "measuring height..."
+    std::cout << "measuring height...";
     return 6.7;
   }
   inline double getMugRadius(){
-      std::cout << "measuring radius..."
+      std::cout << "measuring radius...";
       return 1.1;
   }
 
