@@ -1,33 +1,33 @@
 #include "musicplayer.h"
-// CHECK STACK STRUCTURE
+
 
 Musicplayer::Musicplayer(){
   songNumber = 0;
-  Databass dbass;
-  totalSongs = dbass.songList.size();
+  dbass = new Databass;
+  totalSongs = dbass->songList.size();
   std::cout << "There are " << totalSongs << " songs \n";
 }
 
 Musicplayer::~Musicplayer(){}
 
 void Musicplayer::playSong(){
-  std::cout << "playing " << dbass.songList[songNumber];
+  std::cout << "playing " << dbass->getSong(songNumber);
 }
 void Musicplayer::skipSong(){
   songNumber++;
-  songNumber= songNumber % totalSongs
-  std::cout << "playing " << dbass.songList[songNumber];
+  songNumber= songNumber % totalSongs;
+  std::cout << "playing " << dbass->getSong(songNumber);
 }
 void Musicplayer::selectSong(){
   std::cout << "Select a Song ";
   std::cin >> songNumber;
-  std::cout << "playing " << dbass.songList[songNumber];
+  std::cout << "playing " << dbass->getSong(songNumber);
 }
 
 void Musicplayer::shuffleQueue(){
-  std::cout << "Queue is shuffled \n"
+  std::cout << "Queue is shuffled \n";
   for(int i = 0; i < totalSongs; i++){
-    shuffleQueue[i] = rand() % totalSongs;
+    currentQueue[i] = rand() % totalSongs;
   }
 }
 
@@ -41,19 +41,19 @@ void Musicplayer::volumeDown(){
 }
 
 void Musicplayer::dBaseAdd(){
-  std::cout << "Add a new song: "
-  std::cin >> std::string newSong;
+  std::cout << "Add a new song: ";
+  std::cin >> newSong;
   totalSongs++;
   dbass.addDatabase(newSong);
 }
 void Musicplayer::dBaseRemove(){
-  std::cout >> "Remove which position? "
-  std::cin << int removeSong;
+  std::cout << "Remove which position? ";
+  std::cin >>  removeSong;
   totalSongs--;
-  dbass.removeSong(removeSong);
+  dbass->removeSong(removeSong);
 }
 void dBaseShowSongList(){
   for(int i = 0; i > totalSongs; i++){
-    std::cout << dbass.songList[i];
+    std::cout << dbass->songList[i];
   }
 }

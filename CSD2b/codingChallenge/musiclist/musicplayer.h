@@ -1,5 +1,6 @@
 #include "musicdatabase.h"
 #include <random>
+
 #pragma once
 
 class Musicplayer{
@@ -22,7 +23,9 @@ public:
 
 private:
   int volume;
-  int currentQueue[];
+  std::vector<int> currentQueue;
   int songNumber;
   int totalSongs;
+  int removeSong;
+  std::string newSong;
 };
