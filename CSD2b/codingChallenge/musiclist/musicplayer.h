@@ -22,10 +22,11 @@ public:
   void dBaseShowSongList();
 
 private:
-  int volume;
+  int volume = 3;
   std::vector<int> currentQueue;
   int songNumber;
   int totalSongs;
   int removeSong;
   std::string newSong;
+  Databass* dbass;
 };

@@ -3,6 +3,8 @@
 #include <vector>
 #include <iterator>
 
+#pragma once
+
 class Databass{
 public:
   Databass();
@@ -13,8 +15,8 @@ public:
 
   std::string getSong(int songListPosition);
 
+  std::vector<std::string> songList = {"Cosmic Soul", "Sláinte", "Izé", "Surge"};
 private:
   int songListPosition;
-  std::vector<std::string> songList
-  songList = {"Cosmic Soul", "Sláinte", "Izé", "Surge"};
+
 };
