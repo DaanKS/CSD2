@@ -5,6 +5,7 @@ Notebook::Notebook() : Notebook("DSP Notebook") {}
 Notebook::Notebook(std::string subject) : Book("Ruitjes Papier"),
   subject(subject) {
     std::cout << "Opening Notebook \n";
+    pen = new Pen;
   }
 
 Notebook::~Notebook(){

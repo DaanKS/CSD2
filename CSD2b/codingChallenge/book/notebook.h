@@ -1,4 +1,5 @@
 #include "book.h"
+#include "pen.h"
 
 #pragma once
 
@@ -17,9 +18,9 @@ public:
   void write(std::string textToWrite);
 
 protected:
-  //TODO MAKE CLASS FOR THE COLOUR - PEN CLASS?
-  float penColour[4] = { 0., 0., 0., 1.}; //RGBA
+  Pen* pen;
+
   std::string subject;
   std:string textToWrite;
-  
+
 }
