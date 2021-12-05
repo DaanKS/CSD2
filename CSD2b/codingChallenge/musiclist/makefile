@@ -1,11 +1,12 @@
 CC = g++
 CFLAGS = -I/usr/local/include -Wall -std=c++1z
 # LDFLAGS= -ljack
+SOURCE = musicdatabase.o musicplayer.o main.o
 
 all: musicplayer
 
-musicplayer : musicdatabase.o musicplayer.o main.o
-				$(CC) -o $@ $(CFLAGS) musicdatabase.o musicplayer.o main.o # $(LDFLAGS)
+musicplayer : $(SOURCE)
+				$(CC) -o $@ $(CFLAGS) $(SOURCE) # $(LDFLAGS)
 
 .cpp.o:
 				$(CC) -c $< $(CFLAGS)
