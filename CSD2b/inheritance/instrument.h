@@ -7,7 +7,7 @@ public:
   Instrument();
   ~Instrument();
 
-  void makeSound();
+  virtual void makeSound();
 
 protected:
   int pitchRange[2] = {0, 1};
