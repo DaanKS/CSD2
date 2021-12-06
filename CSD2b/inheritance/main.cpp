@@ -9,7 +9,7 @@ int main(){
   newBlaas.makeSound();
   newKey.makeSound();
 
-  newBlaas.setPolyphony(6.34);
+  newBlaas.setHornLength(6.34);
   newKey.setPolyphony(5);
   newKey.setPolyphony(6);
 
