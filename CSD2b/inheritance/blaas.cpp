@@ -9,7 +9,7 @@ Blaas::~Blaas(){
 
 
 void Blaas::makeSound(){
-  std::cout << "tut";
+  std::cout << "tut\n";
 }
 
 
