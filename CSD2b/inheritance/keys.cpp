@@ -18,6 +18,7 @@ int Keys::getNumKeys(){
 }
 
 void Keys::setPolyphony(int numVoices){
+  this->numVoices = numVoices;
   std::cout << "numVoices is now " << numVoices << "\n";
 }
 int Keys::getPolyphony(){
