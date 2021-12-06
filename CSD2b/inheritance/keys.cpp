@@ -13,9 +13,9 @@ void Keys::makeSound(){
 }
 
 
-void Key::setPolyphony(int numVoices){
+void Keys::setPolyphony(int numVoices){
   std::cout << "numVoices is now " << numVoices << "\n";
 }
-int Key::getPolyphony(){
+int Keys::getPolyphony(){
   return numVoices;
 }

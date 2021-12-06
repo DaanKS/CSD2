@@ -2,7 +2,7 @@
 
 int main(){
 
-  Key newKey;
+  Keys newKey;
 
   newKey.makeSound();
 

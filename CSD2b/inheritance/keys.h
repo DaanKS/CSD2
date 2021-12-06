@@ -5,7 +5,7 @@
 class Keys : public Instrument{
 public:
   Keys();
-  ~Key();
+  ~Keys();
 
   void makeSound() override;
 
