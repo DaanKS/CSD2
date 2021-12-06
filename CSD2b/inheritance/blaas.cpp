@@ -1,6 +1,6 @@
 #include "blaas.h"
 
-Blaas::Blaas(){
+Blaas::Blaas() : Instrument() {
   std::cout << "Blaas constructor\n";
 }
 Blaas::~Blaas(){
@@ -14,6 +14,7 @@ void Blaas::makeSound(){
 
 
 void Blaas::setHornLength(float hornLength){
+  this->hornLength = hornLength;
   std::cout << "the hornlength is now " << hornLength << "\n";
 }
 float Blaas::getHornLength(){
