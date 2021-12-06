@@ -3,10 +3,10 @@
 
 #pragma once
 
-class String : public Instrument{
+class Strings : public Instrument{
 public:
-  String(std::string tuning, int numStrings);
-  ~String();
+  Strings(std::string tuning, int numStrings);
+  ~Strings();
 
   void makeSound() override;
 
@@ -18,4 +18,4 @@ public:
 protected:
   int numStrings;
   std::string tuning;
-}
+};

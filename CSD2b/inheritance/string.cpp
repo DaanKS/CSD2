@@ -1,27 +1,27 @@
 #include "string.h"
 
-String::String(std::string tuning, int numStrings) : Instrument(),
+Strings::Strings(std::string tuning, int numStrings) : Instrument(),
 tuning(tuning), numStrings(numStrings){
   std::cout << "String Constructor \n"
   << "Tuning is" << tuning << "\n";
 }
-String::~String(){
+Strings::~Strings(){
   std::cout << "string Destructor\n";
 }
 
 
-void String::makeSound(){
+void Strings::makeSound(){
   std::cout << "waw\n";
 }
 
 
-int String::getNumStrings(){
+int Strings::getNumStrings(){
   return numStrings;
 }
-void String::setTuning(std::string tuning){
+void Strings::setTuning(std::string tuning){
   this->tuning = tuning;
   std::cout << "tuning is now " << tuning << "\n";
 }
-std::string String::getTuning(){
+std::string Strings::getTuning(){
   return tuning;
 }
