@@ -4,15 +4,15 @@
 
 int main(){
 
-  // Keys newKey;
-  // Blaas newBlaas;
-  //
-  // newBlaas.makeSound();
-  // newKey.makeSound();
-  //
-  // newBlaas.setHornLength(6.34);
-  // newKey.setPolyphony(5);
-  // newKey.setPolyphony(6);
+   Keys newKey(25);
+   Blaas newBlaas;
+
+   newBlaas.makeSound();
+   newKey.makeSound();
+
+   newBlaas.setHornLength(6.34);
+   newKey.setPolyphony(5);
+   newKey.setPolyphony(6);
 
   Strings newStr("E Open", 17);
 
