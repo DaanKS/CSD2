@@ -6,9 +6,10 @@ public:
   ~Oscillator();
 
   double tick();
-  virtual void calculate() = 0;
+  virtual double calculate() = 0;
 
 protected:
   double samplerate;
   double frequency;
-}
+  double phase;
+};
