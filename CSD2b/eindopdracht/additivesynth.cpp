@@ -10,8 +10,8 @@ Additive::~Additive(){}
 
 double Additive::tick(){
   //TODO accumulate and return output of sines
-  for(auto& sin : sines)
-      sin.tick();
+  for(int i = 0; i < 8; ++i)
+     sine[i].tick();
 }
 
 
