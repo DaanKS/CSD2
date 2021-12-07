@@ -14,9 +14,17 @@ public:
   void setPitch(double pitch);
   double getPitch();
 
-  void setNumOsc(int numOsc);
-  int getNumOsc();
+//For Singular Oscillator
+  void setPitchRatio(double pitchRatio);
+  double getPitchRatio();
+
+//For all Oscillators
+  void setPitchRatios();
 
 protected:
   std::vector<Sine> sines;
+
+  std::vector<double> pitchRatios;
+  double pitchRatio;
+
 };
