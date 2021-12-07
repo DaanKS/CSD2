@@ -3,9 +3,9 @@
 
 class Sine : public Oscillator{
 public:
-  Sine(double samplerate, double frequency, double phase);
+  Sine(double samplerate, double phase);
   ~Sine();
 
-  void calculate();
+  double calculate();
 
 };
