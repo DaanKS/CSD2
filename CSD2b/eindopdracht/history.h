@@ -5,9 +5,9 @@ public:
   History();
   ~History();
 
-  float tick(float inputSample);
+  double tick(double inputSample);
 
 private:
-  float inputSample;
-  float previousSample;
+  double inputSample;
+  double previousSample;
 };

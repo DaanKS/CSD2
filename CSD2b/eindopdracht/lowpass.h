@@ -8,17 +8,17 @@ public:
   Lowpass();
   ~Lowpass();
 
-  float tick(inputSample);
+  double tick(inputSample);
 
   //feedback is correlated with cutoff frequency
-  void setFeedback(float feedback);
-  float getFeedback();
+  void setFeedback(double feedback);
+  double getFeedback();
 protected:
   History* history;
   Mix* mix;
 
-  float inputSample;
-  float outputSample;
-  float feedback;
+  double inputSample;
+  double outputSample;
+  double feedback;
 
 }

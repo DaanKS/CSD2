@@ -13,11 +13,11 @@ public:
   Mix();
   ~Mix();
 
-  float getA(float X);
-  float getB(float X);
+  double getA(double X);
+  double getB(double X);
 
-  void setX(float X);
-  float getX();
+  void setX(double X);
+  double getX();
 private:
-  float X;
+  double X;
 };

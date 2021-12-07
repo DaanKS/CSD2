@@ -3,8 +3,8 @@
 History::History(){}
 History::~History(){}
 
-float History::tick(double inputSample){
-    float outputSample = previousSample;
+double History::tick(double inputSample){
+    double outputSample = previousSample;
     previousSample = inputSample;
     return outputSample;
 }
