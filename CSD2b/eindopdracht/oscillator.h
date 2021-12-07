@@ -2,7 +2,7 @@
 
 class Oscillator{
 public:
-  Oscillator(double samplerate, double frequency, double phase);
+  Oscillator(double samplerate, double phase);
   ~Oscillator();
 
   double tick();
