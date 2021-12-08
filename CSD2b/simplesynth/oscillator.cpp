@@ -5,6 +5,7 @@ Oscillator::~Oscillator();
 
 double Oscillator::tick(){
   phase += frequency / samplerate;
+  if(phase > 1.0) phase -= 1.0;
   return calculate();
 }
 
