@@ -12,4 +12,4 @@ public:
 
 protected:
   double amplitude;
-}
+};

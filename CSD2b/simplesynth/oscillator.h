@@ -15,4 +15,4 @@ protected:
   double samplerate;
   double phase;
   double frequency;
-}
+};
