@@ -1,6 +1,6 @@
 #include "oscillator.h"
 
-Oscillator::Oscillator(double samplerate, double phase){}
+Oscillator::Oscillator(double samplerate){}
 Oscillator::~Oscillator();
 
 double Oscillator::tick(){
@@ -14,4 +14,8 @@ void Oscillator::setFrequency(double frequency){
 }
 double Oscillator::getFrequency(){
   return frequency;
+}
+
+void Oscillator::resetPhase(){
+  phase = 0;
 }

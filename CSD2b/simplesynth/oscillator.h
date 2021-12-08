@@ -2,7 +2,7 @@
 
 class Oscillator{
 public:
-  Oscillator(double samplerate, double phase);
+  Oscillator(double samplerate);
   ~Oscillator();
 
   double tick();
@@ -11,8 +11,11 @@ public:
   void setFrequency(double frequency);
   double getFrequency();
 
+  void resetPhase();
+
 protected:
   double samplerate;
   double phase;
   double frequency;
+
 };
