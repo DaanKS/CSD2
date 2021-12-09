@@ -2,6 +2,8 @@
 #include "sine.h"
 #include "saw.h"
 #include "square.h"
+#include "lowpass.h"
+#include "oscillator.h"
 
 #pragma once
 
@@ -13,9 +15,13 @@ public:
   double tick();
   void resetPhase();
   void setFrequency(double frequency);
+  void setCutoff(double cutoff);
 
 protected:
 //Sine* sine;
-  Square* sine;
+  Saw* sine;
+  Lowpass* lpf;
+  Lowpass* lpf_2;
 
+  double cutoff;
 };
