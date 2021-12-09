@@ -5,7 +5,7 @@
 
 class Sine : public Oscillator {
 public:
-  Sine(double samplerate, double phase);
+  Sine(double samplerate);
   ~Sine();
 
   double calculate();

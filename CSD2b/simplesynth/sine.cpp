@@ -1,8 +1,7 @@
 #include "sine.h"
 
-Sine::Sine(double samplerate, double phase) : Oscillator(Oscillator),
-samplerate(samplerate), phase(phase){
-
+Sine::Sine(double samplerate) : Oscillator(Oscillator),
+samplerate(samplerate){
 }
 Sine::~Sine(){}
 
