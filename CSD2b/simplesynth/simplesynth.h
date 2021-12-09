@@ -1,6 +1,7 @@
 #include "synth.h"
 #include "sine.h"
 #include "saw.h"
+#include "square.h"
 
 #pragma once
 
@@ -15,6 +16,6 @@ public:
 
 protected:
 //Sine* sine;
-  Saw* sine;
+  Square* sine;
 
 };
