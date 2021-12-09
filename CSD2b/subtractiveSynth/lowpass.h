@@ -8,7 +8,7 @@ public:
   Lowpass();
   ~Lowpass();
 
-  double tick(inputSample);
+  double tick(double inputSample);
 
   //feedback is correlated with cutoff frequency
   void setFeedback(double feedback);
@@ -21,4 +21,4 @@ protected:
   double outputSample;
   double feedback;
 
-}
+};
