@@ -9,6 +9,7 @@ public:
   ~Simplesynth();
 
   double tick();
+  void resetPhase();
 protected:
 Sine* sine;
 

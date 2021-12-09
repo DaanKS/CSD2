@@ -9,3 +9,7 @@ Simplesynth::~Simplesynth(){}
 double Simplesynth::tick(){
   return sine->tick();
 }
+
+void Simplesynth::resetPhase(){
+  sine->resetPhase();
+}
