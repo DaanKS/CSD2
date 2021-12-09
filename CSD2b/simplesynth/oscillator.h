@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 
 class Oscillator{
 public:
@@ -12,10 +13,12 @@ public:
   double getFrequency();
 
   void resetPhase();
+  void setDelta(double frequency, double samplerate);
 
 protected:
   double samplerate;
   double phase;
   double frequency;
+  double delta;
 
 };

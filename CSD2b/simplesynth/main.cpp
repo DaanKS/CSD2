@@ -11,6 +11,8 @@ int main(int argc, char **argv){
   //start simplesynth
   Simplesynth simple(1.0, jack.getSamplerate());
   simple.resetPhase();
+  simple.setPitch(32);
+  simple.setFrequency(simple.MTOF(simple.getPitch()));
   //make JackModule::onProces
   jack.onProcess = [&simple](jack_default_audio_sample_t *inBuf,
      jack_default_audio_sample_t *outBuf, jack_nframes_t nframes) {

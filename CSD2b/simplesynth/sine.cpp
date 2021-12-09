@@ -7,6 +7,6 @@ Sine::~Sine(){}
 
 double Sine::calculate(){
   double sample = sin(phase * M_PI * 2.0f );
-  std::cout << sample << " \n";
+  //std::cout << "Sample: " << sample << " \n";
   return sample;
 }

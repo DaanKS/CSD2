@@ -10,6 +10,8 @@ public:
 
   double tick();
   void resetPhase();
+  void setFrequency(double frequency);
+  
 protected:
 Sine* sine;
 

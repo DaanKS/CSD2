@@ -1,16 +1,20 @@
 #include "oscillator.h"
 
-Oscillator::Oscillator(double samplerate){}
+Oscillator::Oscillator(double samplerate){
+  std::cout << "Osc samplerate " << samplerate << " \n";
+}
 Oscillator::~Oscillator(){}
 
 double Oscillator::tick(){
-  phase += frequency / samplerate;
+  phase += delta;
+  //std::cout << "Phase: " << phase << "\n";
   if(phase > 1.0) phase -= 1.0;
   return calculate();
 }
 
 void Oscillator::setFrequency(double frequency){
   this->frequency = frequency;
+  std::cout << "Osc Freq: " << frequency << " \n";
 }
 double Oscillator::getFrequency(){
   return frequency;
@@ -18,4 +22,10 @@ double Oscillator::getFrequency(){
 
 void Oscillator::resetPhase(){
   phase = 0;
+  std::cout << "Phase is reset \n";
+}
+
+void Oscillator::setDelta(double frequency, double samplerate){
+  this->delta = frequency / samplerate;
+  std::cout << "delta is: " << delta << "\n";
 }

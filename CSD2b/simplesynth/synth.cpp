@@ -1,5 +1,6 @@
 #include "synth.h"
 #include <cmath>
+#include <iostream>
 
 Synth::Synth(double amplitude, double samplerate){
   this->amplitude = amplitude;
@@ -19,11 +20,11 @@ double Synth::getAmplitude(){
 }
 
 void Synth::setPitch(int pitch){
-  if(pitch >= 0 && pitch < 128){
+  //if(pitch >= 0 && pitch <= 127){
     this->pitch = pitch;
-  }else{
-    this->pitch = 60;
-  }
+  //}else{
+  //  this->pitch = 60;
+  //}
 }
 int Synth::getPitch(){
   return pitch;
@@ -31,5 +32,7 @@ int Synth::getPitch(){
 
 double Synth::MTOF(int pitch){
 //https://www.music.mcgill.ca/~gary/307/week1/node28.html
-   return 440 * pow(2 , ((pitch-69)/12));
+   double freq = 440.0 * pow(2 , ((pitch-69.0)/12.0));
+   std::cout << "MTOF returns " << freq << "\n";
+   return freq;
 }
