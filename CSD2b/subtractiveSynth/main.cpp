@@ -9,9 +9,10 @@ int main(int argc, char **argv){
   jack.init(argv[0]);
 
   //start simplesynth
-  Simplesynth simple(1.0, jack.getSamplerate());
+  Simplesynth simple(0.1, jack.getSamplerate());
   simple.resetPhase();
-  simple.setPitch(60);
+  simple.setPitch(40);
+  simple.setCutoff(0.9);
   simple.setFrequency(simple.MTOF(simple.getPitch()));
   //make JackModule::onProces
   jack.onProcess = [&simple](jack_default_audio_sample_t *inBuf,
