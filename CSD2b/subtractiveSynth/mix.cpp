@@ -1,22 +1,24 @@
 #include "mix.h"
+#include <iostream>
 
 Mix::Mix(){}
 Mix::~Mix(){}
 
-double getA(double X){
-  return 1 - 0.25 * pow((X + 1), 2);
+double Mix::getA(double eX){
+  return 1 - 0.25 * pow((eX + 1), 2);
 }
-double getB(double X){
-  return 1 - pow((0.5X - 0.5), 2);
+double Mix::getB(double eX){
+  return 1 - pow(((0.5 * eX) - 0.5), 2);
 }
 
-void setX(double X){
-  if(X >= 0. && X <= 0.99){
-    this-> X = X;
+void Mix::setX(double eX){
+  std::cout << "X = " << eX << " \n";
+  if(eX >= 0. && eX <= 0.99){
+    this-> eX = eX;
   }else{
-    this-> X = 0.1;
+    this-> eX = 0.1;
   }
 }
-double getX(){
-  return X;
+double Mix::getX(){
+  return eX;
 }

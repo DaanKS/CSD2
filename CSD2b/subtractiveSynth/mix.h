@@ -7,17 +7,20 @@
 //A = 1 - 0.25(x + 1)^2
 //B = 1-(0.5x -0.5)^2
 // Equation stolen from Will Pirkle
+#include <cmath>
+
+#pragma once
 
 class Mix{
 public:
   Mix();
   ~Mix();
 
-  double getA(double X);
-  double getB(double X);
+  double getA(double eX);
+  double getB(double eX);
 
-  void setX(double X);
+  void setX(double eX);
   double getX();
 private:
-  double X;
+  double eX;
 };
