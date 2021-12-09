@@ -2,7 +2,7 @@
 
 class Synth{
 public:
-  Synth(double amplitude);
+  Synth(double amplitude, double samplerate);
   ~Synth();
 
   virtual double tick() = 0;
@@ -18,4 +18,5 @@ public:
 protected:
   int pitch;
   double amplitude;
+  double samplerate;
 };

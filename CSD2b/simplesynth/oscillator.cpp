@@ -1,7 +1,7 @@
 #include "oscillator.h"
 
 Oscillator::Oscillator(double samplerate){}
-Oscillator::~Oscillator();
+Oscillator::~Oscillator(){}
 
 double Oscillator::tick(){
   phase += frequency / samplerate;
