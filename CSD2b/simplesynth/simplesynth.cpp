@@ -2,7 +2,7 @@
 
 Simplesynth::Simplesynth(double amplitude, double samplerate) :
 Synth(amplitude, samplerate){
-  sine = new Sine(samplerate);
+  sine = new Saw(samplerate);
 }
 Simplesynth::~Simplesynth(){}
 

@@ -1,5 +1,5 @@
 #include "sine.h"
-#include <iostream>
+
 
 Sine::Sine(double samplerate) : Oscillator(samplerate){
 }
