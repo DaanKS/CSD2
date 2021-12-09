@@ -7,7 +7,6 @@ Oscillator::~Oscillator(){}
 
 double Oscillator::tick(){
   phase += delta;
-  //std::cout << "Phase: " << phase << "\n";
   if(phase > 1.0) phase -= 1.0;
   return calculate();
 }
