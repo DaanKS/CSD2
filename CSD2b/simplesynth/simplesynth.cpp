@@ -1,8 +1,8 @@
 #include "simplesynth.h"
 
-Simplesynth::Simplesynth(double amplitude) : Synth(Synth),
-amplitude(amplitude){
-  sine = new Sine;
+Simplesynth::Simplesynth(double amplitude, double samplerate) :
+Synth(Synth), amplitude(amplitude), samplerate(samplerate){
+  sine = new Sine(samplerate);
 }
 Simplesynth::~Simplesynth();
 

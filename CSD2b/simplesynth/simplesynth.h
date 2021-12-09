@@ -5,7 +5,7 @@
 
 class Simplesynth : public Synth{
 public:
-  Simplesynth(double amplitude);
+  Simplesynth(double amplitude, double samplerate);
   ~Simplesynth();
 
   double tick();
