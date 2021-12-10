@@ -19,15 +19,15 @@ double Synth::getAmplitude(){
   return amplitude;
 }
 
-void Synth::setPitch(int pitch){
+void Synth::setPitch(double pitch){
   if(pitch >= 0 && pitch <= 127){
     this->pitch = pitch;}
 }
-int Synth::getPitch(){
+double Synth::getPitch(){
   return pitch;
 }
 
-double Synth::MTOF(int pitch){
+double Synth::MTOF(double pitch){
 //https://www.music.mcgill.ca/~gary/307/week1/node28.html
    return 440.0 * pow(2.0 , ((pitch-69.0)/12.0));
 }

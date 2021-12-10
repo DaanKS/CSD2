@@ -10,13 +10,13 @@ public:
   void setAmplitude(double amplitude);
   double getAmplitude();
 
-  void setPitch(int pitch);
-  int getPitch();
+  void setPitch(double pitch);
+  double getPitch();
 
-  double MTOF(int pitch);
+  double MTOF(double pitch);
 
 protected:
-  int pitch;
+  double pitch;
   double amplitude;
   double samplerate;
 };
