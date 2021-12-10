@@ -10,13 +10,14 @@ int main(int argc, char **argv){
   //start bisynth
   Bisynth bisynth(1.0, jack.getSamplerate());
   bisynth.setPitch(40);
+  bisynth.setDetune(0.25)
   bisynth.setFrequencies();
   //make JackModule::onProces
   jack.onProcess = [&bisynth](jack_default_audio_sample_t *inBuf,
      jack_default_audio_sample_t *outBuf, jack_nframes_t nframes) {
 
     for(unsigned int i = 0; i < nframes; i++){
-      outBuf[i] = simple.tick();
+      outBuf[i] = bisynth.tick();
     }
     return 0;
   };
