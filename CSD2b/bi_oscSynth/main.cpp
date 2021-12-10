@@ -1,4 +1,4 @@
-#include "simplesynth.h"
+#include "bisynth.h"
 #include "jack_module.h"
 #include <iostream>
 
@@ -7,15 +7,12 @@ int main(int argc, char **argv){
   JackModule jack;
   //initiate jack
   jack.init(argv[0]);
-
-  //start simplesynth
-  Simplesynth simple(0.1, jack.getSamplerate());
-  simple.resetPhase();
-  simple.setPitch(40);
-  simple.setCutoff(0.9);
-  simple.setFrequency(simple.MTOF(simple.getPitch()));
+  //start bisynth
+  Bisynth bisynth(1.0, jack.getSamplerate());
+  bisynth.setPitch(40);
+  bisynth.setFrequencies();
   //make JackModule::onProces
-  jack.onProcess = [&simple](jack_default_audio_sample_t *inBuf,
+  jack.onProcess = [&bisynth](jack_default_audio_sample_t *inBuf,
      jack_default_audio_sample_t *outBuf, jack_nframes_t nframes) {
 
     for(unsigned int i = 0; i < nframes; i++){

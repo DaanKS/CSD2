@@ -8,7 +8,7 @@ public:
 
   double tick();
 
-  void setFrequencies(double frequency)
+  void setFrequencies()
 
   void setDetune(double amtDetune);
   double getDetune();
