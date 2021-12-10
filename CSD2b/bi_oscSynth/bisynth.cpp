@@ -22,3 +22,7 @@ void Bisynth::setDetune(double amtDetune){
 double Bisynth::getDetune(){
   return amtDetune;
 }
+ void Bisynth::resetPhase(){
+   sine1->resetPhase();
+   sine2->resetPhase();
+ }
