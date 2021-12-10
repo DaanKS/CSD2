@@ -11,18 +11,14 @@ double Bisynth::tick(){
   return (sine1->tick() + sine2->tick()) / 2.0;
 }
 void Bisynth::setFrequencies(){
-  nuPitch = MTOF(getPitch());
+  double nuPitch = MTOF(getPitch());
   std::cout << "Nu Pitch " << nuPitch <<  "\n";
   sine1->setFrequency(nuPitch);
-  sine2->setFrequency(nuPitch + getDetune()))
+  sine2->setFrequency(nuPitch + getDetune());
 }
 void Bisynth::setDetune(double amtDetune){
   this->amtDetune = amtDetune;
 }
 double Bisynth::getDetune(){
   return amtDetune;
-}
-
-double Bisynth::applyDetune(){
-  setFrequencies();
 }

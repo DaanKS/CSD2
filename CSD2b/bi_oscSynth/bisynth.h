@@ -8,12 +8,10 @@ public:
 
   double tick();
 
-  void setFrequencies()
+  void setFrequencies();
 
   void setDetune(double amtDetune);
   double getDetune();
-
-  double applyDetune(double amtDetune);
 
   void resetPhase();
 
@@ -22,4 +20,4 @@ private:
 
   Sine* sine1;
   Sine* sine2;
-}
+};
