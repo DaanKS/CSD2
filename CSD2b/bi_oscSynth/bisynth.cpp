@@ -1,8 +1,8 @@
 #include "bisynth.h"
 
 BiSynth::BiSynth(double samplerate) : Synth(samplerate){
-  sine1 = new Sine;
-  sine2 = new Sine;
+  sine1 = new Sine(samplerate);
+  sine2 = new Sine(samplerate);
 }
 BiSynth::BiSynth(){}
 
@@ -20,4 +20,11 @@ void BiSynth::initiateOscillators(double frequency){
 void BiSynth::resetPhase(){
   sine1->resetPhase();
   sine2->resetPhase();
+}
+
+void BiSynth::setDetune(double detune){
+  this->detune = detune;
+}
+double BiSynth::getDetune(){
+  return detune;
 }
