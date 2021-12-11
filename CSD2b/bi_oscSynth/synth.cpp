@@ -16,3 +16,8 @@ void Synth::setPitch(int pitch){
 int Synth::getPitch(){
   return pitch;
 }
+
+double MTOF(int pitch){
+  //https://www.music.mcgill.ca/~gary/307/week1/node28.html
+  return 440.0 * pow(2 , ((pitch-69.0)/12.0));
+}
