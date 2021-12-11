@@ -8,8 +8,11 @@ int main(int argc, char **argv){
   //initiate jack
   jack.init(argv[0]);
   //start bisynth
+  BiSynth bisynth(jack.getSamplerate());
+  bisynth.setPitch(50);
+  bisynth.setDetune(2.50);
+  bisynth.initiateOscillators(bisynth.MTOF(bisynth.getPitch()), jack.getSamplerate());
 
-  //bisynth.setPitch(40.0);
 
   //make JackModule::onProces
   jack.onProcess = [&bisynth](jack_default_audio_sample_t *inBuf,

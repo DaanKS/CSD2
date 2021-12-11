@@ -10,7 +10,7 @@ public:
 
   double tick();
 
-  void initiateOscillators(double frequency);
+  void initiateOscillators(double frequency, double samplerate);
   void resetPhase();
 
   void setDetune(double detune);
