@@ -4,7 +4,7 @@ BiSynth::BiSynth(double samplerate) : Synth(samplerate){
   sine1 = new Sine(samplerate);
   sine2 = new Sine(samplerate);
 }
-BiSynth::BiSynth(){}
+BiSynth::~BiSynth(){}
 
 double BiSynth::tick(){
   return (sine1->tick() + sine2->tick());

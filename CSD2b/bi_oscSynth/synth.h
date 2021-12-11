@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cmath>
+
 class Synth{
 public:
   Synth(double samplerate);
