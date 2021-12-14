@@ -1,8 +1,8 @@
 CC = g++
 CFLAGS = -I/usr/local/include -Wall -std=c++1z
 LDFLAGS = -ljack
-SOURCE = jack_module.o oscillator.o simplesynth.o sine.o saw.o square.o synth.o main.o
-TARGET = SimpleSynth
+SOURCE = jack_module.o oscillator.o FMsynth.o sine.o saw.o square.o synth.o main.o
+TARGET = FMSynth
 
 all: $(TARGET)
 
