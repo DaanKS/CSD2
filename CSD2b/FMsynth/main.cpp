@@ -1,4 +1,4 @@
-#include "simplesynth.h"
+#include "FMsynth.h"
 #include "jack_module.h"
 #include <iostream>
 
