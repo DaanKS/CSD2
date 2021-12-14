@@ -2,7 +2,7 @@
 
 class Synth{
 public:
-  Synth(double amplitude, double samplerate);
+  Synth(double samplerate);
   ~Synth();
 
   virtual double tick() = 0;

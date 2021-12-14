@@ -2,8 +2,8 @@
 #include <cmath>
 #include <iostream>
 
-Synth::Synth(double amplitude, double samplerate){
-  this->amplitude = amplitude;
+Synth::Synth(double samplerate){
+
   this->samplerate = samplerate;
 }
 Synth::~Synth(){}
