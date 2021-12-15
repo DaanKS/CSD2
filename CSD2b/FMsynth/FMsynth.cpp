@@ -1,8 +1,8 @@
 #include "FMsynth.h"
 
 Fmsynth::Fmsynth(double samplerate) : Synth(samplerate){
-  car = new Saw(samplerate);
-  mod = new Saw(samplerate);
+  car = new Sine(samplerate);
+  mod = new Sine(samplerate);
 }
 Fmsynth::~Fmsynth(){
   delete car;
@@ -32,9 +32,12 @@ double Fmsynth::getRatio(){
 
 void Fmsynth::carFreq(double freq){
   car->setFrequency(freq);
+  car->setDelta(car->getFrequency(), samplerate);
+
 }
 void Fmsynth::modFreq(double freq){
   mod->setFrequency(freq);
+  mod->setDelta(mod->getFrequency(), samplerate);
 }
 //Apply Actual frequencies
 void Fmsynth::setFrequencies(){

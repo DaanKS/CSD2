@@ -1,6 +1,7 @@
 #include "synth.h"
 #include "saw.h"
 #include "square.h"
+#include "sine.h"
 
 #pragma once
 

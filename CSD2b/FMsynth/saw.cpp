@@ -1,6 +1,7 @@
 #include "saw.h"
 
 Saw::Saw(double samplerate) : Oscillator(samplerate){
+  std::cout << "saw\n";
 }
 Saw::~Saw(){}
 
