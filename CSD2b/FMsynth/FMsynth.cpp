@@ -12,8 +12,8 @@ Fmsynth::~Fmsynth(){
 }
 
 double Fmsynth::tick(){
-  //Ring Modulation (LOL)
-  return car->tick() * mod->tick();
+  calculateCarrierFreq();
+  return car->tick();
 }
 
 void Fmsynth::resetPhase(){
@@ -21,6 +21,7 @@ void Fmsynth::resetPhase(){
   mod->resetPhase();
 }
 
+//FM parameters
 //Ratio to have modFreq dependant on carFreq
 void Fmsynth::setRatio(double ratio){
   this->ratio = ratio;
@@ -28,12 +29,18 @@ void Fmsynth::setRatio(double ratio){
 double Fmsynth::getRatio(){
   return ratio;
 }
+//ModulationIndex
+void Fmsynth::setModulationIndex(){
+  this->modulationIndex = ratio * *oscFreq;
+}
+double Fmsynth::getModulationIndex(){
+  return modulationIndex;
+}
 
-
+//Pitches
 void Fmsynth::carFreq(double freq){
   car->setFrequency(freq);
   car->setDelta(car->getFrequency(), samplerate);
-
 }
 void Fmsynth::modFreq(double freq){
   mod->setFrequency(freq);
@@ -41,7 +48,11 @@ void Fmsynth::modFreq(double freq){
 }
 //Apply Actual frequencies
 void Fmsynth::setFrequencies(){
-  double oscFreq = MTOF(getPitch());
-  carFreq(oscFreq);
-  modFreq(oscFreq * getRatio());
+  *oscFreq = MTOF(getPitch());
+  modFreq(*oscFreq * getRatio());
+}
+void Fmsynth::calculateCarrierFreq(){
+  //modulation index = (ratio * oscFreq) * x   (1 <= x >= 0.0)
+  //(mod * modulation index) + (carFreq)
+  carFreq(*oscFreq + (mod->tick() * getModulationIndex()));
 }

@@ -16,10 +16,13 @@ public:
 
   void setRatio(double ratio);
   double getRatio();
+  void setModulationIndex();
+  double getModulationIndex();
 
   void carFreq(double freq);
   void modFreq(double freq);
-  void setFrequencies();
+  void setFrequencies(); //modulator
+  void calculateCarrierFreq();
 
 protected:
   Oscillator* car;
@@ -27,5 +30,7 @@ protected:
 
   double freq;
   double ratio;
+  double modulationIndex;
 
+  double* oscFreq;
 };
