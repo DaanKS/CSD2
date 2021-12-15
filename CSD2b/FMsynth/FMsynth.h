@@ -16,7 +16,7 @@ public:
 
   void setRatio(double ratio);
   double getRatio();
-  void setModulationIndex();
+  void setModulationIndex(double ratio, double oscFreq);
   double getModulationIndex();
 
   void carFreq(double freq);
@@ -32,5 +32,5 @@ protected:
   double ratio;
   double modulationIndex;
 
-  double* oscFreq;
+  double oscFreq;
 };

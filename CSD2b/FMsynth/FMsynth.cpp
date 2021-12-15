@@ -30,8 +30,8 @@ double Fmsynth::getRatio(){
   return ratio;
 }
 //ModulationIndex
-void Fmsynth::setModulationIndex(){
-  this->modulationIndex = ratio * *oscFreq;
+void Fmsynth::setModulationIndex(double ratio, double oscFreq){
+  this->modulationIndex = (ratio * oscFreq) * 7.0;
 }
 double Fmsynth::getModulationIndex(){
   return modulationIndex;
@@ -48,11 +48,11 @@ void Fmsynth::modFreq(double freq){
 }
 //Apply Actual frequencies
 void Fmsynth::setFrequencies(){
-  *oscFreq = MTOF(getPitch());
-  modFreq(*oscFreq * getRatio());
+  oscFreq = MTOF(getPitch());
+  modFreq(oscFreq * getRatio());
 }
 void Fmsynth::calculateCarrierFreq(){
   //modulation index = (ratio * oscFreq) * x   (1 <= x >= 0.0)
   //(mod * modulation index) + (carFreq)
-  carFreq(*oscFreq + (mod->tick() * getModulationIndex()));
+  carFreq(oscFreq + (mod->tick() * getModulationIndex()));
 }

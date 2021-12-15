@@ -11,12 +11,13 @@ int main(int argc, char **argv){
   //start simplesynth
   Fmsynth fmsynth(jack.getSamplerate());
   fmsynth.resetPhase();
-  fmsynth.setPitch(60);
-  fmsynth.setRatio(1.5);
+  fmsynth.setPitch(22);
+  fmsynth.setRatio(1.07);
+  fmsynth.setModulationIndex(fmsynth.getRatio(), fmsynth.MTOF(fmsynth.getPitch()));
   fmsynth.setFrequencies();
 
   //make JackModule::onProces
-  jack.onProcess = [&simple](jack_default_audio_sample_t *inBuf,
+  jack.onProcess = [&fmsynth](jack_default_audio_sample_t *inBuf,
      jack_default_audio_sample_t *outBuf, jack_nframes_t nframes) {
 
     for(unsigned int i = 0; i < nframes; i++){
