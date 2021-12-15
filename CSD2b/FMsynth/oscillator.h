@@ -4,7 +4,7 @@
 class Oscillator{
 public:
   Oscillator(double samplerate);
-  ~Oscillator();
+  virtual ~Oscillator();
 
   double tick();
   virtual double calculate() = 0;
