@@ -2,7 +2,8 @@
 
 Simplesynth::Simplesynth(double amplitude, double samplerate) :
 Synth(amplitude, samplerate){
-  sine = new Square(samplerate);
+  std::cout << "SIMPLE\n";
+  sine = new Sine(samplerate);
 }
 Simplesynth::~Simplesynth(){}
 

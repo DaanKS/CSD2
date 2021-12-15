@@ -2,6 +2,7 @@
 
 
 Sine::Sine(double samplerate) : Oscillator(samplerate){
+  std::cout << "SINE \n";
 }
 Sine::~Sine(){}
 

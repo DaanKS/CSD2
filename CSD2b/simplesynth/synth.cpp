@@ -3,6 +3,7 @@
 #include <iostream>
 
 Synth::Synth(double amplitude, double samplerate){
+  std::cout << "SYNTH\n";
   this->amplitude = amplitude;
   this->samplerate = samplerate;
 }

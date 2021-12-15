@@ -16,6 +16,6 @@ public:
 
 protected:
 //Sine* sine;
-  Square* sine;
+  Sine* sine;
 
 };
