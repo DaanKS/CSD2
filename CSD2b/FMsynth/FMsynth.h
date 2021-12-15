@@ -25,6 +25,6 @@ protected:
   Oscillator* mod;
 
   double freq;
-  double ration;
+  double ratio;
 
 };
