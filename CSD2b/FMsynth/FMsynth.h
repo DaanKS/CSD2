@@ -14,15 +14,15 @@ public:
   double resetPhase();
 
   void setRatio(double ratio);
-  void getRatio();
+  double getRatio();
 
   void carFreq(double freq);
   void modFreq(double freq);
   void setFrequencies();
 
 protected:
-  Saw* car;
-  Saw* mod;
+  Oscillator* car;
+  Oscillator* mod;
 
   double freq;
   double ration;
