@@ -21,10 +21,24 @@ double Fmsynth::resetPhase(){
   mod->resetPhase();
 }
 
-
+//Ratio to have modFreq dependant on carFreq
 void Fmsynth::setRatio(double ratio){
   this->ration = ratio;
 }
 double Fmsynth::getRatio(){
   return ratio;
+}
+
+
+void Fmsynth::carFreq(double freq){
+  car->setFrequency(freq);
+}
+void Fmsynth::modFreq(double freq){
+  mod->setFrequency(freq)
+}
+//Apply Actual frequencies
+void Fmsynth::setFrequencies(){
+  double oscFreq = MTOF(getPitch());
+  carFreq(oscFreq);
+  modFreq(oscFreq * getRatio());
 }
