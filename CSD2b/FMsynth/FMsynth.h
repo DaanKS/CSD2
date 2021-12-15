@@ -11,7 +11,7 @@ public:
 
   double tick();
 
-  double resetPhase();
+  void resetPhase();
 
   void setRatio(double ratio);
   double getRatio();
