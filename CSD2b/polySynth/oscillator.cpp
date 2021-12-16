@@ -1,14 +1,17 @@
 #include "oscillator.h"
 
 Oscillator::Oscillator(double samplerate){
-  std::cout << "Osc samplerate " << samplerate << " \n";
+  
 }
 Oscillator::~Oscillator(){}
 
-double Oscillator::tick(){
+void Oscillator::tick(){
   phase += delta;
   if(phase > 1.0) phase -= 1.0;
-  return calculate();
+  sample = calculate();
+}
+double Oscillator::getSample(){
+  return sample;
 }
 
 void Oscillator::setFrequency(double frequency){

@@ -2,7 +2,7 @@
 #include <cmath>
 #include <iostream>
 
-Synth::Synth(double amplitude, double samplerate){
+Synth::Synth(double samplerate){
   std::cout << "SYNTH\n";
   this->amplitude = amplitude;
   this->samplerate = samplerate;
@@ -33,5 +33,5 @@ int Synth::getPitch(){
 
 double Synth::MTOF(int pitch){
 //https://www.music.mcgill.ca/~gary/307/week1/node28.html
-   return 440.0 * pow(2 , ((pitch-69.0)/12.0));
+   return 440.0 * pow(2 , ((pitch-57.0)/12.0));
 }

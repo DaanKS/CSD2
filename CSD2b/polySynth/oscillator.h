@@ -4,10 +4,11 @@
 class Oscillator{
 public:
   Oscillator(double samplerate);
-  ~Oscillator();
+  virtual ~Oscillator();
 
-  double tick();
+  void tick();
   virtual double calculate() = 0;
+  double getSample();
 
   void setFrequency(double frequency);
   double getFrequency();
@@ -21,4 +22,5 @@ protected:
   double frequency;
   double delta;
 
+  double sample;
 };

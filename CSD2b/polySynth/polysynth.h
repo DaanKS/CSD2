@@ -11,11 +11,13 @@ public:
   Polysynth(double samplerate);
   ~Polysynth();
 
-  double tick();
+  void tick();
+  double output(int voiceNum);
   void resetPhase();
 
-  
-  void setFrequency(int voiceNum, double frequency);
+
+  void setFrequencies(int voiceNum, double samplerate);
+  void setPitchPerVoice(int voiceNum, int pitch);
 
 protected:
   Oscillator* osc[NUM_VOICES];

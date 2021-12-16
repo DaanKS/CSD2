@@ -2,10 +2,11 @@
 
 class Synth{
 public:
-  Synth(double amplitude, double samplerate);
+  Synth(double samplerate);
   ~Synth();
 
-  virtual double tick() = 0;
+  virtual void tick() = 0;
+  virtual double output(int voiceNum) = 0;
 
   void setAmplitude(double amplitude);
   double getAmplitude();
