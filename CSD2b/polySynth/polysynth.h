@@ -4,18 +4,22 @@
 #include "square.h"
 
 #pragma once
+#define NUM_VOICES 4
 
-class Simplesynth : public Synth{
+class Polysynth : public Synth{
 public:
-  Simplesynth(double amplitude, double samplerate);
-  ~Simplesynth();
+  Polysynth(double samplerate);
+  ~Polysynth();
 
   double tick();
   void resetPhase();
-  void setFrequency(double frequency);
+
+  
+  void setFrequency(int voiceNum, double frequency);
 
 protected:
-//Sine* sine;
-  Sine* sine;
+  Oscillator* osc[NUM_VOICES];
+
+  int voiceNum;
 
 };
