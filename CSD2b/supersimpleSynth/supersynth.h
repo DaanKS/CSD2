@@ -17,7 +17,7 @@ public:
 
 private:
   Oscillator* osc[NUMOSC];
-  int pitchMod[NUMOSC] = {0, 12, 12};
+  int pitchMod[NUMOSC] = {0, 12, -12};
   double sample;
 
 };
