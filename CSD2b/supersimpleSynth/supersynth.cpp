@@ -2,7 +2,7 @@
 
 Supersynth::Supersynth(double samplerate) : Synth(samplerate){
   for(int i = 0; i < NUMOSC; i++){
-    osc[i] = new Saw;
+    osc[i] = new Saw(samplerate);
   }
 }
 Supersynth::~Supersynth(){
@@ -13,7 +13,7 @@ Supersynth::~Supersynth(){
 }
 
 double Supersynth::tick(){
-  return sample * amplitude;
+  return sample * getAmplitude();
 }
 void Supersynth::accumulateOutput(){
   sample = (osc[0]->tick() + osc[1]->tick() + osc[2]->tick()) / 3.0;
