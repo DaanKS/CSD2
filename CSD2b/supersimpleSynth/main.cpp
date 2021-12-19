@@ -11,9 +11,9 @@ int main(int argc, char **argv){
   //start simplesynth
   Supersynth synth(jack.getSamplerate());
   synth.setPitch(36);
-  synth.setAmplitude(1.0);
+  synth.setAmplitude(0.25);
   synth.setPitches();
-  
+
 
   //make JackModule::onProces
   jack.onProcess = [&synth](jack_default_audio_sample_t *inBuf,

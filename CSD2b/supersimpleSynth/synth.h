@@ -1,4 +1,6 @@
 #include <iostream>
+#include <cmath>
+#include "midi_io.h"
 
 #pragma once
 
@@ -19,4 +21,5 @@ public:
 protected:
   int pitch;
   double amplitude;
+  double samplerate;
 };

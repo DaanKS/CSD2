@@ -2,12 +2,14 @@
 
 //Constructors
 //========================================
-Saw::Saw(double samplerate) : Synth(samplerate){
+Saw::Saw(double samplerate) : Oscillator(samplerate){
   this->samplerate=samplerate;
 }
 Saw::~Saw(){}
 //Calculating Samples
 //========================================
 double Saw::calculate(){
-  return phase * 2.0 - 1.0;
+
+  //std::cout << "trick = " << trick << std::endl;
+  return ((phase * 2.0) - 1.0);
 }

@@ -1,7 +1,7 @@
 #include "synth.h"
 
 Synth::Synth(double samplerate){}
-Synth::~Synth();
+Synth::~Synth(){}
 
 double Synth::MTOF(int pitch){
   //TODO replace with lookup table?

@@ -17,10 +17,13 @@ double Supersynth::tick(){
 }
 void Supersynth::accumulateOutput(){
   sample = (osc[0]->tick() + osc[1]->tick() + osc[2]->tick()) / 3.0;
+
+
 }
 
 void Supersynth::setPitches(){
-  for(int i = 0; i < NUMOSC;){
-    osc[i]->setDelta(MTOF(getPitch() + pitchMod[i]));
+  for(int i = 0; i < NUMOSC; i++){
+    osc[i]->setFrequency(MTOF(getPitch() + pitchMod[i]));
+    osc[i]->setDelta(osc[i]->getFrequency());
   }
 }
