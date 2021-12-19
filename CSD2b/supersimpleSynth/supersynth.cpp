@@ -19,7 +19,7 @@ void Supersynth::accumulateOutput(){
   sample = (osc[0]->tick() + osc[1]->tick() + osc[2]->tick()) / 3.0;
 }
 
-void setPitches(){
+void Supersynth::setPitches(){
   for(int i = 0; i < NUMOSC;){
     osc[i]->setDelta(MTOF(getPitch() + pitchMod[i]));
   }
