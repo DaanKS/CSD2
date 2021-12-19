@@ -7,7 +7,7 @@ public:
   Synth(double samplerate);
   ~Synth();
 
-  virtual double tick();
+  virtual double tick()=0;
   double MTOF(int pitch);
 
   void setPitch(int pitch);
