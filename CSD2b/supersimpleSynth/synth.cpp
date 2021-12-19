@@ -22,3 +22,18 @@ void Synth::setAmplitude(double amplitude){
 double Synth::getAmplitude(){
   return amplitude;
 }
+
+void Synth::initMidi(){
+  MIDI_io midi_io;
+  PmEvent event;
+  vector<PmEvent> eventlist;
+  vector<PmEvent>::iterator event_iterator;
+  bool event_read;
+  int input_device=0, output_device=0;
+  bool use_default_devices=false;
+  bool recording=false;
+  bool looping=false;
+  unsigned char cmd, channel, data1;
+
+    midi_io.list_devices();
+}

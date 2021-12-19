@@ -1,6 +1,9 @@
 #include <iostream>
 #include <cmath>
+#include <vector>
+
 #include "midi_io.h"
+
 
 #pragma once
 
@@ -18,6 +21,7 @@ public:
   void setAmplitude(double amplitude);
   double getAmplitude();
 
+  void initMidi();
 protected:
   int pitch;
   double amplitude;
