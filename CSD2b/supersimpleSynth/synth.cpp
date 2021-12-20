@@ -23,7 +23,7 @@ double Synth::getAmplitude(){
   return amplitude;
 }
 
-void Synth::initMidi(){
+void Synth::initMidi(int something, char soemthingelse){
   MIDI_io midi_io;
   PmEvent event;
   vector<PmEvent> eventlist;
