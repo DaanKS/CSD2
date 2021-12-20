@@ -13,7 +13,7 @@ int main(int argc, char **argv){
   synth.setPitch(36);
   synth.setAmplitude(0.25);
   synth.setPitches();
-  synth.initMidi(argc, **argv);
+  //synth.initMidi(argc, **argv);
 
 
   //make JackModule::onProces
