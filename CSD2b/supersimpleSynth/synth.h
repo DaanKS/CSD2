@@ -21,7 +21,7 @@ public:
   void setAmplitude(double amplitude);
   double getAmplitude();
 
-  void initMidi(int something, char somethingelse);
+//  void initMidi(int something, char somethingelse);
 protected:
   int pitch;
   double amplitude;

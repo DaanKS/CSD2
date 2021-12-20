@@ -23,7 +23,7 @@ double Synth::getAmplitude(){
   return amplitude;
 }
 
-void Synth::initMidi(int something, char soemthingelse){
+/*void Synth::initMidi(int something, char soemthingelse){
   MIDI_io midi_io;
   PmEvent event;
   vector<PmEvent> eventlist;
@@ -36,4 +36,20 @@ void Synth::initMidi(int something, char soemthingelse){
   unsigned char cmd, channel, data1;
 
     midi_io.list_devices();
+
+    // reset filters: accept all events
+    midi_io.set_input_filter(0);
+
+    while(true){
+  event_read = midi_io.read_event(event);
+  if(event_read){
+    //midi_io.write_event(&event); // copy to output
+    cmd=Pm_MessageStatus(event.message)&0xf0;
+    channel=Pm_MessageStatus(event.message)&0xf;
+    data1=Pm_MessageData1(event.message);
+    std::cout << (hex) << (int) cmd << " " << (int) channel << " " << (int)
+            data1 << " " << (int) data1 << endl;
+          }
+      }
 }
+*/
