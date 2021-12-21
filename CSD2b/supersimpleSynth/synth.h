@@ -2,7 +2,7 @@
 #include <cmath>
 #include <vector>
 
-
+#include "midicontrol.h"
 
 
 #pragma once
@@ -21,7 +21,10 @@ public:
   void setAmplitude(double amplitude);
   double getAmplitude();
 
-//  void initMidi(int something, char somethingelse);
+  void initMidi();
+  int passMessageFromMidiToSynth();
+
+
 protected:
   int pitch;
   double amplitude;
@@ -29,4 +32,6 @@ protected:
 
   int something;
   char somethingelse;
+
+  Midicontrol* midi;
 };
