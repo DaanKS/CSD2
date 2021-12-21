@@ -29,6 +29,11 @@ void Synth::initMidi(){
   midi->displayDevices();
   midi->setDevices();
 }
+void Synth::startMidiListening(){
+  std::cout << "Synth Start Midi" << std::endl; 
+  midi->startMidiListening();
+
+}
 
 int Synth::passMessageFromMidiToSynth(){
   return midi->receiveMessage();

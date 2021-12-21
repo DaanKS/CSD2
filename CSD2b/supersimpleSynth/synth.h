@@ -22,6 +22,7 @@ public:
   double getAmplitude();
 
   void initMidi();
+  void startMidiListening();
   int passMessageFromMidiToSynth();
 
 

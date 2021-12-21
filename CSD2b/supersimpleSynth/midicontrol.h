@@ -7,9 +7,12 @@ public:
   Midicontrol();
   ~Midicontrol();
 
+  void startMidiListening();
+
   int displayDevices();
   void setDevices();
   int receiveMessage();
+
 
 protected:
   MIDI_io midi_io;
@@ -18,6 +21,9 @@ protected:
   vector<PmEvent>::iterator event_iterator;
   int result;
   int device;
+  bool event_read;
+  bool runningMidi;
+  unsigned char cmd;
 
   int input_device=0,output_device=0;
 };

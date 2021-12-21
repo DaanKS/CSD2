@@ -1,6 +1,15 @@
 #include "supersynth.h"
 #include "jack_module.h"
 #include <iostream>
+#include <thread>
+
+Synth* synthP = nullptr;
+void wrapper() {
+  std::cout << "Wrapper Midi Start " << std::endl;
+  if(synthP != nullptr) {
+    synthP->startMidiListening();
+  }
+}
 
 int main(int argc, char **argv){
   //Create JackModule
@@ -13,8 +22,11 @@ int main(int argc, char **argv){
   synth.setPitch(36);
   synth.setAmplitude(0.25);
   synth.setPitches();
-  synth.initMidi();
+  //synth.initMidi();
 
+
+  synthP = &synth;
+  std::thread midiThread (wrapper);
 
   //make JackModule::onProces
 /*  jack.onProcess = [&synth](jack_default_audio_sample_t *inBuf,
@@ -41,6 +53,7 @@ int main(int argc, char **argv){
         break;
     }
   }
+  midiThread.join();
 
   return 0;
 }
