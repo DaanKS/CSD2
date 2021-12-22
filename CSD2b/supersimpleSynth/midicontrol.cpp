@@ -40,12 +40,3 @@ void Midicontrol::setDevices(){
   std::cin >> device;
   midi_io.set_output_device(device);
 }
-
-int Midicontrol::receiveMessage(){
-  if(event_read){
-    result = (int)Pm_MessageStatus(event.message)&0xf0;
-    std::cout << "Message Received: " << result << std::endl;
-    return result;
-  }
-  return -1;
-}
