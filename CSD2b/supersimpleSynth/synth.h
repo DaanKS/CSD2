@@ -23,13 +23,15 @@ public:
 
   void initMidi();
   void startMidiListening();
-  int passMessageFromMidiToSynth();
+  void passMessageFromMidiToSynth();
 
 
 protected:
   int pitch;
   double amplitude;
   double samplerate;
+
+  double oldPitch;
 
   int something;
   char somethingelse;

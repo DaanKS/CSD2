@@ -30,11 +30,12 @@ void Synth::initMidi(){
   midi->setDevices();
 }
 void Synth::startMidiListening(){
-  std::cout << "Synth Start Midi" << std::endl; 
+  std::cout << "Synth Start Midi" << std::endl;
   midi->startMidiListening();
 
 }
 
-int Synth::passMessageFromMidiToSynth(){
-  return midi->receiveMessage();
-}
+/*void Synth::passMessageFromMidiToSynth(){
+  oldPitch =
+
+}*/
