@@ -1,4 +1,4 @@
-/*
+﻿/*
 #
 # 2017 Marc Groenewegen
 # altered by Ciska Vriezenga to serve as a simple example
@@ -19,6 +19,19 @@ static jack_port_t *input_port,*output_port;
 
 JackModule::JackModule()
 {
+#if 0
+  // assign temp onProces function
+  this->onProcess = [](jack_default_audio_sample_t *inBuf,
+    jack_default_audio_sample_t *outBuf, jack_nframes_t nframes) {
+
+    // fill output buffer
+    for(unsigned int i = 0; i < nframes; i++) {
+      // write sample to output
+      outBuf[i] = 0;
+    }
+    return 0;
+  };
+#endif
 } // JackModule()
 
 JackModule::~JackModule()
@@ -58,12 +71,6 @@ int JackModule::init(std::string clientName)
   input_port =
     jack_port_register(client,"input",JACK_DEFAULT_AUDIO_TYPE,JackPortIsInput,0);
 
-  //Tell the Jack server that the program is ready to start processing audio.
-  if(jack_activate(client)) {
-    std::cout << "Cannot activate client." << std::endl;
-    return -1;
-  } // if
-
   return 0;
 } // init()
 
@@ -85,7 +92,11 @@ void JackModule::autoConnect()
       << "________________________\n\n";
     exit(1);
   }
-
+  //Tell the Jack server that the program is ready to start processing audio.
+  if(jack_activate(client)) {
+    std::cout << "Cannot activate client." << std::endl;
+    exit(1);
+  } // if
   /*
    * Try auto-connect our output
    *
@@ -141,8 +152,12 @@ int JackModule::_wrap_jack_process_cb(jack_nframes_t nframes,void *arg)
   // retrieve in and out buffers
   jack_default_audio_sample_t *inBuf = (jack_default_audio_sample_t *)jack_port_get_buffer(input_port,nframes);
   jack_default_audio_sample_t *outBuf = (jack_default_audio_sample_t *)jack_port_get_buffer(output_port,nframes);
+  // std::cout << "inBuf: " << inBuf <<  std::endl;
+  // std::cout << "nframes: " << nframes <<  std::endl;
+
   //call the onProcess function, that is assigned to the object
   return ((JackModule *)arg)->onProcess(inBuf, outBuf, nframes);
+
 } // _wrap_jack_process_cb()
 
 
