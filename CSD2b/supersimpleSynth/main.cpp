@@ -3,11 +3,20 @@
 #include <iostream>
 #include <thread>
 
+
 Synth* synthP = nullptr;
 void wrapper() {
   std::cout << "Wrapper Midi Start " << std::endl;
   if(synthP != nullptr) {
     synthP->startMidiListening();
+  }
+}
+
+JackModule* jackP = nullptr;
+void jacker() {
+  std::cout << "Jacker Start " << std::endl;
+  if(jackP != nullptr){
+    jackP->autoConnect();
   }
 }
 
@@ -18,13 +27,14 @@ int main(int argc, char **argv){
   jack.init(argv[0]);
 
   //start simplesynth
-  Supersynth synth(44100);//jack.getSamplerate());
+  Supersynth synth(jack.getSamplerate());
   synth.setPitch(36);
   synth.setAmplitude(0.25);
   synth.setPitches();
-  //synth.initMidi();
 
-
+//Assign objects and start multithreading
+  jackP = &jack;
+  std::thread jackThread(jacker);
   synthP = &synth;
   std::thread midiThread (wrapper);
 
@@ -39,7 +49,7 @@ int main(int argc, char **argv){
     return 0;
   };
 
-  jack.autoConnect();
+  //jack.autoConnect();
 
   std::cout << "\n\nPress 'q' ENTER when you want to quit the program.\n";
   bool running = true;
@@ -49,11 +59,13 @@ int main(int argc, char **argv){
     {
       case 'q':
         running = false;
-    //    jack.end();
+        midiThread.join();
+        jack.end();
+        jackThread.join();
         break;
     }
   }
-  midiThread.join();
+
 
   return 0;
 }

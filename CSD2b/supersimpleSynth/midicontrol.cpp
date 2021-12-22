@@ -11,11 +11,9 @@ Midicontrol::~Midicontrol(){}
 void Midicontrol::startMidiListening(){
   std::cout << "Midicontrol = " << std::endl;
   while(true){
-    //std::cout << "While loop" << std::endl;
+    std::cout << "While loop" << std::endl;
     event_read = midi_io.read_event(event);
     if(event_read){
-
-      //midi_io.write_event(&event); // copy to output
       cmd=Pm_MessageData1(event.message);
       std::cout << "Message Received : " << (int)cmd << std::endl;
     }
