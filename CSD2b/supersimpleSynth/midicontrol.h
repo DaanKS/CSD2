@@ -11,7 +11,6 @@ public:
 
   int displayDevices();
   void setDevices();
-  int receiveMessage();
 
 
 protected:
