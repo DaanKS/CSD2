@@ -22,8 +22,17 @@ void Supersynth::accumulateOutput(){
 }
 
 void Supersynth::setPitches(){
-  for(int i = 0; i < NUMOSC; i++){
-    osc[i]->setFrequency(MTOF(getPitch() + pitchMod[i]));
-    osc[i]->setDelta(osc[i]->getFrequency());
+  newPitch = getPitch();
+  if(newPitch != oldPitch){
+    for(int i = 0; i < NUMOSC; i++){
+      osc[i]->setFrequency(MTOF(getPitch() + pitchMod[i]));
+      osc[i]->setDelta(osc[i]->getFrequency());
+      oldPitch = newPitch;
+    }
   }
+}
+
+void Supersynth::updatePitchesFromMidi(){
+  passMessageFromMidiToSynth();
+  setPitches();
 }

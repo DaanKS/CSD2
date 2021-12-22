@@ -35,7 +35,6 @@ void Synth::startMidiListening(){
 
 }
 
-/*void Synth::passMessageFromMidiToSynth(){
-  oldPitch =
-
-}*/
+void Synth::passMessageFromMidiToSynth(){
+    setPitch(midi->getMidiNoteNumber());
+}

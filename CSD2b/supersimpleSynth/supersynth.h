@@ -14,10 +14,15 @@ public:
   void accumulateOutput();
 
   void setPitches();
+  void updatePitchesFromMidi();
 
 private:
   Oscillator* osc[NUMOSC];
   int pitchMod[NUMOSC] = {0, 12, -12};
   double sample;
+
+  double oldPitch;
+  double newPitch;
+  
 
 };

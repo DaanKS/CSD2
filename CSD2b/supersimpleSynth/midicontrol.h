@@ -12,6 +12,8 @@ public:
   int displayDevices();
   void setDevices();
 
+  int getMidiNoteNumber();
+
 
 protected:
   MIDI_io midi_io;

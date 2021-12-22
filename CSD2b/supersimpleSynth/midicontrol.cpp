@@ -11,11 +11,11 @@ Midicontrol::~Midicontrol(){}
 void Midicontrol::startMidiListening(){
   std::cout << "Midicontrol = " << std::endl;
   while(true){
-    std::cout << "While loop" << std::endl;
+    //std::cout << "While loop" << std::endl;
     event_read = midi_io.read_event(event);
     if(event_read){
       cmd=Pm_MessageData1(event.message);
-      std::cout << "Message Received : " << (int)cmd << std::endl;
+      //std::cout << "Message Received : " << (int)cmd << std::endl;
     }
     else usleep(10000);
 
@@ -37,4 +37,9 @@ void Midicontrol::setDevices(){
   std::cout << "Output: ";
   std::cin >> device;
   midi_io.set_output_device(device);
+}
+
+int Midicontrol::getMidiNoteNumber(){
+  //std::cout << "midinote = " << (int)cmd << std::endl;
+  return (int)cmd;
 }

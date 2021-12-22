@@ -31,7 +31,7 @@ protected:
   double amplitude;
   double samplerate;
 
-  double oldPitch;
+  
 
   int something;
   char somethingelse;

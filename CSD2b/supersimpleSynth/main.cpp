@@ -49,13 +49,14 @@ int main(int argc, char **argv){
     return 0;
   };
 
-  //jack.autoConnect();
+
 
   std::cout << "\n\nPress 'q' ENTER when you want to quit the program.\n";
   bool running = true;
   while (running)
   {
-    switch (std::cin.get())
+    synth.updatePitchesFromMidi();
+  /*  switch (std::cin.get())
     {
       case 'q':
         running = false;
@@ -63,7 +64,7 @@ int main(int argc, char **argv){
         jack.end();
         jackThread.join();
         break;
-    }
+    } */
   }
 
 
