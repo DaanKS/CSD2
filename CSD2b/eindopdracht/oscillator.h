@@ -1,3 +1,5 @@
+#include <cmath>
+
 #pragma once;
 
 class Oscillator{
@@ -18,4 +20,4 @@ private:
   double frequency;
 
 
-}
+};
