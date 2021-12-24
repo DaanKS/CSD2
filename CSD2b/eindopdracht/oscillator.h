@@ -1,6 +1,6 @@
 #include <cmath>
 
-#pragma once;
+#pragma once
 
 class Oscillator{
 public:
@@ -13,7 +13,7 @@ public:
   void resetPhase();
   void setDelta(double frequency);
 
-private:
+protected:
   double samplerate;
   double phase;
   double delta;

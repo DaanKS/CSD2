@@ -8,4 +8,4 @@ public:
   ~Square();
 
   double calculate() override;
-}
+};

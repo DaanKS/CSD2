@@ -2,7 +2,7 @@
 
 #pragma once
 
-class Sine : public(Oscillator){
+class Sine : public Oscillator{
 public:
   Sine(double samplerate);
   ~Sine();
