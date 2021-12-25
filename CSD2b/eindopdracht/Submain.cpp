@@ -33,7 +33,7 @@ int main(int argc, char **argv){
   //start inputvalidator
   InputValidation input;
   //startSynthesizer
-  Subsynth synth;
+  Subsynth synth(sampRate);
   //Ask for what type of synth
 
 
@@ -49,7 +49,7 @@ int main(int argc, char **argv){
   jack.onProcess = [&synth](jack_default_audio_sample_t *inBuf,
      jack_default_audio_sample_t *outBuf, jack_nframes_t nframes) {
     for(unsigned int i = 0; i < nframes; i++){
-      outBuf[i] = synth->output();
+      outBuf[i] = synth.output();
     }
     return 0;
   };
