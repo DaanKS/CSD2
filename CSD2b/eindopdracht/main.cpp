@@ -65,76 +65,76 @@ int main(int argc, char **argv){
   std::cout << "\n\nUse Midi device to play notes \n";
   std::cout << "Press 'q' ENTER when you want to quit the program.\n";
 
-if(type == 1){
-  std::cout << "hit 'g' ENTER to change the Ratio (0.0 to 12.0) \n"
-  << "hit 'f' ENTER to change the mod depth(0.0 to 100.0) \n"
-  << "hit 'r' ENTER to change Carrier Wave \n"
-  << "hit 't' ENTER to change Modulator Wave \n";
+  if(type == 1){
+    std::cout << "hit 'g' ENTER to change the Ratio (0.0 to 12.0) \n"
+    << "hit 'f' ENTER to change the mod depth(0.0 to 100.0) \n"
+    << "hit 'r' ENTER to change Carrier Wave \n"
+    << "hit 't' ENTER to change Modulator Wave \n";
 
-  bool running = true;
-  float userModDepth;
-  float userRatio;
-  while (running)
-  {
-    switch (std::cin.get())
+    bool running = true;
+    float userModDepth;
+    float userRatio;
+    while (running)
     {
-      case 'q':
-        running = false;
-        synthP->stopMidiListening();
-        updateMidiThread.join();
-        synthThread.join();
-        jack.end();
-        jackThread.join();
-        break;
-      case 'f':
-        std::cout << "set new value for Ratio ";
-        userRatio = input.retrieveValueInRange(0, 12);
-        synthP->setRatio(userRatio);
-        break;
-      case 'g':
-        std::cout << "set a new value for ModDepth ";
-        userModDepth = input.retrieveValueInRange(0, 100);
-        synthP->setModDepth(userModDepth);
-        break;
-      case 'r':
-        synthP->changeWaveCar();
-        break;
-      case 't':
-        synthP->changeWaveMod();
-        break;
+      switch (std::cin.get())
+      {
+        case 'q':
+          running = false;
+          synthP->stopMidiListening();
+          updateMidiThread.join();
+          synthThread.join();
+          jack.end();
+          jackThread.join();
+          break;
+        case 'g':
+          std::cout << "set new value for Ratio ";
+          userRatio = input.retrieveValueInRange(0, 12);
+          ((Fmsynth*)synthP)->setRatio(userRatio);
+          break;
+        case 'f':
+          std::cout << "set a new value for ModDepth ";
+          userModDepth = input.retrieveValueInRange(0, 100);
+          ((Fmsynth*)synthP)->setModDepth(userModDepth);
+          break;
+        case 'r':
+          ((Fmsynth*)synthP)->changeWaveCar();
+          break;
+        case 't':
+          ((Fmsynth*)synthP)->changeWaveMod();
+          break;
+      }
+    }
+  }else{
+    std::cout << "hit 'g' ENTER to change the Detune (-24 to 24) \n"
+    << "hit 'f' ENTER to change the Feedback amount (0.1 to 0.95) \n";
+    bool running = true;
+    float userDetune;
+    float userFeedback;
+    while (running)
+    {
+      switch (std::cin.get())
+      {
+        case 'q':
+          running = false;
+          synthP->stopMidiListening();
+          updateMidiThread.join();
+          synthThread.join();
+          jack.end();
+          jackThread.join();
+          break;
+        case 'f':
+          std::cout << "set new value for feedback ";
+          userFeedback = input.retrieveValueInRange(0.1, 0.95);
+          ((Subsynth*)synthP)->setFeedback(userFeedback);
+          break;
+        case 'g':
+          std::cout << "set a new value for detune ";
+          userDetune = input.retrieveValueInRange(-24, 24);
+          ((Subsynth*)synthP)->setDetune(userDetune);
+          break;
+      }
     }
   }
-}else{
-  std::cout << "hit 'g' ENTER to change the Detune (-24 to 24) \n"
-  << "hit 'f' ENTER to change the Feedback amount (0.1 to 0.95) \n";
-  bool running = true;
-  float userDetune;
-  float userFeedback;
-  while (running)
-  {
-    switch (std::cin.get())
-    {
-      case 'q':
-        running = false;
-        synthP->stopMidiListening();
-        updateMidiThread.join();
-        synthThread.join();
-        jack.end();
-        jackThread.join();
-        break;
-      case 'f':
-        std::cout << "set new value for feedback ";
-        userFeedback = input.retrieveValueInRange(0.1, 0.95);
-        synthP->setFeedback(userFeedback);
-        break;
-      case 'g':
-        std::cout << "set a new value for detune ";
-        userDetune = input.retrieveValueInRange(-24, 24);
-        synthP->setDetune(userDetune);
-        break;
-    }
-  }
-}
 
   delete synthP;
   synthP = nullptr;

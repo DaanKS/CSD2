@@ -1,7 +1,7 @@
 #include "fmsynth.h"
 
 Fmsynth::Fmsynth(double samplerate) : Synth(samplerate),
- ratio(1.02), modDepth(5){
+ ratio(1.02), modDepth(2){
   car = new Sine(samplerate);
   mod = new Sine(samplerate);
 }
@@ -68,12 +68,15 @@ void Fmsynth::changeWaveCar(){
   if(carPos == 0){
     delete car;
     car = new Saw(samplerate);
+    setCarDelta(frequency);
   }else if(carPos == 1){
     delete car;
     car = new Square(samplerate);
+    setCarDelta(frequency);
   }else{
     delete car;
     car = new Sine(samplerate);
+    setCarDelta(frequency);
   }
   carPos++;
 }
@@ -83,12 +86,15 @@ void Fmsynth::changeWaveMod(){
   if(modPos == 0){
     delete mod;
     mod = new Saw(samplerate);
+    setModDelta(frequency);
   }else if(modPos == 1){
     delete mod;
     mod = new Square(samplerate);
+    setModDelta(frequency);
   }else{
     delete mod;
     mod = new Sine(samplerate);
+    setModDelta(frequency);
   }
   modPos++;
 }

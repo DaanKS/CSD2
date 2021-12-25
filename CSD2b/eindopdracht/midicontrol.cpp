@@ -40,9 +40,9 @@ void Midicontrol::setDevices(){
   std::cin >> device;
   midi_io.set_input_device(device);
 
-  std::cout << "Output: ";
+  /*std::cout << "Output: ";
   std::cin >> device;
-  midi_io.set_output_device(device);
+  midi_io.set_output_device(device); */
 }
 
 int Midicontrol::getMidiNoteNumber(){
