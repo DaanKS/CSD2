@@ -1,6 +1,7 @@
 #include "fmsynth.h"
 
-Fmsynth::Fmsynth(double samplerate) : Synth(samplerate){
+Fmsynth::Fmsynth(double samplerate) : Synth(samplerate),
+ ratio(1.02), modDepth(5){
   car = new Sine(samplerate);
   mod = new Sine(samplerate);
 }

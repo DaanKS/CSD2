@@ -84,10 +84,5 @@ while (running)
       break;
   }
 }
-
-
-
-
-
   return 0;
 }

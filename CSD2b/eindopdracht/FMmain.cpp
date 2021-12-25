@@ -34,9 +34,6 @@ int main(int argc, char **argv){
   InputValidation input;
   //startSynthesizer
   Fmsynth synth(sampRate);
-  //Ask for what type of synth
-
-
   //Programme automagically starts midiprocess.
   //assign objects to multiple threads
   jackP = &jack;
@@ -53,7 +50,37 @@ int main(int argc, char **argv){
     }
     return 0;
   };
-
+  std::cout << "\n\nUse Midi device to play notes \n";
+  std::cout << "Press 'q' ENTER when you want to quit the program.\n";
+  std::cout << "hit 'g' ENTER to change the Ratio (0.0 to 12.0) \n"
+  << "hit 'f' ENTER to change the mod depth(0.0 to 100.0) \n";
+bool running = true;
+float userModDepth;
+float userRatio;
+while (running)
+{
+  switch (std::cin.get())
+  {
+    case 'q':
+      running = false;
+      synth.stopMidiListening();
+      updateMidiThread.join();
+      synthThread.join();
+      jack.end();
+      jackThread.join();
+      break;
+    case 'f':
+      std::cout << "set new value for Ratio ";
+      userRatio = input.retrieveValueInRange(0, 12);
+      synth.setRatio(userRatio);
+      break;
+    case 'g':
+      std::cout << "set a new value for ModDepth ";
+      userModDepth = input.retrieveValueInRange(0, 100);
+      synth.setModDepth(userModDepth);
+      break;
+  }
+}
 
   return 0;
 }
