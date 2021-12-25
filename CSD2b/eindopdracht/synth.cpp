@@ -41,6 +41,9 @@ void Synth::passMessageFromMidiToSynth(){
 }
 
 void Synth::updatePitchesFromMidi(){
-  passMessageFromMidiToSynth();
-  updatePitches();
+  updatingPitches = true;
+  while(updatingPitches){
+    passMessageFromMidiToSynth();
+    updatePitches();
+  }
 }

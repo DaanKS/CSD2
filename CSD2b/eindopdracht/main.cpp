@@ -49,9 +49,9 @@ int main(int argc, char **argv){
   //assign objects to multiple threads
   jackP = &jack;
   std::thread jackThread(jackWrapper);
-  synthP = synth;
+  synthP = &synth;
   std::thread synthThread(midiWrapper);
-//  std::thread updateMidiThread(updatePitchesFromMidi);
+  std::thread updateMidiThread(synthPitchUpdater);
 
   //make jackModule::OffProcess
   jack.offProcess = [&synth](jack_default_audio_sample_t *inBuf,

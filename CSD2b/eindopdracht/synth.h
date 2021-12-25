@@ -7,14 +7,14 @@
 class Synth{
 public:
   Synth(double samplerate);
-  ~Synth();
+  virtual ~Synth();
 
   virtual double output()=0;
   double mtof(double pitch);
 
   void setPitch(double pitch);
   double getPitch();
-  virtual void updatePitches() = 0; 
+  virtual void updatePitches() = 0;
 
   void setAmplitude(double amplitude);
   double getAmplitude();
@@ -28,6 +28,8 @@ protected:
   double pitch;
   double amplitude, samplerate;
   double newPitch, oldPitch;
+
+  bool updatingPitches;
 
   Midicontrol* midi;
 
