@@ -9,11 +9,15 @@ Midicontrol::Midicontrol() : runningMidi(true){
 Midicontrol::~Midicontrol(){}
 
 void Midicontrol::startMidiListening(){
-  std::cout << "Midicontrol = " << std::endl;
   while(true){
     event_read = midi_io.read_event(event);
     if(event_read){
-      cmd=Pm_MessageData1(event.message);
+      //filter out everything apart from noteOn
+      unsigned char noteOn=Pm_MessageStatus(event.message)&0xf0;
+      if((int)noteOn == 144){
+        //midi note number
+        cmd=Pm_MessageData1(event.message);
+      }
     }
     else usleep(10000);
 
