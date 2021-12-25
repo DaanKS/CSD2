@@ -17,8 +17,8 @@ public:
   double getFeedback();
   void setDetune(double detune);
 
-  void setPitches() override;
-  void updatePitchesFromMidi();
+  void updatePitches() override;
+
 
 
 private:

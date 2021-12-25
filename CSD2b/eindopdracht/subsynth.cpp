@@ -2,7 +2,7 @@
 
 Subsynth::Subsynth(double samplerate) : Synth(samplerate){
   osc_1 = new Saw(samplerate);
-  osc_2 = new Saw(samplerate);
+  osc_2 = new Square(samplerate);
 }
 Subsynth::~Subsynth(){
   delete osc_1;
@@ -30,7 +30,7 @@ void Subsynth::setDetune(double detune){
 }
 
 
-void Subsynth::setPitches(){
+void Subsynth::updatePitches(){
   newPitch = getPitch();
   if(newPitch != oldPitch){
     osc_1->setDelta(mtof(getPitch()));

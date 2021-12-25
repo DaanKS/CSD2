@@ -21,7 +21,7 @@ void Fmsynth::calculateCarrierFreq(){
   setCarDelta(oscFreq + (mod->tick() * getModulationIndex()));
 }
 
-void Fmsynth::setPitches(){
+void Fmsynth::updatePitches(){
   newPitch = getPitch();
   if(newPitch != oldPitch){
     double tempFreq = mtof(newPitch);
@@ -59,6 +59,9 @@ void Fmsynth::setModDelta(double frequency){
   mod->setDelta(frequency);
 }
 
+
+
+//Duplicate Code! Simple instructions to loop through code types
 void Fmsynth::changeWaveCar(){
   if(carPos > 2) carPos = 0;
   if(carPos == 0){

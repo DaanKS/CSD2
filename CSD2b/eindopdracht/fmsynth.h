@@ -12,8 +12,7 @@ public:
 
   double output() override;
   void calculateCarrierFreq();
-  void setPitches() override; //Change name to updatePitchesFromMidi();
-
+  void updatePitches() override; 
   void setRatio(double ratio);
   double getRatio();
   void setModDepth(double modDepth);

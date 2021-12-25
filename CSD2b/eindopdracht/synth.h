@@ -14,7 +14,7 @@ public:
 
   void setPitch(double pitch);
   double getPitch();
-  virtual void setPitches() = 0; //change name to updatePitchesFromMidi();
+  virtual void updatePitches() = 0; 
 
   void setAmplitude(double amplitude);
   double getAmplitude();
