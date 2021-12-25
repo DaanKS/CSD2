@@ -25,7 +25,7 @@ void jackWrapper(){
 
 
 int main(int argc, char **argv){
-
+  std::cout << "\n\n  Welcome \n";
   //create jackModule and initiate jack
   JackModule jack;
   jack.init(argv[0]);
