@@ -6,7 +6,7 @@
 //panning equation:
 //A = 1 - 0.25(x + 1)^2
 //B = 1-(0.5x -0.5)^2
-// panning equation stolen from Will Pirkle
+// panning equation stolen from Will Pirkle.
 #include <cmath>
 
 #pragma once
