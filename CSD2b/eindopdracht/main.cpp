@@ -12,6 +12,11 @@ void midiWrapper(){
     synthP->startMidiListening();
   }
 }
+void synthPitchUpdater(){
+  if(synthP != nullptr){
+  synthP->updatePitchesFromMidi();
+  }
+}
 
 JackModule* jackP = nullptr;
 void jackWrapper(){
@@ -21,11 +26,11 @@ void jackWrapper(){
 }
 
 
-
-
-
-
 int main(int argc, char **argv){
+  JackModule jack;
+  jack.init(argv[0]);
+
+
 
   return 0;
 }
