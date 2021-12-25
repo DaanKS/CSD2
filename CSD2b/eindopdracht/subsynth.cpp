@@ -1,6 +1,6 @@
 #include "subsynth.h"
 
-Subsynth::Subsynth(double samplerate) : Synth(samplerate){
+Subsynth::Subsynth(double samplerate) : Synth(samplerate), feedback(0.9), detune(-12){
   osc_1 = new Saw(samplerate);
   osc_2 = new Square(samplerate);
 }

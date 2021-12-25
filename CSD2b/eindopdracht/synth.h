@@ -21,6 +21,7 @@ public:
 
   void initMidi();
   void startMidiListening();
+  void stopMidiListening();
   void passMessageFromMidiToSynth();
   void updatePitchesFromMidi();
 

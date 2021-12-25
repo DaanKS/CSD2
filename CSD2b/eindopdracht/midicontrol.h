@@ -8,11 +8,13 @@ public:
   ~Midicontrol();
 
   void startMidiListening();
+  void switchOffListening();
 
   int displayDevices();
   void setDevices();
 
   int getMidiNoteNumber();
+
 
 
 protected:
@@ -23,7 +25,7 @@ protected:
   int result;
   int device;
   bool event_read;
-  bool runningMidi;
+  bool listening;
   unsigned char cmd;
 
   int input_device=0,output_device=0;

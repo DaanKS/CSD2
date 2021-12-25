@@ -31,10 +31,14 @@ void Synth::initMidi(){
   midi->setDevices();
 }
 void Synth::startMidiListening(){
-  std::cout << "Synth Start Midi" << std::endl;
   midi->startMidiListening();
-
 }
+
+void Synth::stopMidiListening(){
+  this->updatingPitches = false;
+  midi->switchOffListening();
+}
+
 
 void Synth::passMessageFromMidiToSynth(){
     setPitch(midi->getMidiNoteNumber());

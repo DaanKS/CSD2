@@ -1,6 +1,6 @@
 #include "midicontrol.h"
 
-Midicontrol::Midicontrol() : runningMidi(true){
+Midicontrol::Midicontrol(){
   displayDevices();
   setDevices();
   midi_io.initialise();
@@ -9,7 +9,8 @@ Midicontrol::Midicontrol() : runningMidi(true){
 Midicontrol::~Midicontrol(){}
 
 void Midicontrol::startMidiListening(){
-  while(true){
+  listening = true;
+  while(listening){
     event_read = midi_io.read_event(event);
     if(event_read){
       //filter out everything apart from noteOn
@@ -20,8 +21,11 @@ void Midicontrol::startMidiListening(){
       }
     }
     else usleep(10000);
-
   }
+}
+
+void Midicontrol::switchOffListening(){
+  this->listening = false;
 }
 
 int Midicontrol::displayDevices(){

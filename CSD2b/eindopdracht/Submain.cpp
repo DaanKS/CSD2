@@ -54,6 +54,27 @@ int main(int argc, char **argv){
     return 0;
   };
 
+  std::cout << "\n\nPress 'q' ENTER when you want to quit the program.\n";
+bool running = true;
+while (running)
+{
+  //synth.updatePitchesFromMidi();
+  switch (std::cin.get())
+  {
+    case 'q':
+      running = false;
+      synth.stopMidiListening();
+      updateMidiThread.join();
+      synthThread.join();
+      jack.end();
+      jackThread.join();
+      break;
+  }
+}
+
+
+
+
 
   return 0;
 }
