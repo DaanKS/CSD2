@@ -53,12 +53,15 @@ int main(int argc, char **argv){
     }
     return 0;
   };
-
-  std::cout << "\n\nPress 'q' ENTER when you want to quit the program.\n";
+  std::cout << "\n\nUse Midi device to play notes \n";
+  std::cout << "Press 'q' ENTER when you want to quit the program.\n";
+  std::cout << "hit 'g' ENTER to change the Detune (-24 to 24) \n"
+  << "hit 'f' ENTER to change the Feedback amount (0.1 to 0.95) \n";
 bool running = true;
+float userDetune;
+float userFeedback;
 while (running)
 {
-  //synth.updatePitchesFromMidi();
   switch (std::cin.get())
   {
     case 'q':
@@ -68,6 +71,16 @@ while (running)
       synthThread.join();
       jack.end();
       jackThread.join();
+      break;
+    case 'f':
+      std::cout << "set new value for feedback ";
+      userFeedback = input.retrieveValueInRange(0.1, 0.95);
+      synth.setFeedback(userFeedback);
+      break;
+    case 'g':
+      std::cout << "set a new value for detune ";
+      userDetune = input.retrieveValueInRange(-24, 24);
+      synth.setDetune(userDetune);
       break;
   }
 }

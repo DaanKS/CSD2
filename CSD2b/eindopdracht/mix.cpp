@@ -11,11 +11,7 @@ double Mix::getB(double eX){
 }
 
 void Mix::setX(double eX){
-  if(eX >= 0. && eX <= 0.99){
-    this-> eX = eX;
-  }else{
-    this-> eX = 0.1;
-  }
+  this->eX = eX;
 }
 double Mix::getX(){
   return eX;
