@@ -21,7 +21,7 @@ JackModule::JackModule()
 {
 #if 0
   // assign temp onProces function
-  this->offProcess = [](jack_default_audio_sample_t *inBuf,
+  this->onProcess = [](jack_default_audio_sample_t *inBuf,
     jack_default_audio_sample_t *outBuf, jack_nframes_t nframes) {
 
     // fill output buffer
@@ -83,12 +83,12 @@ unsigned long JackModule::getSamplerate()
 
 void JackModule::autoConnect()
 {
-  //check if a function is assigned to offProcess
-  if(!offProcess) {
+  //check if a function is assigned to onProcess
+  if(!onProcess) {
     std::cout << "\n_____ EXIT PROGRAM _____\n"
-      << "The offProcess method is unassigned.\n"
-      << "You need to assign a (lambda) function to JackModule::offProcess.\n"
-      << "JackModule.offProcess will be called by the jack callback function.\n"
+      << "The onProcess method is unassigned.\n"
+      << "You need to assign a (lambda) function to JackModule::onProcess.\n"
+      << "JackModule.onProcess will be called by the jack callback function.\n"
       << "________________________\n\n";
     exit(1);
   }
@@ -155,8 +155,8 @@ int JackModule::_wrap_jack_process_cb(jack_nframes_t nframes,void *arg)
   // std::cout << "inBuf: " << inBuf <<  std::endl;
   // std::cout << "nframes: " << nframes <<  std::endl;
 
-  //call the offProcess function, that is assigned to the object
-  return ((JackModule *)arg)->offProcess(inBuf, outBuf, nframes);
+  //call the onProcess function, that is assigned to the object
+  return ((JackModule *)arg)->onProcess(inBuf, outBuf, nframes);
 
 } // _wrap_jack_process_cb()
 

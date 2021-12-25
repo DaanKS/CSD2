@@ -54,8 +54,8 @@ int main(int argc, char **argv){
   std::thread synthThread(midiWrapper);
   std::thread updateMidiThread(synthPitchUpdater);
 
-  //make jackModule::OffProcess
-  jack.offProcess = [&synth](jack_default_audio_sample_t *inBuf,
+  //make jackModule::onProcess
+  jack.onProcess = [&synth](jack_default_audio_sample_t *inBuf,
      jack_default_audio_sample_t *outBuf, jack_nframes_t nframes) {
     for(unsigned int i = 0; i < nframes; i++){
       outBuf[i] = synth->output();
