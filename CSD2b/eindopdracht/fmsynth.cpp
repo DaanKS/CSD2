@@ -66,28 +66,28 @@ void Fmsynth::changeWaveCar(){
   if(carPos > 2) carPos = 0;
   if(carPos == 0){
     delete car;
-    car = new Saw;
+    car = new Saw(samplerate);
   }else if(carPos == 1){
     delete car;
-    car = new Square;
+    car = new Square(samplerate);
   }else{
     delete car;
-    car = new Sine;
+    car = new Sine(samplerate);
   }
-  carPos++
+  carPos++;
 }
 
 void Fmsynth::changeWaveMod(){
   if(modPos > 2) modPos = 0;
   if(modPos == 0){
     delete mod;
-    mod = new Saw;
+    mod = new Saw(samplerate);
   }else if(modPos == 1){
     delete mod;
-    mod = new Square;
+    mod = new Square(samplerate);
   }else{
     delete mod;
-    mod = new Sine;
+    mod = new Sine(samplerate);
   }
-  modPos++
+  modPos++;
 }

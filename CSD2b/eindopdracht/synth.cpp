@@ -1,6 +1,7 @@
 #include "synth.h"
 
 Synth::Synth(double samplerate){
+  this->samplerate = samplerate;
   midi = new Midicontrol;
 }
 Synth::~Synth(){}
