@@ -22,7 +22,7 @@ public:
   unsigned long getSamplerate();
   void autoConnect();
   void end();
-  //the onProcess function that needs to be assigned to a JackModule object
+  //the offProcess function that needs to be assigned to a JackModule object
   std::function <int(jack_default_audio_sample_t *,
      jack_default_audio_sample_t *, jack_nframes_t)> offProcess;
 
