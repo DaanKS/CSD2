@@ -7,7 +7,7 @@ public:
 
   double tick(double inputSample);
 
-private:
+protected:
   double inputSample;
   double previousSample;
 };
