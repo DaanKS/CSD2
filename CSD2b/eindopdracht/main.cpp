@@ -34,23 +34,23 @@ int main(int argc, char **argv){
   //start inputvalidator
   InputValidation input;
   //startSynthesizer
-
+  Synth* synth;
   //Ask for what type of synth
   std::cout << "Hi \n" << "Pick a Synth: 1. FMsynth, 2. Subsynth ";
   int type = static_cast<int>(input.retrieveValueInRange(1, 2));
   std::cout << "Type : " << type << std::endl;
   if (type == 1){
-    Fmsynth synth(sampRate);
-    synthP = &synth;
+    synth = new Fmsynth(sampRate);
   }else{
-    Subsynth synth(sampRate);
-    synthP = &synth;
+    synth = new Subsynth(sampRate);
+
   }
 
   //Programme automagically starts midiprocess.
   //assign objects to multiple threads
   jackP = &jack;
   std::thread jackThread(jackWrapper);
+  synthP = &synth;
   std::thread synthThread(midiWrapper);
   std::thread updateMidiThread(synthPitchUpdater);
 
