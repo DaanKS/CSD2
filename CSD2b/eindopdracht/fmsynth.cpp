@@ -17,11 +17,12 @@ double Fmsynth::output(){
   calculateCarrierFreq();
   return car->tick();
 }
-
+//function to calculate the frequency of the carrier oscillator
 void Fmsynth::calculateCarrierFreq(){
   setCarDelta(oscFreq + (mod->tick() * getModulationIndex()));
 }
 
+//pitch only changes if a new pitch is found
 void Fmsynth::updatePitches(){
   newPitch = getPitch();
   if(newPitch != oldPitch){
@@ -45,6 +46,7 @@ void Fmsynth::setModDepth(double modDepth){
 double Fmsynth::getModDepth(){
   return modDepth;
 }
+
 void Fmsynth::setModulationIndex(double oscFreq){
   this->modulationIndex = ((getRatio() * oscFreq) * getModDepth());
 }
@@ -62,7 +64,7 @@ void Fmsynth::setModDelta(double frequency){
 
 
 
-//Duplicate Code! Simple instructions to loop through code types
+//Duplicate Code! Simple instructions to loop through wave types
 void Fmsynth::changeWaveCar(){
   if(carPos > 2) carPos = 0;
   if(carPos == 0){

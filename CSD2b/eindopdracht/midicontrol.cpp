@@ -35,14 +35,9 @@ int Midicontrol::displayDevices(){
 
 void Midicontrol::setDevices(){
   std::cout << "Select Your Device: \n";
-
   std::cout << "Input: ";
   std::cin >> device;
   midi_io.set_input_device(device);
-
-  /*std::cout << "Output: ";
-  std::cin >> device;
-  midi_io.set_output_device(device); */
 }
 
 int Midicontrol::getMidiNoteNumber(){

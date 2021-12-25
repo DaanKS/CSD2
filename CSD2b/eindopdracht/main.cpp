@@ -37,7 +37,8 @@ int main(int argc, char **argv){
   //startSynthesizer
 
   //Ask for what type of synth
-  std::cout << "Hi \n" << "Pick a Synth: 1. FMsynth, 2. Subsynth ";
+
+  std::cout << "\n\nHi - Please Mind Your Ears - \n" << "Pick a Synth: 1. FMsynth, 2. Subsynth ";
   int type = static_cast<int>(input.retrieveValueInRange(1, 2));
   std::cout << "Type : " << type << std::endl;
   if (type == 1){
