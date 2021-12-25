@@ -24,11 +24,15 @@ public:
   void setCarDelta(double frequency);
   void setModDelta(double frequency);
 
-
+  void changeWaveCar();
+  void changeWaveMod();
 
 protected:
   Oscillator* car;
   Oscillator* mod;
+
+  int carPos;
+  int modPos;
 
   double ratio;
   double oscFreq;

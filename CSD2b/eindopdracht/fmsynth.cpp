@@ -58,3 +58,33 @@ void Fmsynth::setCarDelta(double frequency){
 void Fmsynth::setModDelta(double frequency){
   mod->setDelta(frequency);
 }
+
+void Fmsynth::changeWaveCar(){
+  if(carPos > 2) carPos = 0;
+  if(carPos == 0){
+    delete car;
+    car = new Saw;
+  }else if(carPos == 1){
+    delete car;
+    car = new Square;
+  }else{
+    delete car;
+    car = new Sine;
+  }
+  carPos++
+}
+
+void Fmsynth::changeWaveMod(){
+  if(modPos > 2) modPos = 0;
+  if(modPos == 0){
+    delete mod;
+    mod = new Saw;
+  }else if(modPos == 1){
+    delete mod;
+    mod = new Square;
+  }else{
+    delete mod;
+    mod = new Sine;
+  }
+  modPos++
+}
