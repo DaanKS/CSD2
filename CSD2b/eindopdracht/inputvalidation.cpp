@@ -3,8 +3,9 @@
 InputValidation::InputValidation(){}
 InputValidation::~InputValidation(){}
 
-int InputValidation::validateInt(int minInt, int maxInt, int inputInt){
+int InputValidation::validateInt(int minInt, int maxInt){
   notInRange = true;
+  std::cin >> inputInt;
   while(notInRange){
   try{
     if(inputInt >= minInt && inputInt <= maxInt){
@@ -20,8 +21,9 @@ int InputValidation::validateInt(int minInt, int maxInt, int inputInt){
   return inputInt;
 }
 
-double InputValidation::validateDouble(double minDouble, double maxDouble, double inputDouble){
+double InputValidation::validateDouble(double minDouble, double maxDouble){
   notInRange = true;
+  std::cin >> inputDouble;
   while(notInRange){
   try{
     if(inputDouble >= minDouble && inputDouble <= maxDouble){
