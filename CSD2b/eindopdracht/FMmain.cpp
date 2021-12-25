@@ -53,7 +53,9 @@ int main(int argc, char **argv){
   std::cout << "\n\nUse Midi device to play notes \n";
   std::cout << "Press 'q' ENTER when you want to quit the program.\n";
   std::cout << "hit 'g' ENTER to change the Ratio (0.0 to 12.0) \n"
-  << "hit 'f' ENTER to change the mod depth(0.0 to 100.0) \n";
+  << "hit 'f' ENTER to change the mod depth(0.0 to 100.0) \n"
+  << "hit 'r' ENTER to change Carrier Wave \n"
+  << "hit 't' ENTER to change Modulator Wave \n";
 bool running = true;
 float userModDepth;
 float userRatio;
@@ -78,6 +80,12 @@ while (running)
       std::cout << "set a new value for ModDepth ";
       userModDepth = input.retrieveValueInRange(0, 100);
       synth.setModDepth(userModDepth);
+      break;
+    case 'r':
+      synth.changeWaveCar();
+      break;
+    case 't':
+      synth.changeWaveMod();
       break;
   }
 }
