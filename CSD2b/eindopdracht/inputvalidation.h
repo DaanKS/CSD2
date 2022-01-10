@@ -12,6 +12,6 @@ public:
 protected:
   float min, max;
   //In tony hawk proskater, you receive similar messages when you reach "illegal" locations
-  int tonyIndex;
+  int tonyIndex = 0;
   std::string tonyHawk[5] = {"stay in school", "say no to drugs", "touch grass","when's the last time you showered?", "noooooooooooo"};
 };
