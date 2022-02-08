@@ -4,6 +4,7 @@
 
 typedef unsigned int uint;
 
+//y(n) = x(n-D) + (fb*y)
 
 class CircBuffer{
 public:
