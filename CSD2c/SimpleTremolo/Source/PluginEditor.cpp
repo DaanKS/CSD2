@@ -24,7 +24,7 @@ SimpleTremoloAudioProcessorEditor::SimpleTremoloAudioProcessorEditor (SimpleTrem
     ampAttachment = std::make_unique<SliderAttachment>(Reference,"uAmplitude", ampSlider);
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (400, 300);
+    setSize (320, 240);
 }
 
 SimpleTremoloAudioProcessorEditor::~SimpleTremoloAudioProcessorEditor()
@@ -44,8 +44,8 @@ void SimpleTremoloAudioProcessorEditor::paint (juce::Graphics& g)
 
 void SimpleTremoloAudioProcessorEditor::resized()
 {
-    rateSlider.setBounds(10, 150, 120, 120);
-    ampSlider.setBounds(300, 150, 120, 120);
+    rateSlider.setBounds(10, 100, 120, 120);
+    ampSlider.setBounds(200, 100, 120, 120);
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
 }

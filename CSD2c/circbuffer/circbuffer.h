@@ -2,10 +2,6 @@
 
 #pragma once
 
-typedef unsigned int uint;
-
-//y(n) = x(n-D) + (fb*y)
-
 class CircBuffer{
 public:
   CircBuffer(int size, int numSamplesDelay);
@@ -16,12 +12,14 @@ public:
   void writeToBuffer(double inputSample);
   double readFromBuffer();
 
-  int wrapHeader(int head);
+
   int distanceReadWrite();
 
   void incrementPointers();
 
 protected:
+  int wrapHeader(int head);
+
   int readIndex = 0;
   int writeIndex = 0;
 

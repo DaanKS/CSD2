@@ -10,8 +10,11 @@
 
 #include "tremolo.h"
 
-Tremolo::Tremolo(){}
-Tremolo::~Tremolo(){}
+Tremolo::Tremolo()  : Audioeffect(){}
+Tremolo::~Tremolo(){
+    delete osc;
+    osc = nullptr;
+}
 
 double Tremolo::outputSample(double inputSample){
     modSignal = osc->output();
@@ -20,15 +23,12 @@ double Tremolo::outputSample(double inputSample){
     return inputSample * modSignal;
 }
 void Tremolo::assignWave(){
-    if( osc != nullptr){
-        delete osc;
-        osc = nullptr;
-    }
     osc = new Sine(samplerate);
 }
 
 void Tremolo::setRate(double rate){
     this->rate = rate;
+    osc->setDelta(rate);
 }
 void Tremolo::setAmplitude(double amplitude){
     this->amplitude = amplitude;
