@@ -1,6 +1,7 @@
 #include "sine.h"
 #include "square.h"
 #include "saw.h"
+#include <iostream>
 
 class Tremolo{
 public:
@@ -31,6 +32,13 @@ private:
   double rate;
   double amplitude;
   double modSignal;
+  double samplerate;
+
+  double maxRate = 20.0;
+  double minRate = 0.01;
+
+  double maxAmp = 1.00;
+  double minAmp = 0.00;
 
   Oscillator* osc;
 };

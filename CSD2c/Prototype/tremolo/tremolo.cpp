@@ -25,7 +25,6 @@ void Tremolo::assignWave(WaveformType waveformtype){
     }
     case WaveformType::SQUARE:{
       osc = new Square(samplerate);
-      osc -> setDelta
     }
     case WaveformType::SAW:{
       osc = new Saw(samplerate);
@@ -35,9 +34,17 @@ void Tremolo::assignWave(WaveformType waveformtype){
 }
 
 void Tremolo::setRate(double rate){
-  this->rate = rate;
-  osc->setDelta(rate);
+  if(rate >= minRate && rate <= maxRate){
+    this->rate = rate;
+    osc->setDelta(rate);
+  }else{
+    std::cout << "rate exceeds acceptable range (0.01 - 20.0)";
+  }
 }
 void Tremolo::setAmplitude(double amplitude){
-  this->amplitude = amplitude;
+  if(amplitude >= minAmp && amplitude <= maxAmp){
+    this->amplitude = amplitude;
+  }else{
+    std::cout << "amplitude exceeds acceptable range (0.00 - 1.00)";
+  }
 }
