@@ -1,29 +1,53 @@
-#include <iostream>
+//This code is intellectual property of Ciska Vriezenga.
+//I altered some of the naamgeving for my own understanding.
 
+#include <iostream>
 #pragma once
+
+typedef unsigned int uint;
 
 class CircBuffer{
 public:
-  CircBuffer();
-  CircBuffer(int size, int numSamplesDelay);
+  CircBuffer(); //we use an empty construtor so we can reserve the object before knowing the samplerate
+  CircBuffer(uint size);
   ~CircBuffer();
 
-  void initialize();
+  void initialize(uint size);
+  void setDelayTimeSamps(uint delayTimeSamps);
 
-  void writeToBuffer(double inputSample);
-  double readFromBuffer();
+  inline void writeToBuffer(float inputSample){buffer[writeIndex] = inputSample;}
+  inline float readFromBuffer(){return buffer[readIndex];}
 
-  int distanceReadWrite();
+  inline void incrementIndeces(){
+    incrementWriteIndex();
+    incrementReadIndex();
+  }
 
-protected:
-  int wrapHeader(int head);
+private:
+//Define incrementmethods. We make them private because we don't want anything
+//external to accidently mess with the header positions seperately.
+  inline void incrementWriteIndex(){
+    writeIndex++;
+    wrapHeader(writeIndex);
+  }
+  inline void incrementReadIndex(){
+    readIndex++;
+    wrapHeader(readIndex);
+  }
+//wrapping function. Using pointers, wow this is super smart @ciska.
+//By giving the index as a pointer we are able to handle it as if we are changing
+//the index as if it was an object. "index" is replaced by "readIndex" or "writeIndex"
+  inline void wrapHeader(uint& index){
+    if(index >= size) head -= size;
+  }
 
-  int readIndex = 0;
-  int writeIndex = 0;
+void allocateBuffer();
+void deleteBuffer();
 
-  int size, numSamplesDelay;
-  int sampleRate;
 
-  double* buffer;
+  uint readIndex = 0;
+  uint writeIndex = 0;
+  uint size, numSamplesDelay;
+  float* buffer;
 
 };
