@@ -16,22 +16,38 @@ public:
   void setDelayTimeSamps(uint delayTimeSamps);
 
   inline void writeToBuffer(float inputSample){buffer[writeIndex] = inputSample;}
-  inline double readFromBuffer(){return buffer[readIndex];}
+  inline float readFromBuffer(){return buffer[readIndex];}
 
-  inline void incrementHeaders(){
+  inline void incrementIndeces(){
     incrementWriteIndex();
     incrementReadIndex();
   }
 
 private:
-  int wrapHeader(int head);
+//Define incrementmethods. We make them private because we don't want anything
+//external to accidently mess with the header positions seperately.
+  inline void incrementWriteIndex(){
+    writeIndex++;
+    wrapHeader(writeIndex);
+  }
+  inline void incrementReadIndex(){
+    readIndex++;
+    wrapHeader(readIndex);
+  }
+//wrapping function. Using pointers, wow this is super smart @ciska.
+//By giving the index as a pointer we are able to handle it as if we are changing
+//the index as if it was an object. "index" is replaced by "readIndex" or "writeIndex"
+  inline void wrapHeader(uint& index){
+    if(index >= size) head -= size;
+  }
 
-  int readIndex = 0;
-  int writeIndex = 0;
+void allocateBuffer();
+void deleteBuffer();
 
-  int size, numSamplesDelay;
-  int sampleRate;
 
-  double* buffertje;
+  uint readIndex = 0;
+  uint writeIndex = 0;
+  uint size, numSamplesDelay;
+  float* buffer;
 
 };
