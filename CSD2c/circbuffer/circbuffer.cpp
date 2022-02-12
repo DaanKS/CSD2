@@ -1,48 +1,33 @@
 #include "circbuffer.h"
 
-CircBuffer::CircBuffer(int size, int numSamplesDelay): size(size),
-numSamplesDelay(numSamplesDelay), readIndex(size - numSamplesDelay), writeIndex(0){
-  initialize();
-  if(numSamplesDelay > size){
-    throw ("CircBuffer::CircBuffernumSamplesDelay exceeds size");
-  }
+//dummy constructor, give it nothing  to start off
+CircBuffer::CircBuffer() : CircBuffer(0){}
 
+CircBuffer::CircBuffer(uint size) : size(size){
+  allocateBuffer();
 }
-CircBuffer::~CircBuffer(){
-  delete [] buffertje;
+CircBuffer::CircBuffer(){
+  deleteBuffer();
 }
 
-void CircBuffer::initialize(){
-  if(buffertje != nullptr){
-    delete [] buffertje;
-    buffertje = nullptr;
-  }
-  buffertje = new double[size];
-  for(int i = 0; i < size; i++){
-    buffertje[i] = 0;
-  }
+void CircBuffer::initialize(uint size){
+  this->size = size;
+  deleteBuffer();
+  allocateBuffer();
+}
+void CircBuffer::allocateBuffer(){
+  //reserve and clear buffer. Set 0 for entire size of buffer
+  buffer = (float*)malloc(size * sizeof(float));
+  memset(buffer, 0, size * sizeof(float));
+}
+void CircBuffer::deleteBuffer(){
+  //using memset to release the reserved space
+  free(buffer);
 }
 
-void CircBuffer::writeToBuffer(double inputSample){
-  buffertje[writeIndex++] = inputSample;
-  writeIndex = wrapHeader(writeIndex);
-}
-double CircBuffer::readFromBuffer(){
-  double tempHeader = buffertje[readIndex];
-  readIndex = wrapHeader(readIndex);
-  return tempHeader;
-}
-
-int CircBuffer::wrapHeader(int head){
-if(head >= size) head -= size;
-return head;
-}
-
-int CircBuffer::distanceReadWrite(){
-  if(writeIndex < readIndex){
-    int tempWH = writeIndex;
-    tempWH += size;
-    return tempWH - readIndex;
-  }
-  return writeIndex - readIndex;
+void CircBuffer::setDelayTimeSamps(uint delayTimeSamps){
+  this->delayTimeSamps = delayTimeSamps;
+  //TODO --- understand this
+  readIndex = writeIndex - delayTimeSamps + size;
+  wrapHeader(readIndex);
 }

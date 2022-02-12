@@ -2,5 +2,5 @@
 
 int main(int argc, char **argv){
 
-  CircBuffer(20, 2);
+  CircBuffer(20);
 }
