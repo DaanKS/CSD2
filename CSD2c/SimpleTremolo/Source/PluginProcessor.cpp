@@ -21,7 +21,7 @@ SimpleTremoloAudioProcessor::SimpleTremoloAudioProcessor()
                      #endif
                        ), TrenParams(*this, nullptr, "Parameters",
                                      {
-                           std::make_unique<juce::AudioParameterFloat>("uRate", "Rate", 0.5f, 20.0f, 0.5f),
+                           std::make_unique<juce::AudioParameterFloat>("uRate", "Rate", 0.01f, 20.0f, 0.5f),
                            std::make_unique<juce::AudioParameterFloat>("uAmplitude", "Amplitude", 0.0f, 1.0f, 1.0f)
                        })
 #endif
