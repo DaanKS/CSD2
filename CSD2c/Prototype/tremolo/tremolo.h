@@ -16,7 +16,7 @@ public:
 
   double outputSample(double inputSample);
 
-  void assignWave(WaveformType waveformtype);
+  void assignWave(int waveformtype);
 
   void setRate(double rate);
   void setAmplitude(double amplitude);

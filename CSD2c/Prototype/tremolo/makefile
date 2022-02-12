@@ -4,7 +4,7 @@ LDFLAGS=-ljack
 # the cpp files from the current project to include
 SRC_PROJECT = tremolo.cpp main.cpp
 # the directory to the folder with the shared modules
-SHAREDCODE_PATH = ../../../sharedCode/
+SHAREDCODE_PATH = ../../../CSD2c/sharedCode/
 # the modules to include
 MODULES = oscillators utilities
 
@@ -36,6 +36,6 @@ $(TARGET):$(OBJ)
 .cpp.o:
 	$(CXX) -c $< $(CXXFLAGS) -o $*.o
 
-clean:
+lean:
 	rm $(TARGET)
 	rm $(OBJ)

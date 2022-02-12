@@ -16,17 +16,16 @@ double Tremolo::outputSample(double inputSample){
   return inputSample * modSignal;
 }
 
-void Tremolo::assignWave(WaveformType waveformtype){
+void Tremolo::assignWave(int waveformtype){
   clearOsc();
   switch (waveformtype){
-    case WaveformType::SINE:{
+    case 1:{
       osc = new Sine(samplerate);
-
     }
-    case WaveformType::SQUARE:{
+    case 2:{
       osc = new Square(samplerate);
     }
-    case WaveformType::SAW:{
+    case 3:{
       osc = new Saw(samplerate);
     }
   }

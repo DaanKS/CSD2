@@ -1,6 +1,7 @@
 #include "jack_module.h"
 #include "tremolo.h"
 #include <iostream>
+#include <cstring>
 
 int main(int argc, char **argv){
   //create jack_module
@@ -40,6 +41,12 @@ int main(int argc, char **argv){
         double tempAmp;
         std::cin >> tempAmp;
         trem.setAmplitude(tempAmp);
+        break;
+      case 'r':
+        std::cout << "1, 2, 3";
+        int tempWave;
+        std::cin >> tempWave;
+        trem.assignWave(tempWave);
         break;
     }
 
