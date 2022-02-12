@@ -4,6 +4,7 @@
 
 class CircBuffer{
 public:
+  CircBuffer();
   CircBuffer(int size, int numSamplesDelay);
   ~CircBuffer();
 

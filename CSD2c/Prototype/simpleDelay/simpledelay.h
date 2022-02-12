@@ -13,7 +13,9 @@ public:
 
 protected:
   int maxBufferSize = 5; //5 times samplerate = 5 seconds of delay
+  float outputSample = 0;
   float feedback;
   float delayTime;
-  
+
+  CircBuffer circ;
 };

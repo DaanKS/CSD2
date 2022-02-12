@@ -1,5 +1,6 @@
 #include "circbuffer.h"
 
+CircBuffer::CircBuffer(){}
 CircBuffer::CircBuffer(int size, int numSamplesDelay): size(size),
 numSamplesDelay(numSamplesDelay), readIndex(size - numSamplesDelay), writeIndex(0){
   initialize();
@@ -28,7 +29,7 @@ void CircBuffer::writeToBuffer(double inputSample){
   writeIndex = wrapHeader(writeIndex);
 }
 double CircBuffer::readFromBuffer(){
-  double tempHeader = buffer[readIndex];
+  double tempHeader = buffer[readIndex++];
   readIndex = wrapHeader(readIndex);
   return tempHeader;
 }
