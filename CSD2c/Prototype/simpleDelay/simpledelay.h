@@ -13,7 +13,7 @@ public:
 
   float msToSamps(float ms);
 
-  }
+  
 
 protected:
   int maxBufferSize = 5; //5 times samplerate = 5 seconds of delay

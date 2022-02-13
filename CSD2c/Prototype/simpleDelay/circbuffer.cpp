@@ -6,7 +6,7 @@ CircBuffer::CircBuffer() : CircBuffer(0){}
 CircBuffer::CircBuffer(uint size) : size(size){
   allocateBuffer();
 }
-CircBuffer::CircBuffer(){
+CircBuffer::~CircBuffer(){
   deleteBuffer();
 }
 

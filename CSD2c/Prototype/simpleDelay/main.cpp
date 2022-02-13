@@ -1,0 +1,34 @@
+#include "jack_module.h"
+#include "simpledelay.h"
+#include <iostream>
+
+int main(int argc, char **argv){
+
+  JackModule jack;
+  jack.init(argv[0]);
+
+  Delay del(jack.getSamplerate());
+
+  jack.onProcess = [&del](jack_default_audio_sample_t *inBuf,
+  jack_default_audio_sample_t *outBuf, jack_nframes_t numFrames){
+    for(unsigned int sample = 0; sample < numFrames; sample++){
+      outBuf[sample] = del.output(inBuf[sample]);
+    }
+    return 0;
+  };
+
+  jack.autoConnect();
+
+  std::cout << "Press 'q' and hit ENTER to quit \n";
+  bool running =true;
+  while(running){
+    switch (std::cin.get()) {
+      case 'q':
+        running = false;
+        jack.end();
+        break;
+    }
+  }
+
+  return 0;
+}

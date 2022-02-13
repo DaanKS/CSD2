@@ -38,7 +38,7 @@ private:
 //By giving the index as a pointer we are able to handle it as if we are changing
 //the index as if it was an object. "index" is replaced by "readIndex" or "writeIndex"
   inline void wrapHeader(uint& index){
-    if(index >= size) head -= size;
+    if(index >= size) index -= size;
   }
 
 void allocateBuffer();
@@ -47,7 +47,7 @@ void deleteBuffer();
 
   uint readIndex = 0;
   uint writeIndex = 0;
-  uint size, numSamplesDelay;
+  uint size, delayTimeSamps;
   float* buffer;
 
 };

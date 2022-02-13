@@ -1,13 +1,13 @@
 #include "simpledelay.h"
 
-Delay::Delay(double samplerate) samplerate(samplerate){
+Delay::Delay(double samplerate) : samplerate(samplerate){
   CircBuffer circ(samplerate * maxBufferSize);
   circ.setDelayTimeSamps(samplerate);
 }
 Delay::~Delay(){}
 
 double Delay::output(double inputSample){
-  circ.writeToBuffer(inputSample + (outputSample * feedback))
+  circ.writeToBuffer(inputSample + (outputSample * feedback));
   outputSample = circ.readFromBuffer();
   return outputSample;
 }
