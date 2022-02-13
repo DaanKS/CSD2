@@ -8,13 +8,14 @@ int main(int argc, char **argv){
   jack.init(argv[0]);
 
   Delay del(jack.getSamplerate());
-  del.setFeedback(0.6);
-  del.setDelayTime(500);
-  
+  del.setFeedback(0.5);
+
   jack.onProcess = [&del](jack_default_audio_sample_t *inBuf,
   jack_default_audio_sample_t *outBuf, jack_nframes_t numFrames){
     for(unsigned int sample = 0; sample < numFrames; sample++){
+
       outBuf[sample] = del.output(inBuf[sample]);
+    //  del.incrementIndeces();
     }
     return 0;
   };

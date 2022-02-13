@@ -28,9 +28,11 @@ private:
 //external to accidently mess with the header positions seperately.
   inline void incrementWriteIndex(){
     writeIndex++;
+    //std::cout << "writeIndex: " << writeIndex << std::endl;
     wrapHeader(writeIndex);
   }
   inline void incrementReadIndex(){
+    //std::cout << "readIndex: " << readIndex << std::endl;
     readIndex++;
     wrapHeader(readIndex);
   }
@@ -38,6 +40,7 @@ private:
 //By giving the index as a pointer we are able to handle it as if we are changing
 //the index as if it was an object. "index" is replaced by "readIndex" or "writeIndex"
   inline void wrapHeader(uint& index){
+    //std::cout << "wrapped" << std::endl;
     if(index >= size) index -= size;
   }
 

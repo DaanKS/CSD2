@@ -27,7 +27,7 @@ OBJ := $(patsubst %.cpp,%.o, $(filter %.cpp,$(SRC)))
 # log OBJ
 $(info $$OBJ is [${OBJ}])
 
-TARGET=simpledelay.blanchette
+TARGET=simpledelay.cate
 # link the program
 $(TARGET):$(OBJ)
 	$(CXX) -o $@ $(OBJ) $(LDFLAGS)

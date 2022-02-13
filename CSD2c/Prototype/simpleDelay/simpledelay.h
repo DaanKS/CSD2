@@ -11,9 +11,7 @@ public:
   void setFeedback(float feedback);
   void setDelayTime(float delayTime);
 
-  float msToSamps(float ms);
-
-  
+  uint msToSamps(float ms);
 
 protected:
   int maxBufferSize = 5; //5 times samplerate = 5 seconds of delay

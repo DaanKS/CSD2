@@ -4,6 +4,7 @@
 CircBuffer::CircBuffer() : CircBuffer(0){}
 
 CircBuffer::CircBuffer(uint size) : size(size){
+  std::cout << "Circ: Size " << size << std::endl;
   allocateBuffer();
 }
 CircBuffer::~CircBuffer(){
