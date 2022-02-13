@@ -36,6 +36,6 @@ $(TARGET):$(OBJ)
 .cpp.o:
 	$(CXX) -c $< $(CXXFLAGS) -o $*.o
 
-lean:
+clean:
 	rm $(OBJ)
 	rm $(TARGET)
