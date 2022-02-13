@@ -20,6 +20,7 @@ void Delay::setFeedback(float feedback){
   }
 }
 void Delay::setDelayTime(float delayTime){
+//TODO -- add input validation
   circ.setDelayTimeSamps(msToSamps(delayTime));
 }
 
