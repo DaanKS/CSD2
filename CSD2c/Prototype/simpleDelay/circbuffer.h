@@ -40,17 +40,20 @@ private:
 //By giving the index as a pointer we are able to handle it as if we are changing
 //the index as if it was an object. "index" is replaced by "readIndex" or "writeIndex"
   inline void wrapHeader(uint& index){
-    //std::cout << "wrapped" << std::endl;
-    if(index >= size) index -= size;
+    std::cout << "size: " << m_size << std::endl;
+    if(index >= m_size){
+       index -= m_size;
+       std::cout << "wrapped" << std::endl;
+    }
   }
 
 void allocateBuffer();
 void deleteBuffer();
 
 
-  uint readIndex = 0;
-  uint writeIndex = 0;
-  uint size, delayTimeSamps;
+  uint readIndex;
+  uint writeIndex;
+  uint m_size, delayTimeSamps;
   float* buffer;
 
 };

@@ -14,7 +14,7 @@ public:
   uint msToSamps(float ms);
 
 protected:
-  int maxBufferSize = 5; //5 times samplerate = 5 seconds of delay
+  int maxBufferSize; //5 times samplerate = 5 seconds of delay
   float outputSample = 0;
   float feedback;
   float delayTime;

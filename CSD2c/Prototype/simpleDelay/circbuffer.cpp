@@ -3,7 +3,7 @@
 //dummy constructor, give it nothing  to start off
 CircBuffer::CircBuffer() : CircBuffer(0){}
 
-CircBuffer::CircBuffer(uint size) : size(size){
+CircBuffer::CircBuffer(uint size) : m_size(size),writeIndex(0), readIndex(0){
   std::cout << "Circ: Size " << size << std::endl;
   allocateBuffer();
 }
@@ -12,14 +12,14 @@ CircBuffer::~CircBuffer(){
 }
 
 void CircBuffer::initialize(uint size){
-  this->size = size;
+  m_size = size;
   deleteBuffer();
   allocateBuffer();
 }
 void CircBuffer::allocateBuffer(){
   //reserve and clear buffer. Set 0 for entire size of buffer
-  buffer = (float*)malloc(size * sizeof(float));
-  memset(buffer, 0, size * sizeof(float));
+  buffer = (float*)malloc(m_size * sizeof(float));
+  memset(buffer, 0, m_size * sizeof(float));
 }
 void CircBuffer::deleteBuffer(){
   //using memset to release the reserved space
@@ -29,6 +29,6 @@ void CircBuffer::deleteBuffer(){
 void CircBuffer::setDelayTimeSamps(uint delayTimeSamps){
   this->delayTimeSamps = delayTimeSamps;
   //TODO --- understand this
-  readIndex = writeIndex - delayTimeSamps + size;
+  readIndex = writeIndex - delayTimeSamps + m_size;
   wrapHeader(readIndex);
 }
