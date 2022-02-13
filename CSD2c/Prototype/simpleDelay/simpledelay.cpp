@@ -1,8 +1,9 @@
 #include "simpledelay.h"
 
-Delay::Delay(double samplerate) : samplerate(samplerate){
+Delay::Delay(double samplerate) : samplerate(samplerate)
+{
   CircBuffer circ(samplerate * maxBufferSize);
-  circ.setDelayTimeSamps(samplerate);
+  circ.setDelayTimeSamps(samplerate * 2.0);
 }
 Delay::~Delay(){}
 
