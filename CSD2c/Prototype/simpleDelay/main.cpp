@@ -12,10 +12,9 @@ int main(int argc, char **argv){
 
   jack.onProcess = [&del](jack_default_audio_sample_t *inBuf,
   jack_default_audio_sample_t *outBuf, jack_nframes_t numFrames){
-    for(unsigned int sample = 0; sample < 10; sample++){
+    for(unsigned int sample = 0; sample < numFrames; sample++){
 
       outBuf[sample] = del.output(inBuf[sample]);
-      del.increment();
     //  del.incrementIndeces();
     }
     return 0;

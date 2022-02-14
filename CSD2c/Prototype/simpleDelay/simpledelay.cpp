@@ -13,12 +13,11 @@ Delay::~Delay(){
 }
 
 double Delay::output(double inputSample){
-  circ->writeToBuffer(inputSample);// + (outputSample * feedback));
+  circ->writeToBuffer(inputSample + (outputSample * feedback));
   outputSample = circ->readFromBuffer();
-  return outputSample;
-}
-void Delay::increment(){
   circ->incrementIndeces();
+
+  return inputSample + outputSample;
 }
 
 void Delay::setFeedback(float feedback){

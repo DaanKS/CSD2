@@ -41,7 +41,6 @@ private:
     //std::cout << "wrapH size: " << m_size << std::endl;
     if(index >= m_size){
        index -= m_size;
-       std::cout << "wrapped" << std::endl;
     }
   }
 

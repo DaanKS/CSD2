@@ -10,8 +10,7 @@ public:
 
   void setFeedback(float feedback);
   void setDelayTime(float delayTime);
-  void increment();
-
+  
   uint msToSamps(float ms);
 
 protected:
