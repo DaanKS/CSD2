@@ -5,6 +5,7 @@ Delay::Delay(double samplerate) : samplerate(samplerate), maxBufferSize(5)
 //  std::cout << "samplerate " << samplerate << std::endl;
 //  std::cout << "buffer size " << samplerate * maxBufferSize << std::endl;
   CircBuffer circ(samplerate * maxBufferSize);
+  std::cout << "maxBufferSize: " << maxBufferSize << std::endl;
   //circ.initialize(samplerate * maxBufferSize);
   circ.setDelayTimeSamps(static_cast<uint>(samplerate));
 }

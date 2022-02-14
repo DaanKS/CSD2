@@ -1,7 +1,7 @@
 #include "circbuffer.h"
 
 //dummy constructor, give it nothing  to start off
-CircBuffer::CircBuffer() : CircBuffer(0){}
+CircBuffer::CircBuffer(){}
 
 CircBuffer::CircBuffer(uint size) : m_size(size),writeIndex(0), readIndex(0){
   std::cout << "Circ: Size " << size << std::endl;
