@@ -1,13 +1,11 @@
 #include "simpledelay.h"
 
-Delay::Delay(double samplerate) : samplerate(samplerate), maxBufferSize(5)
+Delay::Delay(double samplerate) : samplerate(samplerate), maxBufferSize(2)
 {
 //  std::cout << "samplerate " << samplerate << std::endl;
 //  std::cout << "buffer size " << samplerate * maxBufferSize << std::endl;
   circ = new CircBuffer(samplerate * maxBufferSize);
-  std::cout << "maxBufferSize: " << maxBufferSize << std::endl;
-  //circ.initialize(samplerate * maxBufferSize);
-  circ->setDelayTimeSamps(static_cast<uint>(samplerate));
+  circ->setDelayTimeSamps(static_cast<uint>(samplerate / 2));
 }
 Delay::~Delay(){
   delete circ;
@@ -15,10 +13,12 @@ Delay::~Delay(){
 }
 
 double Delay::output(double inputSample){
-  circ->writeToBuffer(inputSample + (outputSample * feedback));
-  circ->incrementIndeces();
+  circ->writeToBuffer(inputSample);// + (outputSample * feedback));
   outputSample = circ->readFromBuffer();
   return outputSample;
+}
+void Delay::increment(){
+  circ->incrementIndeces();
 }
 
 void Delay::setFeedback(float feedback){

@@ -15,6 +15,7 @@ int main(int argc, char **argv){
     for(unsigned int sample = 0; sample < 10; sample++){
 
       outBuf[sample] = del.output(inBuf[sample]);
+      del.increment();
     //  del.incrementIndeces();
     }
     return 0;

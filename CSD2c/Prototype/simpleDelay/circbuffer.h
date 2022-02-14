@@ -49,7 +49,8 @@ void allocateBuffer();
 void deleteBuffer();
 
   float* buffer;
-  uint m_size, delayTimeSamps;
+  uint m_size;
+  uint delayTimeSamps;
   uint writeIndex;
   uint readIndex;
 };
