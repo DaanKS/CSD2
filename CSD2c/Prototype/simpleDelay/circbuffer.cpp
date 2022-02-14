@@ -5,6 +5,8 @@ CircBuffer::CircBuffer(){}
 
 CircBuffer::CircBuffer(uint size) : m_size(size),writeIndex(0), readIndex(0){
   std::cout << "Circ: Size " << size << std::endl;
+  std::cout << "write spot " << writeIndex << std::endl;
+  std::cout << "read spot " << readIndex << std::endl;
   allocateBuffer();
 }
 CircBuffer::~CircBuffer(){

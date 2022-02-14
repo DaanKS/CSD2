@@ -4,20 +4,20 @@ Delay::Delay(double samplerate) : samplerate(samplerate), maxBufferSize(5)
 {
 //  std::cout << "samplerate " << samplerate << std::endl;
 //  std::cout << "buffer size " << samplerate * maxBufferSize << std::endl;
-  CircBuffer circ(samplerate * maxBufferSize);
+  circ = new CircBuffer(samplerate * maxBufferSize);
   std::cout << "maxBufferSize: " << maxBufferSize << std::endl;
   //circ.initialize(samplerate * maxBufferSize);
-  circ.setDelayTimeSamps(static_cast<uint>(samplerate));
+  circ->setDelayTimeSamps(static_cast<uint>(samplerate));
 }
 Delay::~Delay(){
-
+  delete circ;
+  circ = nullptr;
 }
 
 double Delay::output(double inputSample){
-  circ.writeToBuffer(inputSample + (outputSample * feedback));
-  circ.incrementIndeces();
-  outputSample = circ.readFromBuffer();
-
+  circ->writeToBuffer(inputSample + (outputSample * feedback));
+  circ->incrementIndeces();
+  outputSample = circ->readFromBuffer();
   return outputSample;
 }
 
@@ -30,7 +30,7 @@ void Delay::setFeedback(float feedback){
 }
 void Delay::setDelayTime(float delayTime){
 //TODO -- add input validation
-  circ.setDelayTimeSamps(msToSamps(delayTime));
+  circ->setDelayTimeSamps(msToSamps(delayTime));
 }
 
 uint Delay::msToSamps(float ms){
