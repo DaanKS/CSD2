@@ -2,8 +2,6 @@
 
 Delay::Delay(double samplerate) : samplerate(samplerate), maxBufferSize(2)
 {
-//  std::cout << "samplerate " << samplerate << std::endl;
-//  std::cout << "buffer size " << samplerate * maxBufferSize << std::endl;
   circ = new CircBuffer(samplerate * maxBufferSize);
   circ->setDelayTimeSamps(static_cast<uint>(samplerate / 2));
 }

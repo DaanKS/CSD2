@@ -10,18 +10,16 @@ public:
 
   void setFeedback(float feedback);
   void setDelayTime(float delayTime);
-  
+
   uint msToSamps(float ms);
 
 protected:
   CircBuffer* circ;
 
   float samplerate;
-  int maxBufferSize; //5 times samplerate = 5 seconds of delay
+  int maxBufferSize; 
   float outputSample = 0;
   float feedback;
   float delayTime;
-
-
 
 };
