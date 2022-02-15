@@ -30,6 +30,16 @@ int main(int argc, char **argv){
         running = false;
         jack.end();
         break;
+      case 'w':
+        float tempMS;
+        std::cout << "Enter New Delay Time ms: ";
+        std::cin >> tempMS;
+        del.setDelayTime(tempMS);
+      case 'e':
+        float tempFB;
+        std::cout << "Enter new Feedback: ";
+        std::cin >> tempFB;
+        del.setFeedback(tempFB);
     }
   }
 
