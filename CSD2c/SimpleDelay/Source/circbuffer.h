@@ -7,6 +7,10 @@
 
   ==============================================================================
 */
+#include <stdio.h>
+#include <stdlib.h>
+#include <cstring>
+
 
 #pragma once
 
