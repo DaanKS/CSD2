@@ -8,6 +8,8 @@
       <FILE id="SnOFHE" name="circbuffer.h" compile="0" resource="0" file="Source/circbuffer.h"/>
       <FILE id="pR1rqk" name="simpledelay.cpp" compile="1" resource="0" file="Source/simpledelay.cpp"/>
       <FILE id="alY0m8" name="simpledelay.h" compile="0" resource="0" file="Source/simpledelay.h"/>
+      <FILE id="Hv4Yq6" name="mix.cpp" compile="1" resource="0" file="Source/mix.cpp"/>
+      <FILE id="NEMhAX" name="mix.h" compile="0" resource="0" file="Source/mix.h"/>
       <FILE id="hwJMtt" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="HYiMm8" name="PluginProcessor.h" compile="0" resource="0"

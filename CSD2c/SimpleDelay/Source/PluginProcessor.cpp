@@ -30,7 +30,9 @@ SimpleDelayAudioProcessor::SimpleDelayAudioProcessor()
     delayTime = DelayParams.getRawParameterValue("uDelayTime");
     feedBack = DelayParams.getRawParameterValue("uFeedback");
     dryWet = DelayParams.getRawParameterValue("uDryWet");
-    delay = new Delay();
+
+    for (int i = 0; i < getBusesLayout().getNumChannels(true, 0); ++i)
+      delays.emplace_back (Delay());
 }
 
 SimpleDelayAudioProcessor::~SimpleDelayAudioProcessor()
@@ -102,8 +104,10 @@ void SimpleDelayAudioProcessor::changeProgramName (int index, const juce::String
 //==============================================================================
 void SimpleDelayAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-    delay->setSampleRate(sampleRate);
-    delay->instantiate();
+    for (auto& del : delays)
+        del.setSampleRate(sampleRate);
+    for (auto& del : delays)
+        del.instantiate();
    
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
@@ -143,9 +147,12 @@ bool SimpleDelayAudioProcessor::isBusesLayoutSupported (const BusesLayout& layou
 
 void SimpleDelayAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
-    delay->setDelayTime(*delayTime);
-    delay->setFeedback(*feedBack);
-    
+    for (auto& del : delays)
+        del.setDelayTime(*delayTime);
+    for (auto& del : delays)
+        del.setFeedback(*feedBack);
+    for (auto& del : delays)
+        del.setDryWet(*dryWet);
     
     juce::ScopedNoDenormals noDenormals;
     auto totalNumInputChannels  = getTotalNumInputChannels();

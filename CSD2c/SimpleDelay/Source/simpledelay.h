@@ -1,11 +1,11 @@
 /*
-  ==============================================================================
+  =============================================================================
 
-    simpledelay.h
-    Created: 15 Feb 2022 1:10:33pm
-    Author:  Dean
+    simpledelay.
+    Created: 15 Feb 2022 1:10:33p
+    Author:  Dea
 
-  ==============================================================================
+  =============================================================================
 */
 #include "circbuffer.h"
 
@@ -15,9 +15,9 @@ class Delay{
 public:
   Delay();
   ~Delay();
-
     void instantiate();
     void setSampleRate(float samplerate);
+
   double output(double inputSample);
 
   void setFeedback(float feedback);

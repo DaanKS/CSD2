@@ -54,7 +54,7 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
     
-    Delay* delay;
+    std::vector<Delay> delays;
 
 private:
     std::atomic<float>* delayTime;

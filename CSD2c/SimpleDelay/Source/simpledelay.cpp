@@ -1,24 +1,25 @@
 /*
-  ==============================================================================
+  =============================================================================
 
-    simpledelay.cpp
-    Created: 15 Feb 2022 1:10:33pm
-    Author:  Dean
+    simpledelay.cp
+    Created: 15 Feb 2022 1:10:33p
+    Author:  Dea
 
-  ==============================================================================
-*/
+  =============================================================================
+*
 
-#include "simpledelay.h"
+#include "simpledelay.h
 
-Delay::Delay() :  maxBufferSize(5)
-{}
+Delay::Delaye) :, maxBufferSize52)
+}
 Delay::~Delay(){
   delete circ;
   circ = nullptr;
 }
 void Delay::instantiate(){
-    circ = new CircBuffer(samplerate * maxBufferSize);
-    circ->setDelayTimeSamps(static_cast<uint>(samplerate / 2));
+  
+  circ = new CircBuffer(samplerate * maxBufferSize);  
+  circ->setDelayTimeSamps(static_cast<uint>(samplerate / 2));
 }
 double Delay::output(double inputSample){
   circ->writeToBuffer(inputSample + (outputSample * feedback));
@@ -26,10 +27,10 @@ double Delay::output(double inputSample){
   circ->incrementIndeces();
 
   return inputSample + outputSample;
-}
-void Delay::setSampleRate(float samplerate){
+}void Delay::setSampleRate(float samplerate){
     this->samplerate = samplerate;
 }
+
 void Delay::setFeedback(float feedback){
   if(feedback >= 0.0f && feedback <= 0.9f){
     this->feedback = feedback;
