@@ -8,6 +8,7 @@
   =============================================================================
 */
 #include "circbuffer.h"
+#include "mix.h"
 
 #pragma once
 
@@ -22,15 +23,20 @@ public:
 
   void setFeedback(float feedback);
   void setDelayTime(float delayTime);
+    void setDryWet(float dryWet);
 
   uint msToSamps(float ms);
 
 protected:
   CircBuffer* circ;
-
-  float samplerate;
-  int maxBufferSize;
+    Mix mix_1;
+    int maxBufferSize;
+    
+    float samplerate;
+  
   float outputSample = 0;
+    
+    float dryWet;
   float feedback;
   float delayTime;
 

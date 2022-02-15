@@ -23,7 +23,7 @@ SimpleDelayAudioProcessor::SimpleDelayAudioProcessor()
                                     {
                            std::make_unique<juce::AudioParameterFloat>("uDelayTime", "DelayTime", 1.0f, 5000.0f, 500.0f),
                            std::make_unique<juce::AudioParameterFloat>("uFeedback", "Feedback", 0.0f, 1.0f, 0.5f),
-                           std::make_unique<juce::AudioParameterFloat>("uDryWet","DryWet", 0.0f, 1.0f, 0.8f)
+                           std::make_unique<juce::AudioParameterFloat>("uDryWet","DryWet", 0.0f, 1.0f, 0.5f)
                        })
 #endif
 {
@@ -179,7 +179,7 @@ void SimpleDelayAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
         auto* readPointer = buffer.getReadPointer (channel);
         
         for (int sample = 0; sample < buffer.getNumSamples(); ++sample){
-            channelData[sample] = delay->output(readPointer[sample]);
+            channelData[sample] = delays[channel].output(readPointer[sample]);
         }
 
         // ..do something to the data...

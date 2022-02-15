@@ -1,16 +1,16 @@
 /*
   =============================================================================
 
-    simpledelay.cp
-    Created: 15 Feb 2022 1:10:33p
-    Author:  Dea
+    simpledelay.cpp
+    Created: 15 Feb 2022 1:10:33pm
+    Author:  Dean
 
   =============================================================================
-*
+*/
 
-#include "simpledelay.h
+#include "simpledelay.h"
 
-Delay::Delaye) :, maxBufferSize52)
+Delay::Delay() : maxBufferSize(2){
 }
 Delay::~Delay(){
   delete circ;
@@ -25,9 +25,10 @@ double Delay::output(double inputSample){
   circ->writeToBuffer(inputSample + (outputSample * feedback));
   outputSample = circ->readFromBuffer();
   circ->incrementIndeces();
-
-  return inputSample + outputSample;
-}void Delay::setSampleRate(float samplerate){
+//using mix_1 square law panning system to have equal power dry/wet
+  return (inputSample * mix_1.getA(dryWet)) + (outputSample * mix_1.getB(dryWet));
+}
+void Delay::setSampleRate(float samplerate){
     this->samplerate = samplerate;
 }
 
@@ -39,6 +40,9 @@ void Delay::setFeedback(float feedback){
 void Delay::setDelayTime(float delayTime){
 //TODO -- add input validation
   circ->setDelayTimeSamps(msToSamps(delayTime));
+}
+void Delay::setDryWet(float dryWet){
+    this->dryWet = dryWet;
 }
 
 uint Delay::msToSamps(float ms){
