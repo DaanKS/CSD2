@@ -17,7 +17,7 @@ protected:
   CircBuffer* circ;
 
   float samplerate;
-  int maxBufferSize; 
+  int maxBufferSize;
   float outputSample = 0;
   float feedback;
   float delayTime;
