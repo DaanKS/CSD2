@@ -1,8 +1,8 @@
 #include "audioeffect.h"
 
-AudioEffect::AudioEffect(double samplerate){
+AudioEffect::AudioEffect(double samplerate) : samplerate(samplerate){
   std::cout << "Audio Effect Constructor" << std::endl;
-  this->samplerate = samplerate;
+
 }
 
 float AudioEffect::setDrywet(float drywet){
