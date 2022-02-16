@@ -1,14 +1,14 @@
 #include "sine.h"
 #include "square.h"
 #include "saw.h"
-#include <iostream>
+#include "audioeffect.h"
 
-class Tremolo{
+class Tremolo : AudioEffect{
 public:
   Tremolo(double samplerate);
   ~Tremolo();
 
-  double output(double inputSample) override;
+  float output(float inputSample) override;
 
   void assignWave(int waveformtype);
 

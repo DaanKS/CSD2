@@ -1,7 +1,7 @@
 #include "tremolo.h"
 
 Tremolo::Tremolo(double samplerate) : AudioEffect(samplerate),
- samplerate(samplerate), rate(0.5), amplitude(1.0){
+ rate(0.5), amplitude(1.0){
   osc = new Sine(samplerate);
 }
 
@@ -10,7 +10,7 @@ Tremolo::~Tremolo(){
   osc = nullptr;
 }
 
-double Tremolo::output(double inputSample){
+float Tremolo::output(float inputSample){
   modSignal = osc->output();
   modSignal *= amplitude;
   modSignal += 1.0 - amplitude;

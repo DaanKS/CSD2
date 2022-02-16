@@ -1,35 +1,54 @@
-#include "circbuffer.h"
+//This code is intellectual property of Ciska Vriezenga.
+//I altered some of the naamgeving for my own understanding.
 
-//dummy constructor, give it nothing  to start off
-CircBuffer::CircBuffer(){}
+#include <iostream>
+#pragma once
 
-CircBuffer::CircBuffer(uint size) : m_size(size),writeIndex(0), readIndex(0){
-  allocateBuffer();
-}
-CircBuffer::~CircBuffer(){
-  deleteBuffer();
-}
+typedef unsigned int uint;
 
-void CircBuffer::initialize(uint size){
-  m_size = size;
-  deleteBuffer();
-  allocateBuffer();
-}
-void CircBuffer::allocateBuffer(){
-  std::cout << "buffer allocation " << std::endl;
-  //reserve and clear buffer. Set 0 for entire size of buffer
-  buffer = (float*)malloc(m_size * sizeof(float));
-  memset(buffer, 0, m_size * sizeof(float));
-}
-void CircBuffer::deleteBuffer(){
-  //using memset to release the reserved space
-  free(buffer);
-}
+class CircBuffer{
+public:
+  CircBuffer(); //we use an empty construtor so we can reserve the object before knowing the samplerate
+  CircBuffer(uint size);
+  ~CircBuffer();
 
-void CircBuffer::setDelayTimeSamps(uint delayTimeSamps){
-  this->delayTimeSamps = delayTimeSamps;
-  std::cout << "delayTime Samps" << delayTimeSamps << std::endl;
-  //TODO --- understand this
-  readIndex = writeIndex - delayTimeSamps + m_size;
-  wrapHeader(readIndex);
-}
+  void initialize(uint size);
+  void setDelayTimeSamps(uint delayTimeSamps);
+
+  inline void writeToBuffer(float inputSample){buffer[writeIndex] = inputSample;}
+  inline float readFromBuffer(){return buffer[readIndex];}
+
+  inline void incrementIndeces(){
+    incrementWriteIndex();
+    incrementReadIndex();
+  }
+
+private:
+//Define incrementmethods. We make them private because we don't want anything
+//external to accidently mess with the header positions seperately.
+  inline void incrementWriteIndex(){
+    writeIndex++;
+    wrapHeader(writeIndex);
+  }
+  inline void incrementReadIndex(){
+    readIndex++;
+    wrapHeader(readIndex);
+  }
+//wrapping function. Using pointers, wow this is super smart @ciska.
+//By giving the index as a pointer we are able to handle it as if we are changing
+//the index as if it was an object. "index" is replaced by "readIndex" or "writeIndex"
+  inline void wrapHeader(uint& index){
+    if(index >= m_size){
+       index -= m_size;
+    }
+  }
+
+void allocateBuffer();
+void deleteBuffer();
+
+  float* buffer;
+  uint m_size;
+  uint delayTimeSamps;
+  uint writeIndex;
+  uint readIndex;
+};
