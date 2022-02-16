@@ -7,7 +7,7 @@ public:
   Delay(double samplerate);
   ~Delay();
 
-  double output(double inputSample) override;
+  float output(float inputSample) override;
 
   void setFeedback(float feedback);
   void setDelayTime(float delayTime);

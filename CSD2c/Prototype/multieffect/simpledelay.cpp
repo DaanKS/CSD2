@@ -1,6 +1,6 @@
 #include "simpledelay.h"
 
-Delay::Delay(double samplerate) : AudioEffect(samplerate),samplerate(samplerate), maxBufferMult(2)
+Delay::Delay(double samplerate) : AudioEffect(samplerate), maxBufferMult(2)
 {
   circ = new CircBuffer(samplerate * maxBufferMult);
   circ->setDelayTimeSamps(static_cast<uint>(samplerate / 2));
@@ -10,7 +10,7 @@ Delay::~Delay(){
   circ = nullptr;
 }
 
-double Delay::output(double inputSample){
+float Delay::output(float inputSample){
   circ->writeToBuffer(inputSample + (outputSample * feedback));
   outputSample = circ->readFromBuffer();
   circ->incrementIndeces();
