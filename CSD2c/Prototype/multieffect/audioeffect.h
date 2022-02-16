@@ -3,6 +3,8 @@
 #include <cstring>
 #include <vector>
 
+#pragma once
+
 class AudioEffect{
 public:
   AudioEffect(double samplerate);

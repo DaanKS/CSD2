@@ -2,6 +2,8 @@
 #include "circbuffer.h"
 #include "audioeffect.h"
 
+#pragma once
+
 class Delay : public AudioEffect{
 public:
   Delay(double samplerate);

@@ -3,6 +3,8 @@
 #include "saw.h"
 #include "audioeffect.h"
 
+#pragma once
+
 class Tremolo : AudioEffect{
 public:
   Tremolo(double samplerate);
