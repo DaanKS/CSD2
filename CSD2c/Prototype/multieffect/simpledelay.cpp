@@ -1,8 +1,8 @@
 #include "simpledelay.h"
 
-Delay::Delay(double samplerate) : AudioEffect(samplerate),samplerate(samplerate), maxBufferSize(2)
+Delay::Delay(double samplerate) : AudioEffect(samplerate),samplerate(samplerate), maxBufferMult(2)
 {
-  circ = new CircBuffer(samplerate * maxBufferSize);
+  circ = new CircBuffer(samplerate * maxBufferMult);
   circ->setDelayTimeSamps(static_cast<uint>(samplerate / 2));
 }
 Delay::~Delay(){
