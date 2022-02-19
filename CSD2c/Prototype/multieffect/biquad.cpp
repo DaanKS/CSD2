@@ -26,26 +26,46 @@ Biquad::~Biquad(){
 
 
 float Biquad::output(float inputSample){
-  outputSample =  1.0 / Azero * (Bzero * inputSample +
-  Bone * his1->tick(inputSample) +
+/*  outputSample =  ((1.0 / Azero) * ((Bzero * inputSample) +
+  (Bone * his1->tick(inputSample)) +
+  (Btwo * his2->tick(his3->tick(inputSample))) -
+  (Aone * his4->tick(outputSample)) -
+  (Atwo * his5->tick(his6->tick(outputSample))))); */
+/*
+  outputSample = (Bzero * inputSample) + (Bone * his1->tick(inputSample)) +
   Btwo * his2->tick(his3->tick(inputSample)) -
-  Aone * his4->tick(outputSample) -
-  Atwo * his5->tick(his6->tick(outputSample)));
+  Aone * his4->tick(outputSample)-
+  Atwo * his5->tick(his6->tick(outputSample)); */
+
+  outputSample = ((Bzero / Azero) * inputSample) +
+  ((Bone / Azero) * his1->tick(inputSample)) +
+  ((Btwo / Azero) * his2->tick(his3->tick(inputSample))) -
+  ((Aone / Azero) * his4->tick(outputSample)) -
+  ((Atwo / Azero) * his5->tick(his6->tick(outputSample)));
+
+
+  std::cout << outputSample << std::endl;
+
   return outputSample;
 }
 
 void Biquad::setCutoffFreq(float cutoffFreq){
   this->cutoffFreq = cutoffFreq;
+  std::cout << cutoffFreq << " CutOff" << std::endl;
 }
 void Biquad::setQFactor(float qFactor){
   this->qFactor = qFactor;
+  std::cout << qFactor << " qFactor" << std::endl;
 }
 
-void Biquad::calculateOmega(float cutoffFreq){
+void Biquad::calculateOmega(){
   this->omega = 2 * M_PI * (cutoffFreq / samplerate);
+  std::cout << omega << " Omega" << std::endl;
+  std::cout << samplerate << " Calculate Omega" << std::endl;
 }
-void Biquad::calculateAlpha(float omega){
+void Biquad::calculateAlpha(){
   this->alpha = (sin(omega) / (2 * qFactor));
+  std::cout << alpha << " alpha" <<std::endl;
 }
 
 void Biquad::calculateCoefficients(){
