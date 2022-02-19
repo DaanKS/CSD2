@@ -15,9 +15,9 @@ public:
   void setCutoffFreq(float cutoffFreq);
   void setQFactor(float qFactor);
 
-  float calculatOmega(float cutoffFreq);
-  float calculateAlpha(float omega);
-  float calculateCoefficients();
+  void calculateOmega(float cutoffFreq);
+  void calculateAlpha(float omega);
+  void calculateCoefficients();
 
 private:
   inline void calculateBzero(){Bzero = ((1.0 - cos(omega)) / 2.0); }
@@ -27,12 +27,12 @@ private:
   inline void calculateAone(){Aone = -2.0 * cos(omega);}
   inline void calculateAtwo(){Atwo = 1.0 - alpha;}
 
-  History his1();
-  History his2();
-  History his3();
-  History his4();
-  History his5();
-  History his6();
+  History* his1;
+  History* his2;
+  History* his3;
+  History* his4;
+  History* his5;
+  History* his6;
 
   float cutoffFreq;
   float qFactor;
