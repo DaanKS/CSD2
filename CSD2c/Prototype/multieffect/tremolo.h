@@ -5,7 +5,7 @@
 
 #pragma once
 
-class Tremolo : AudioEffect{
+class Tremolo : public AudioEffect{
 public:
   Tremolo(double samplerate);
   ~Tremolo();
