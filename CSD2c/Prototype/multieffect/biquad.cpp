@@ -1,12 +1,18 @@
 #include "biquad.h"
 
 Biquad::Biquad(double samplerate): AudioEffect(samplerate){
-  his1 = new History;
-  his2 = new History;
-  his3 = new History;
-  his4 = new History;
-  his5 = new History;
-  his6 = new History;
+  his1 = new CircBuffer(3);
+  his1->setDelayTimeSamps(1);
+  his2 = new CircBuffer(3);
+  his2->setDelayTimeSamps(1);
+  his3 = new CircBuffer(3);
+  his3->setDelayTimeSamps(1);
+  his4 = new CircBuffer(3);
+  his4->setDelayTimeSamps(1);
+  his5 = new CircBuffer(3);
+  his5->setDelayTimeSamps(1);
+  his6 = new CircBuffer(3);
+  his6->setDelayTimeSamps(1);
 }
 
 Biquad::~Biquad(){
@@ -44,6 +50,13 @@ float Biquad::output(float inputSample){
   ((Aone / Azero) * his4->tick(outputSample)) -
   ((Atwo / Azero) * his5->tick(his6->tick(outputSample)));
   std::cout << outputSample << std::endl;
+  his1->incrementIndeces();
+  his2->incrementIndeces();
+  his3->incrementIndeces();
+  his4->incrementIndeces();
+  his5->incrementIndeces();
+  his6->incrementIndeces();
+
   return 0;
 }
 

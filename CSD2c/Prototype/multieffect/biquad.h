@@ -33,12 +33,12 @@ private:
   inline void calculateAtwo(){this->Atwo = 1.0 - alpha;
   std::cout << Atwo << " Atwo" << std::endl; }
 
-  History* his1;
-  History* his2;
-  History* his3;
-  History* his4;
-  History* his5;
-  History* his6;
+  CircBuffer* his1;
+  CircBuffer* his2;
+  CircBuffer* his3;
+  CircBuffer* his4;
+  CircBuffer* his5;
+  CircBuffer* his6;
 
   float cutoffFreq;
   float qFactor;

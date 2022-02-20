@@ -8,6 +8,6 @@ public:
   double tick(double inputSample);
 
 protected:
-  double inputSample;
-  double previousSample;
+  double inputSample = 0;
+  double previousSample = 0;
 };

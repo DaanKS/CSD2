@@ -15,6 +15,7 @@ public:
   void initialize(uint size);
   void setDelayTimeSamps(uint delayTimeSamps);
 
+  inline float tick(float inputSample){writeToBuffer(inputSample);return readFromBuffer();}
   inline void writeToBuffer(float inputSample){buffer[writeIndex] = inputSample;}
   inline float readFromBuffer(){return buffer[readIndex];}
 

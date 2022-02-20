@@ -1,6 +1,6 @@
 #include "history.h"
 
-History::History(){}
+History::History() : inputSample(0), previousSample(0){}
 History::~History(){}
 
 double History::tick(double inputSample){
