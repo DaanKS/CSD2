@@ -43,9 +43,6 @@ float Biquad::output(float inputSample){
   ((Aone / Azero) * his4->tick(outputSample)) -
   ((Atwo / Azero) * his5->tick(his6->tick(outputSample)));
 
-
-  std::cout << outputSample << std::endl;
-
   return outputSample;
 }
 
