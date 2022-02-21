@@ -64,6 +64,9 @@ int main(int argc, char **argv){
             std::cout << "New Feedback: ";
             std::cin >> tempValue;
             ((Delay*)effect_2)->setFeedback(tempValue);
+            std::cout << "New Drywet: ";
+            std::cin >> tempValue;
+            effect_2->setDrywet(tempValue);
             break;
         case 'e' :
             std::cout << "new Trem Rate: ";
