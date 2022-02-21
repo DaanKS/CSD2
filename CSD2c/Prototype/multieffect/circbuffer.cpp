@@ -16,7 +16,7 @@ void CircBuffer::initialize(uint size){
   allocateBuffer();
 }
 void CircBuffer::allocateBuffer(){
-  std::cout << "buffer allocation " << std::endl;
+  //std::cout << "buffer allocation " << std::endl;
   //reserve and clear buffer. Set 0 for entire size of buffer
   buffer = (float*)malloc(m_size * sizeof(float));
   memset(buffer, 0, m_size * sizeof(float));
@@ -28,7 +28,7 @@ void CircBuffer::deleteBuffer(){
 
 void CircBuffer::setDelayTimeSamps(uint delayTimeSamps){
   this->delayTimeSamps = delayTimeSamps;
-  std::cout << "delayTime Samps" << delayTimeSamps << std::endl;
+  //std::cout << "delayTime Samps" << delayTimeSamps << std::endl;
   //TODO --- understand this
   readIndex = writeIndex - delayTimeSamps + m_size;
   wrapHeader(readIndex);
