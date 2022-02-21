@@ -20,7 +20,6 @@ public:
 
 protected:
   CircBuffer* circ;
-  Mix* mix;
 
   int maxBufferMult;
   float outputSample = 0;

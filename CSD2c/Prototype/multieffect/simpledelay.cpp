@@ -4,7 +4,7 @@ Delay::Delay(double samplerate) : AudioEffect(samplerate), maxBufferMult(2)
 {
   circ = new CircBuffer(samplerate * maxBufferMult);
   circ->setDelayTimeSamps(static_cast<uint>(samplerate / 2));
-  mix = new Mix;
+  mix = std::make_unique<Mix>();
 }
 Delay::~Delay(){
   delete circ;
