@@ -16,11 +16,11 @@ int main(int argc, char **argv){
   AudioEffect* effect_2;
   AudioEffect* effect_3;
 
-  effect_1 = new Delay(samplerate);
-  ((Delay*)effect_1)->setDelayTime(250);
-  ((Delay*)effect_1)->setFeedback(0.7);
-  effect_2 = new Tanh(samplerate);
-  ((Tanh*)effect_2)->setDrive(1.0);
+  effect_1 = new Tanh(samplerate);
+  ((Tanh*)effect_1)->setDrive(1.0);
+  effect_2 = new Delay(samplerate);
+  ((Delay*)effect_2)->setDelayTime(250);
+  ((Delay*)effect_2)->setFeedback(0.7);
   effect_3 = new Tremolo(samplerate);
   ((Tremolo*)effect_3)->setRate(20.0);
   ((Tremolo*)effect_3)->setAmplitude(1.0);
@@ -43,18 +43,41 @@ int main(int argc, char **argv){
   jack.autoConnect();
   std::cout << "Press 'q' and hit ENTER to quit \n";
   bool running =true;
+  float tempValue;
   while(running){
     switch (std::cin.get()) {
-      case 'q':
-        running = false;
-        jack.end();
-        delete effect_1;
-        effect_1 = nullptr;
-        delete effect_2;
-        effect_2 = nullptr;
-        delete effect_3;
-        effect_3 = nullptr;
-        break;
+        case 'q':
+            running = false;
+            jack.end();
+            delete effect_1;
+            effect_1 = nullptr;
+            delete effect_2;
+            effect_2 = nullptr;
+            delete effect_3;
+            effect_3 = nullptr;
+            break;
+        case 'w' :
+            std::cout << "New Delay Time ms: ";
+            std::cin >> tempValue;
+            ((Delay*)effect_2)->setDelayTime(tempValue);
+            std::cout << "New Feedback: ";
+            std::cin >> tempValue;
+            ((Delay*)effect_2)->setFeedback(tempValue);
+            break;
+        case 'e' :
+            std::cout << "new Trem Rate: ";
+            std::cin >> tempValue;
+            ((Tremolo*)effect_3)->setRate(tempValue);
+            std::cout << "new Amplitude: ";
+            std::cin >> tempValue;
+            ((Tremolo*)effect_3)->setAmplitude(tempValue);
+             break;
+        case 'd' :
+            std::cout << "Secret Settings Unlocked!\n";
+            std::cout << "Input New Drive: ";
+            std::cin >> tempValue;
+            ((Tanh*)effect_1)->setDrive(tempValue);
+            break;
       }
   }
 
