@@ -81,6 +81,9 @@ int main(int argc, char **argv){
             std::cout << "Input New Drive: ";
             std::cin >> tempValue;
             ((Tanh*)effect_1)->setDrive(tempValue);
+            std::cout << "Dry Wet: ";
+            std::cin >> tempValue;
+            effect_1->setDrywet(tempValue);
             break;
       }
   }
