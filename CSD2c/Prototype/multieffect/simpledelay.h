@@ -1,6 +1,5 @@
 #include <iostream>
 #include "circbuffer.h"
-#include "squarelaw.h"
 #include "audioeffect.h"
 
 
