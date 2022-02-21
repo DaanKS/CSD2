@@ -15,7 +15,7 @@ float Delay::output(float inputSample){
   circ->writeToBuffer(inputSample + (outputSample * feedback));
   outputSample = circ->readFromBuffer();
   circ->incrementIndeces();
-  
+
   return (inputSample * mix->getA(drywet)) + (outputSample * mix->getB(drywet));
 }
 
