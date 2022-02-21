@@ -49,8 +49,8 @@ float Biquad::output(float inputSample){
                    ((Btwo / Azero) * his2->tick(his3->tick(inputSample))) -
                    ((Aone / Azero) * his4->tick(outputSample)) -
                    ((Atwo / Azero) * his5->tick(his6->tick(outputSample)));
-    std::cout << outputSample << std::endl;
-    return 0;
+   // std::cout << outputSample << std::endl;
+    return outputSample;
 }
 
 void Biquad::setCutoffFreq(float cutoffFreq){

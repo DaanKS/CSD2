@@ -5,6 +5,7 @@
 
 #include "history.h"
 #include <cmath>
+#include <iostream>
 
 #pragma once
 
@@ -13,7 +14,7 @@ public:
     Biquad(double samplerate);
     ~Biquad();
 
-    float output(float inputSample) override;
+    float output(float inputSample);
 
     void setCutoffFreq(float cutoffFreq);
     void setQFactor(float qFactor);
@@ -42,6 +43,8 @@ private:
     History* his4;
     History* his5;
     History* his6;
+
+    double samplerate;
 
     float cutoffFreq;
     float qFactor;
