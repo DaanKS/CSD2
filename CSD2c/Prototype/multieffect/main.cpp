@@ -24,7 +24,7 @@ int main(int argc, char **argv){
   ((Delay*)effect_2)->setFeedback(0.7);
   effect_3 = new Tremolo(samplerate);
   ((Tremolo*)effect_3)->setRate(1.0);
-  ((Tremolo*)effect_3)->setAmplitude(1.0);
+  ((Tremolo*)effect_3)->setAmplitude(0.0);
  /* effect_2 = new Biquad(samplerate);
   ((Biquad*)effect_2)->setCutoffFreq(500);
   ((Biquad*)effect_2)->setQFactor(1);
