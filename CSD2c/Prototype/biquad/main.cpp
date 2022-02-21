@@ -7,13 +7,13 @@ int main() {
     Biquad biq(samplerate);
 
     biq.setCutoffFreq(500);
-    biq.setQFactor(1.0);
+    biq.setQFactor(0.001);
     biq.calculateOmega();
     biq.calculateAlpha();
     biq.calculateCoefficients();
 
     float phase = 0;
-    float delta = 50 / samplerate;
+    float delta = 500 / samplerate;
     float buffer[(int)samplerate];
 
     for(int i = 0; i < (int)samplerate; i++){
