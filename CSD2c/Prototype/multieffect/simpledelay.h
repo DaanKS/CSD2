@@ -1,6 +1,8 @@
 #include <iostream>
 #include "circbuffer.h"
+#include "squarelaw.h"
 #include "audioeffect.h"
+
 
 #pragma once
 
@@ -18,6 +20,7 @@ public:
 
 protected:
   CircBuffer* circ;
+  Mix* mix;
 
   int maxBufferMult;
   float outputSample = 0;

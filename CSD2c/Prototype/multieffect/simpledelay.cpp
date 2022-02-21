@@ -4,6 +4,7 @@ Delay::Delay(double samplerate) : AudioEffect(samplerate), maxBufferMult(2)
 {
   circ = new CircBuffer(samplerate * maxBufferMult);
   circ->setDelayTimeSamps(static_cast<uint>(samplerate / 2));
+  mix = new Mix;
 }
 Delay::~Delay(){
   delete circ;
@@ -15,7 +16,7 @@ float Delay::output(float inputSample){
   outputSample = circ->readFromBuffer();
   circ->incrementIndeces();
 
-  return inputSample + outputSample;
+  return (inputSample * mix->getB(drywet)) + (outputSample * mix->getA(drywet));
 }
 
 void Delay::setFeedback(float feedback){
