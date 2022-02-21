@@ -3,6 +3,7 @@
 #include "jack_module.h"
 #include "biquad.h"
 #include "bypass.h"
+#include "tanh.h"
 #include <iostream>
 
 int main(int argc, char **argv){
@@ -18,9 +19,8 @@ int main(int argc, char **argv){
   effect_1 = new Delay(samplerate);
   ((Delay*)effect_1)->setDelayTime(250);
   ((Delay*)effect_1)->setFeedback(0.7);
-  effect_2 = new Tremolo(samplerate);
-  ((Tremolo*)effect_2)->setRate(1.5);
-  ((Tremolo*)effect_2)->setAmplitude(1.0);
+  effect_2 = new Tanh(samplerate);
+  ((Tanh*)effect_2)->setDrive(1.0);
   effect_3 = new Tremolo(samplerate);
   ((Tremolo*)effect_3)->setRate(20.0);
   ((Tremolo*)effect_3)->setAmplitude(1.0);
