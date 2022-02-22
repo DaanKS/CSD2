@@ -2,7 +2,6 @@
 // Created by Dean on 21/02/2022.
 //
 
-
 #include "history.h"
 #include <cmath>
 #include <iostream>
@@ -37,13 +36,6 @@ private:
     inline void calculateAtwo(){this->Atwo = 1.0 - alpha;
         std::cout << Atwo << " Atwo" << std::endl; }
 
-    History* his1;
-    History* his2;
-    History* his3;
-    History* his4;
-    History* his5;
-    History* his6;
-
     double samplerate;
 
     float cutoffFreq;
@@ -53,4 +45,9 @@ private:
 
     float Bzero, Bone, Btwo;
     float Azero, Aone, Atwo;
+
+    float x_his1 = 0;
+    float x_his2 = 0;
+    float y_his1 = 0;
+
 };
