@@ -14,10 +14,10 @@ int main(int argc, char **argv){
 
   AudioEffect* effect_1;
   AudioEffect* effect_2;
-  AudioEffect* effect_3;on
+  AudioEffect* effect_3;
 
   effect_1 = new Tanh(samplerate);
-  ((Tanh*)effect_1)->setDrive(1.0);
+  ((Tanh*)effect_1)->setDrive(2.0);
 
   effect_2 = new Delay(samplerate);
   ((Delay*)effect_2)->setDelayTime(250);
@@ -26,14 +26,14 @@ int main(int argc, char **argv){
   effect_3 = new Tremolo(samplerate);
   ((Tremolo*)effect_3)->setRate(1.0);
   ((Tremolo*)effect_3)->setAmplitude(0.0);
-  
- /* effect_2 = new Biquad(samplerate);
-  ((Biquad*)effect_2)->setCutoffFreq(500);
-  ((Biquad*)effect_2)->setQFactor(1);
+/*
+  effect_2 = new Biquad(samplerate);
+  ((Biquad*)effect_2)->setCutoffFreq(1000);
+  ((Biquad*)effect_2)->setQFactor(2);
   ((Biquad*)effect_2)->calculateOmega();
   ((Biquad*)effect_2)->calculateAlpha();
-  ((Biquad*)effect_2)->calculateCoefficients(); */
-
+  ((Biquad*)effect_2)->calculateCoefficients();
+*/
   jack.onProcess = [&effect_1, &effect_2, &effect_3](jack_default_audio_sample_t *inBuf,
   jack_default_audio_sample_t *outBuf, jack_nframes_t numFrames){
     for(unsigned int sample = 0; sample < numFrames; sample++){

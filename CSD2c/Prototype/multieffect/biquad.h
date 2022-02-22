@@ -37,12 +37,9 @@ private:
     inline void calculateAtwo(){this->Atwo = 1.0 - alpha;
         std::cout << Atwo << " Atwo" << std::endl; }
 
-    History* his1;
-    History* his2;
-    History* his3;
-    History* his4;
-    History* his5;
-    History* his6;
+    float x_his1 = 0;
+    float x_his2 = 0;
+    float y_his1 = 0;
 
     double samplerate;
 
