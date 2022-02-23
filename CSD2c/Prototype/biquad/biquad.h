@@ -22,13 +22,15 @@ public:
     void calculateAlpha();
     void calculateCoefficients();
 
+
+
 private:
-    inline void calculateBzero(){this->Bzero = ((1.0 - cos(omega)) / 2.0);}
-    inline void calculateBone(){this->Bone = (1.0 - cos(omega));}
-    inline void calculateBtwo(){this->Btwo = ((1.0 - cos(omega)) / 2.0);}
-    inline void calculateAzero(){this->Azero = 1.0 + alpha;}
-    inline void calculateAone(){this->Aone = -2.0 * cos(omega);}
-    inline void calculateAtwo(){this->Atwo = 1.0 - alpha;}
+    void calculateBzero();
+    void calculateBone();
+    void calculateBtwo();
+    void calculateAzero();
+    void calculateAone();
+    void calculateAtwo();
 
     float samplerate;
 
@@ -43,5 +45,7 @@ private:
     float x_his1;
     float x_his2;
     float y_his1;
+
+    int filterType;
 
 };

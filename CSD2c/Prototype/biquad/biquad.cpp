@@ -8,6 +8,7 @@
 Biquad::Biquad(float samplerate) : samplerate(samplerate),
 m_cutoff(2000), m_qFactor(1.0), outputSample(0),
 x_his1(0), x_his2(0), y_his1(0),
+filterType(0)
 {}
 
 Biquad::~Biquad() = default;
@@ -50,4 +51,29 @@ void Biquad::calculateCoefficients(){
     calculateAzero();
     calculateAone();
     calculateAtwo();
+}
+
+void Biquad::calculateBzero(){
+    if (filterType == 0){this->Bzero = (1.0 - cos(omega)) / 2.0;}
+    else{this->Bzero = (1.0 + cos(omega)) / 2.0;}
+}
+void Biquad::calculateBone() {
+    if (filterType == 0) { this->Bone = (1.0 - cos(omega)); }
+    else { this->Bone = -(1.0 + cos(omega)); }
+}
+void Biquad::calculateBtwo(){
+    if(filterType == 0){this->Btwo = ((1.0 - cos(omega)) / 2.0);}
+    else{this->Btwo = (1.0 + cos(omega)) / 2.0;}
+}
+void Biquad::calculateAzero(){
+    if(filterType == 0){this->Azero = 1.0 + alpha;}
+    else{this->Azero = 1.0 + alpha;}
+}
+void Biquad::calculateAone(){
+    if(filterType == 0){this->Aone = -2.0 * cos(omega);}
+    else{this->Aone = (-2.0 * cos(omega));}
+}
+void Biquad::calculateAtwo(){
+    if(filterType == 0){this->Atwo = 1.0 - alpha;}
+    else{this->Atwo = 1.0 - alpha;}
 }
