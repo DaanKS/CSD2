@@ -7,7 +7,7 @@ int main() {
     Biquad biq(samplerate);
 
     biq.setCutoffFreq(500);
-    biq.setQFactor(0.001);
+    biq.setQFactor(0.01);
     biq.calculateOmega();
     biq.calculateAlpha();
     biq.calculateCoefficients();
@@ -22,7 +22,7 @@ int main() {
         buffer[i] = phase >= 0.5 ? -1 : 1;
     }
 
-    for(int i = 0; i < (int)samplerate; i++){
+    for(int i = 0; i < (int)50; i++){
         std::cout << biq.output(buffer[i]) << std::endl;
     }
 
