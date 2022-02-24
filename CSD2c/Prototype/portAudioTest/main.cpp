@@ -7,21 +7,27 @@
 struct MyCallback : AudioIODeviceCallback {
 
   Tremolo* trem;
+  Tremolo* trem_2;
 
   void prepareToPlay(int sampleRate, int numSamplesPerBlock) override {
     trem = new Tremolo(sampleRate);
     trem->setRate(1.0);
     trem->setAmplitude(1.0);
+    trem_2 = new Tremolo(sampleRate);
+    trem_2->setRate(1.5);
+    trem_2->setAmplitude(1.0);
   }
   void process(float* input, float* output, int numSamples, int numChannels) override {
     for(int sample = 0; sample < numSamples; ++ sample){
-      output[sample * 2] = trem->output(input[sample]);
-      output[sample * 2 + 1] = trem->output(input[sample]);
+      output[sample * 2] = trem->output(input[sample * 2]);
+      output[sample * 2 + 1] = trem_2->output(input[sample * 2]);
     }
   }
   void releaseResources() override {
     delete trem;
     trem = nullptr;
+    delete trem_2;
+    trem_2 = nullptr;
   }
 
 
@@ -39,6 +45,7 @@ int main() {
   }
 
   /* waiting / control loop */
+  std::cin.get();
 
   try {
     portAudio.teardown();

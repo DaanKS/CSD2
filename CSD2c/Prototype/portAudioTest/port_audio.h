@@ -4,8 +4,9 @@
 #pragma once
 
 #include <portaudio.h>
-#include <exception>
-#include <noexcept>
+//#include <exception>
+#include <stdexcept>
+
 
 // ========================================================================================
 
