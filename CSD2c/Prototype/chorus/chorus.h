@@ -12,8 +12,8 @@ public:
     void modulateDelayTimeL();
     void modulateDelayTimeR();
 
-    void setRateL(float rate) = 0;
-    void setRateR(float rate) = 0;
+    void setRateL(float rate);
+    void setRateR(float rate);
 
     uint msToSamps(float ms);
 
@@ -21,8 +21,8 @@ private:
     double samplerate;
     float m_rateL;
     float m_rateR;
-    float low = 5;
-    float high = 95;
+    float low = 0;
+    float high = 10;
 
     CircBuffer* circ_L;
     CircBuffer* circ_R;

@@ -5,9 +5,9 @@ Korus::Korus(double samplerate) : samplerate(samplerate) {
     circ_R = new CircBuffer(samplerate * 2.0);
 
     sin_L = new Sine(samplerate);
-    sin_L->setDelta(1.0);
+    sin_L->setDelta(0.2);
     sin_R = new Sine(samplerate);
-    sin_R->setDelta(1.5);
+    sin_R->setDelta(0.25);
 }
 Korus::~Korus(){
     delete circ_L;
@@ -23,16 +23,20 @@ Korus::~Korus(){
 
 float Korus::outputL(float inputL) {
     circ_L->writeToBuffer(inputL);
+    float output = circ_L->readFromBuffer() + inputL;
     circ_L->incrementIndeces();
-    return circ_L->readFromBuffer();
+    modulateDelayTimeL();
+    return output;
 }
 void Korus::modulateDelayTimeL() {
     circ_L->setDelayTimeSamps(msToSamps(((sin_L->output() + 1) * 0.5 )* high + low ));
 }
 float Korus::outputR(float inputR) {
     circ_R->writeToBuffer(inputR);
+    float output = circ_R->readFromBuffer() + inputR;
     circ_R->incrementIndeces();
-    return circ_R->readFromBuffer();
+    modulateDelayTimeR();
+    return output;
 }
 void Korus::modulateDelayTimeR() {
     circ_R->setDelayTimeSamps(msToSamps(((sin_R->output() + 1) * 0.5 )* high + low ));
