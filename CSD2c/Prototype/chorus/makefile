@@ -2,7 +2,7 @@ CXX= g++
 CXXFLAGS = -I/usr/local/include -Wall -std=c++1z
 LDFLAGS=-lportaudio -ljack
 # the cpp files from the current project to include
-SRC_PROJECT = circbuffer.cpp chorus.cpp main.cpp
+SRC_PROJECT = circbuffer.cpp modDelay.cpp main.cpp
 # the directory to the folder with the shared modules
 SHAREDCODE_PATH = ../../../CSD2c/sharedCode/
 # the modules to include

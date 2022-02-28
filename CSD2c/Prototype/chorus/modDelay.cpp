@@ -12,11 +12,11 @@ ModDelay::~ModDelay() {
 }
 
 float ModDelay::output(float input) {
-    circ->writeToBuffer(input);
-    float output = circ->readFromBuffer();
+    circ->writeToBuffer(input + (outputS * 0.8));
+    outputS = circ->readFromBuffer();
     circ->incrementIndeces();
     modulateDelayTime();
-    return output;
+    return outputS + input;
 }
 void ModDelay::modulateDelayTime() {
     modSignal = ((osc->output() + 1) * 0.5) * modDepth;

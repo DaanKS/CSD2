@@ -1,5 +1,6 @@
-#include "oscillator.h"
+#include "sine.h"
 #include "circbuffer.h"
+//#include "squarelaw.h"
 
 class ModDelay{
 public:
@@ -16,9 +17,10 @@ public:
 protected:
     double samplerate;
     float m_rate;
-    float modOffset;
-    float modDepth;
+    float modOffset = 1;
+    float modDepth = 5;
     float modSignal;
+    float outputS = 0;
 
     CircBuffer* circ;
     Oscillator* osc;
