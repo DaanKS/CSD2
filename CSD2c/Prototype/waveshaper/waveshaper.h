@@ -12,5 +12,7 @@ public:
     float mapInRange(float input, float xLow, float xHigh, float yLow, float yHigh);
     float linearMap(float input, float low, float high);
 
-
+protected:
+    int bufferSize;
+    float kValue;
 };
