@@ -1,9 +1,11 @@
 #include "waveshaper.h"
 
-Waveshaper::Waveshaper(double samplerate): bufferSize(4096), kValue(1.0) {}
+Waveshaper::Waveshaper(double samplerate): bufferSize(4096), kValue(1.0) {
+    buffer[bufferSize] = new float
+}
 Waveshaper::~Waveshaper() = default;
 
-void Waveshaper::generateWaveTable(float* buffer){
+void Waveshaper::generateWaveTable(){
     //Thanks ciska
     float normalizeFactor = 1.0f / atan(kValue);
     for(int i = 0; i < bufferSize; i++) {

@@ -5,7 +5,7 @@ public:
     Waveshaper(double samplerate);
     ~Waveshaper();
 
-    void generateWaveTable(float* buffer, int bufferSize, float kValue);
+    void generateWaveTable();
 
     float output(float inputSample);
 
