@@ -1,6 +1,6 @@
 #include "waveshaper.h"
 
-Waveshaper::Waveshaper(double samplerate): {}
+Waveshaper::Waveshaper(double samplerate): bufferSize(4096), kValue(1.0) {}
 Waveshaper::~Waveshaper() = default;
 
 void Waveshaper::generateWaveTable(float* buffer){
