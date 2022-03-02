@@ -2,7 +2,7 @@
 
 Waveshaper::Waveshaper(double samplerate): bufferSize(4096), kValue(1.0) {
     buffer = (float*)malloc(bufferSize * sizeof(float));
-    memset(buffer, 0, m_size * sizeof(float));
+    memset(buffer, 0, bufferSize * sizeof(float));
 }
 Waveshaper::~Waveshaper(){
     free(buffer);
@@ -24,7 +24,7 @@ float Waveshaper::output(float inputSample){
     float index = (inputSample + 1) * (bufferSize / 2.0);
     int i = (int) index;
     float indexDecimal = index - float(i);
-    return linearMap(indexDecimal, buffer[i], buffer[i + 1])
+    return linearMap(indexDecimal, buffer[i], buffer[i + 1]);
 }
 float Waveshaper::mapInRange(float input, float xLow, float xHigh, float yLow, float yHigh){
     return ( yLow * (xHigh - input) + yHigh * (input - xLow)) / (xHigh - xLow);
@@ -37,8 +37,8 @@ void Waveshaper::setKvalue(float kValue){
     this->kValue = kValue;
 }
 void Waveshaper::setBufferSize(int bufferSize) {
-    this->bufferSize = buffersize;
+    this->bufferSize = bufferSize;
     free(buffer);
     buffer = (float*)malloc(bufferSize * sizeof(float));
-    memset(buffer, 0, m_size * sizeof(float));
+    memset(buffer, 0, bufferSize * sizeof(float));
 }

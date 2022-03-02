@@ -1,4 +1,5 @@
 #include <cmath>
+#include <iostream>
 
 class Waveshaper{
 public:
