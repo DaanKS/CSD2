@@ -1,9 +1,12 @@
 #include "waveshaper.h"
 
 Waveshaper::Waveshaper(double samplerate): bufferSize(4096), kValue(1.0) {
-    buffer[bufferSize] = new float
+    buffer = (float*)malloc(bufferSize * sizeof(float));
+    memset(buffer, 0, m_size * sizeof(float));
 }
-Waveshaper::~Waveshaper() = default;
+Waveshaper::~Waveshaper(){
+    free(buffer);
+}
 
 void Waveshaper::generateWaveTable(){
     //Thanks ciska
@@ -35,4 +38,7 @@ void Waveshaper::setKvalue(float kValue){
 }
 void Waveshaper::setBufferSize(int bufferSize) {
     this->bufferSize = buffersize;
+    free(buffer);
+    buffer = (float*)malloc(bufferSize * sizeof(float));
+    memset(buffer, 0, m_size * sizeof(float));
 }
