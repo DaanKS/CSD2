@@ -44,7 +44,4 @@ private:
     float x_his2;
     float y_his1;
 
-    int filterType;
-
-};
 };
