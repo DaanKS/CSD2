@@ -45,26 +45,25 @@ struct MyCallback : AudioIODeviceCallback {
             output[sample * 2 + 1] = mod_R->output(tempSample);
         }
     }
-    void releaseResources() override {
-        delete trem;
-        trem = nullptr;
-        delete biquad;
-        biquad = nullptr;
-        delete mod_R;
-        mod_R = nullptr;
-        delete mod_L;
-        mod_L = nullptr;
-        delete wave;
-        wave = nullptr;
-    }
-
+    void releaseResources() override {}
 
 };
 
 int main() {
-    std::vector<AudioEffect*>;
+
     auto myCallback = MyCallback();
     auto portAudio = PortAudio(myCallback);
+    float samplerate = 44100;
+    Waveshaper waveshaper(samplerate);
+    myCallback.wave = &waveshaper;
+    Biquad biquad2(samplerate);
+    myCallback.biquad = &biquad2;
+    ModDelay modDelay_L(samplerate);
+    myCallback.mod_L = &modDelay_L;
+    ModDelay modDelay_R(samplerate);
+    myCallback.mod_R = &modDelay_R;
+    Tremolo tremo(samplerate);
+    myCallback.trem = &tremo;
 
     try {
         portAudio.setup(44100, 512);
@@ -84,7 +83,7 @@ int main() {
             case 'w':
                 std::cout << "Enter New Value for K value: ";
                 std::cin >> tempValue;
-                ((Waveshaper*)wave)->setKvalue(tempValue);
+                waveshaper.setKvalue(tempValue);
                 break;
         }
     }

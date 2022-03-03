@@ -82,7 +82,7 @@ public:
             throw std::runtime_error("failed to stop stream");
 
 
-        if (Pa_CloseStream(stream) != paNoError);
+        if (Pa_CloseStream(stream) != paNoError)
             throw std::runtime_error("failed to close stream");
 
         Pa_Terminate();
