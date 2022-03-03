@@ -35,10 +35,12 @@ float Waveshaper::linearMap(float input, float low, float high){
 
 void Waveshaper::setKvalue(float kValue){
     this->kValue = kValue;
+    setBufferSize(bufferSize);
 }
 void Waveshaper::setBufferSize(int bufferSize) {
     this->bufferSize = bufferSize;
     free(buffer);
     buffer = (float*)malloc(bufferSize * sizeof(float));
     memset(buffer, 0, bufferSize * sizeof(float));
+    generateWaveTable();
 }
