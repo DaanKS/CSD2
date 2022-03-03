@@ -1,5 +1,10 @@
 #include "port_audio.h"
 #include "waveshaper.h"
+#include "biquad.h"
+#include "modDelay.h"
+#include "tremolo.h"
+#include "waveshaper.h"
+
 #include <iostream>
 #include <stdexcept>
 #include <exception>
