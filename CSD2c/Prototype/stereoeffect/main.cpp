@@ -44,8 +44,14 @@ struct MyCallback : AudioIODeviceCallback {
     void releaseResources() override {
         delete trem;
         trem = nullptr;
-        delete trem_2;
-        trem_2 = nullptr;
+        delete biquad;
+        biquad = nullptr;
+        delete mod_R;
+        mod_R = nullptr;
+        delete mod_L;
+        mod_L = nullptr;
+        delete wave;
+        wave = nullptr;
     }
 
 
