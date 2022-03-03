@@ -20,8 +20,8 @@ struct MyCallback : AudioIODeviceCallback {
     AudioEffect* trem;
 
     void prepareToPlay(int sampleRate, int numSamplesPerBlock) override {
-        wave = new Waveshaper(sampleRate);
-            ((Waveshaper*)wave)->setKvalue(10);
+   /*     wave = new Waveshaper(sampleRate);
+            ((Waveshaper*)wave)->setKvalue(50);
             ((Waveshaper*)wave)->generateWaveTable();
         biquad = new Biquad(sampleRate);
             ((Biquad*)biquad)->setCutoffFreq(500);
@@ -35,7 +35,7 @@ struct MyCallback : AudioIODeviceCallback {
             ((ModDelay*)mod_R)->setRate(0.13);
         trem = new Tremolo(sampleRate);
             ((Tremolo*)trem)->setRate(1.0);
-            ((Tremolo*)trem)->setAmplitude(0.0);
+            ((Tremolo*)trem)->setAmplitude(0.0); */
     }
     void process(float* input, float* output, int numSamples, int numChannels) override {
         for(int sample = 0; sample < numSamples; ++ sample){
@@ -55,12 +55,20 @@ int main() {
     auto portAudio = PortAudio(myCallback);
     float samplerate = 44100;
     Waveshaper waveshaper(samplerate);
+    waveshaper.setKvalue(50);
     myCallback.wave = &waveshaper;
     Biquad biquad2(samplerate);
+        biquad2.setCutoffFreq(500);
+        biquad2.setQFactor(0.1);
+        biquad2.calculateOmega();
+        biquad2.calculateAlpha();
+        biquad2.calculateCoefficients();
     myCallback.biquad = &biquad2;
     ModDelay modDelay_L(samplerate);
+        modDelay_L.setRate(0.1);
     myCallback.mod_L = &modDelay_L;
     ModDelay modDelay_R(samplerate);
+        modDelay_R.setRate(0.2);
     myCallback.mod_R = &modDelay_R;
     Tremolo tremo(samplerate);
     myCallback.trem = &tremo;
