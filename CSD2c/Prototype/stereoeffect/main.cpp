@@ -31,12 +31,14 @@ struct MyCallback : AudioIODeviceCallback {
             (ModDelay*)mod_R)->setRate(0.13);
         trem = new Tremolo(sampleRate);
             ((Tremolo*)trem)->setRate(1.0);
-            ((Tremolo*)trem)->setAmplitude(1.0);
+            ((Tremolo*)trem)->setAmplitude(0.0);
     }
     void process(float* input, float* output, int numSamples, int numChannels) override {
         for(int sample = 0; sample < numSamples; ++ sample){
-            output[sample * 2] = trem->output(input[sample * 2]);
-            output[sample * 2 + 1] = trem_2->output(input[sample * 2]);
+            float tempSample = biquad->(wave->output(input[sample * 2])))
+
+            output[sample * 2] = mod_L->output(tempSample);
+            output[sample * 2 + 1] = mod_R->output(tempSample);
         }
     }
     void releaseResources() override {
