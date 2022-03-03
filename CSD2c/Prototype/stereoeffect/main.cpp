@@ -19,6 +19,7 @@ struct MyCallback : AudioIODeviceCallback {
     void prepareToPlay(int sampleRate, int numSamplesPerBlock) override {
         wave = new Waveshaper(sampleRate);
             ((Waveshaper*)wave)->setKvalue(10);
+            ((Waveshaper*)wave)->generateWaveTable();
         biquad = new Biquad(sampleRate);
             ((Biquad*)biquad)->setCutoffFreq(500);
             ((Biquad*)biquad)->setQFactor(0.01);
