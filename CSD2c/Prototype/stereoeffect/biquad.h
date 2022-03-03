@@ -2,13 +2,13 @@
 // Created by Dean on 21/02/2022.
 //
 
-#include "history.h"
+#include "audioeffect.h"
 #include <cmath>
 #include <iostream>
 
 #pragma once
 
-class Biquad{
+class Biquad : public AudioEffect{
 public:
     Biquad(float samplerate);
     ~Biquad();
@@ -31,8 +31,6 @@ private:
     void calculateAzero();
     void calculateAone();
     void calculateAtwo();
-
-    float samplerate;
 
     float m_cutoff;
     float m_qFactor;
