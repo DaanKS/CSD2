@@ -8,6 +8,9 @@
 #include <iostream>
 #include <stdexcept>
 #include <exception>
+#include <vector>
+
+
 
 struct MyCallback : AudioIODeviceCallback {
     AudioEffect* wave;
@@ -59,6 +62,7 @@ struct MyCallback : AudioIODeviceCallback {
 };
 
 int main() {
+    std::vector<AudioEffect*>;
     auto myCallback = MyCallback();
     auto portAudio = PortAudio(myCallback);
 
@@ -70,7 +74,21 @@ int main() {
     }
 
     /* waiting / control loop */
-    std::cin.get();
+    float tempValue;
+    bool running = true;
+    while(running) {
+        switch (std::cin.get()) {
+            case 'q':
+                running = false;
+                break;
+            case 'w':
+                std::cout << "Enter New Value for K value: ";
+                std::cin >> tempValue;
+                ((Waveshaper*)wave)->setKvalue(tempValue);
+                break;
+        }
+    }
+    //std::cin.get();
 
     try {
         portAudio.teardown();
