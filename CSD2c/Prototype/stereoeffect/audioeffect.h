@@ -9,12 +9,13 @@
 
 class AudioEffect{
 public:
-  AudioEffect(double samplerate);
+  AudioEffect();
   virtual ~AudioEffect();
 
   virtual float output(float inputSample) = 0;
 
   void setDrywet(float drywet);
+  void setSamplerate(float samplerate);
 
 protected:
   double samplerate;

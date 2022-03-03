@@ -5,7 +5,7 @@
 #include "biquad.h"
 
 
-Biquad::Biquad(float samplerate) : AudioEffect(samplerate),
+Biquad::Biquad() : AudioEffect(),
                                    m_cutoff(800), m_qFactor(1.0), outputSample(0),
                                    x_his1(0), x_his2(0), y_his1(0)
 

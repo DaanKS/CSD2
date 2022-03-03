@@ -10,7 +10,7 @@
 
 class Biquad : public AudioEffect{
 public:
-    Biquad(float samplerate);
+    Biquad();
     ~Biquad();
 
     float output(float inputSample) noexcept;

@@ -7,12 +7,12 @@
 
 class Tremolo : public AudioEffect{
 public:
-  Tremolo(double samplerate);
+  Tremolo();
   ~Tremolo();
 
   float output(float inputSample) override;
 
-  void assignWave(int waveformtype);
+  void assignWave();
 
   void setRate(double rate);
   void setAmplitude(double amplitude);

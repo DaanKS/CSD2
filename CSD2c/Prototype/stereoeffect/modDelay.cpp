@@ -1,6 +1,6 @@
 #include "modDelay.h"
 
-ModDelay::ModDelay(double samplerate) : AudioEffect(samplerate) {
+ModDelay::ModDelay() : AudioEffect() {
     circ = new CircBuffer(samplerate * 2);
     osc = new Sine(samplerate);
 }

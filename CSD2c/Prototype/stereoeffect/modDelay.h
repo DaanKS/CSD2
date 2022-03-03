@@ -5,10 +5,10 @@
 
 class ModDelay : public AudioEffect{
 public:
-    ModDelay(double samplerate);
+    ModDelay();
     ~ModDelay();
 
-    float output(float input);
+    float output(float input) override;
 
     void modulateDelayTime();
     void setRate(float rate);
@@ -19,7 +19,7 @@ protected:
     double samplerate;
     float m_rate;
     float modOffset = 1;
-    float modDepth = 5;
+    float modDepth = 50;
     float modSignal;
     float outputS = 0;
 

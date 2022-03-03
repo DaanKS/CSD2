@@ -53,9 +53,11 @@ int main() {
 
     auto myCallback = MyCallback();
     auto portAudio = PortAudio(myCallback);
+
     float samplerate = 44100;
+
     Waveshaper waveshaper(samplerate);
-    waveshaper.setKvalue(50);
+        waveshaper.setKvalue(50);
     myCallback.wave = &waveshaper;
     Biquad biquad2(samplerate);
         biquad2.setCutoffFreq(500);

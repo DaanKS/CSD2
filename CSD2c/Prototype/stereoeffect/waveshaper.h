@@ -6,11 +6,11 @@
 
 class Waveshaper : public AudioEffect{
 public:
-    Waveshaper(double samplerate);
+    Waveshaper();
     ~Waveshaper();
 
     void generateWaveTable();
-    float output(float inputSample);
+    float output(float inputSample) override;
     float mapInRange(float input, float xLow, float xHigh, float yLow, float yHigh);
     float linearMap(float input, float low, float high);
     void setKvalue(float kValue); //Steepness of S-Curve

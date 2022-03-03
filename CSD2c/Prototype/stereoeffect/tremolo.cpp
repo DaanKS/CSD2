@@ -1,8 +1,7 @@
 #include "tremolo.h"
 
-Tremolo::Tremolo(double samplerate) : AudioEffect(samplerate),
+Tremolo::Tremolo() : AudioEffect(),
  rate(0.5), amplitude(1.0){
-  osc = new Sine(samplerate);
 }
 
 Tremolo::~Tremolo(){
@@ -17,20 +16,8 @@ float Tremolo::output(float inputSample){
   return inputSample * modSignal;
 }
 
-void Tremolo::assignWave(int waveformtype){
-  clearOsc();
-  switch (waveformtype){
-    case 1:{
-      osc = new Sine(samplerate);
-    }
-    case 2:{
-      osc = new Square(samplerate);
-    }
-    case 3:{
-      osc = new Saw(samplerate);
-    }
-  }
-  setRate(rate);
+void Tremolo::assignWave(){
+    osc = new Sine(samplerate);
 }
 
 void Tremolo::setRate(double rate){
