@@ -1,8 +1,9 @@
 #include "sine.h"
+#include "audioeffect.h"
 #include "circbuffer.h"
-//#include "squarelaw.h"
+#include "squarelaw.h"
 
-class ModDelay{
+class ModDelay : public AudioEffect{
 public:
     ModDelay(double samplerate);
     ~ModDelay();
