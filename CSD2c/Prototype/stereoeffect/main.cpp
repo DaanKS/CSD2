@@ -10,15 +10,28 @@
 #include <exception>
 
 struct MyCallback : AudioIODeviceCallback {
-    Waveshaper* trem;
-    Waveshaper* trem_2;
-
+    AudioEffect* wave;
+    AudioEffect* biquad;
+    AudioEffect* mod_L;
+    AudioEffect* mod_R;
+    AudioEffect* trem;
 
     void prepareToPlay(int sampleRate, int numSamplesPerBlock) override {
-        trem = new Waveshaper(sampleRate);
-        trem_2 = new Waveshaper(sampleRate);
-        trem->generateWaveTable();
-        trem_2->generateWaveTable();
+        wave = new Waveshaper(sampleRate);
+            ((Waveshaper)wave)->setKvalue = 10;
+        biquad = new Biquad(sampleRate);
+            ((Biquad)biquad)->setCutoffFreq(500);
+            ((Biquad)biquad)->setQFactor(0.01);
+            ((Biquad)biquad)->calculateOmega();
+            ((Biquad)biquad)->calculateAlpha();
+            ((Biquad)biquad)->calculateCoefficients();
+        mod_L = new ModDelay(sampleRate);
+            ((ModDelay)mod_L)->setRate(0.1);
+        mod_R = new ModDelay(sampleRate);
+            (ModDelay)mod_R)->setRate(0.13);
+        trem = new Tremolo(sampleRate);
+            ((Tremolo*)trem)->setRate(1.0);
+            ((Tremolo*)trem)->setAmplitude(1.0);
     }
     void process(float* input, float* output, int numSamples, int numChannels) override {
         for(int sample = 0; sample < numSamples; ++ sample){
