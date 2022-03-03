@@ -18,7 +18,7 @@ struct MyCallback : AudioIODeviceCallback {
 
     void prepareToPlay(int sampleRate, int numSamplesPerBlock) override {
         wave = new Waveshaper(sampleRate);
-            ((Waveshaper*)wave)->setKvalue = 10;
+            ((Waveshaper*)wave)->setKvalue(10);
         biquad = new Biquad(sampleRate);
             ((Biquad*)biquad)->setCutoffFreq(500);
             ((Biquad*)biquad)->setQFactor(0.01);
@@ -28,14 +28,14 @@ struct MyCallback : AudioIODeviceCallback {
         mod_L = new ModDelay(sampleRate);
             ((ModDelay*)mod_L)->setRate(0.1);
         mod_R = new ModDelay(sampleRate);
-            (ModDelay*)mod_R)->setRate(0.13);
+            ((ModDelay*)mod_R)->setRate(0.13);
         trem = new Tremolo(sampleRate);
             ((Tremolo*)trem)->setRate(1.0);
             ((Tremolo*)trem)->setAmplitude(0.0);
     }
     void process(float* input, float* output, int numSamples, int numChannels) override {
         for(int sample = 0; sample < numSamples; ++ sample){
-            float tempSample = biquad->(wave->output(input[sample * 2])))
+            float tempSample = biquad->output(wave->output(input[sample * 2]));
 
             output[sample * 2] = mod_L->output(tempSample);
             output[sample * 2 + 1] = mod_R->output(tempSample);

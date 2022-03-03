@@ -2,6 +2,8 @@
 #include <iostream>
 #include "audioeffect.h"
 
+#pragma once
+
 class Waveshaper : public AudioEffect{
 public:
     Waveshaper(double samplerate);
