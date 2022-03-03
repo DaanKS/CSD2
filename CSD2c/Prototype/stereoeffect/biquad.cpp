@@ -68,5 +68,4 @@ void Biquad::calculateAone(){
 }
 void Biquad::calculateAtwo(){
    this->Atwo = 1.0 - alpha;
-
 }
