@@ -1,7 +1,8 @@
 #include <cmath>
 #include <iostream>
+#include "audioeffect.h"
 
-class Waveshaper{
+class Waveshaper : public AudioEffect{
 public:
     Waveshaper(double samplerate);
     ~Waveshaper();
