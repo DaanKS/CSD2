@@ -9,6 +9,7 @@ public:
     ~ModDelay();
 
     float output(float input) override;
+    void assignWave();
 
     void modulateDelayTime();
     void setRate(float rate);
@@ -16,10 +17,10 @@ public:
     uint msToSamps(float ms);
 
 protected:
-    double samplerate;
+
     float m_rate;
     float modOffset = 1;
-    float modDepth = 50;
+    float modDepth = 20;
     float modSignal;
     float outputS = 0;
 

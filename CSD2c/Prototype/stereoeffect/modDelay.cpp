@@ -1,8 +1,7 @@
 #include "modDelay.h"
 
 ModDelay::ModDelay() : AudioEffect() {
-    circ = new CircBuffer(samplerate * 2);
-    osc = new Sine(samplerate);
+
 }
 ModDelay::~ModDelay() {
     delete circ;
@@ -10,15 +9,20 @@ ModDelay::~ModDelay() {
     delete osc;
     osc = nullptr;
 }
+void ModDelay::assignWave() {
+    circ = new CircBuffer(samplerate * 2);
+    osc = new Sine(samplerate);
+}
 
 float ModDelay::output(float input) {
-    circ->writeToBuffer(input + (outputS * 0.8));
+    circ->writeToBuffer(input + (outputS * 0.1));
     outputS = circ->readFromBuffer();
     circ->incrementIndeces();
     modulateDelayTime();
     return outputS + input;
 }
 void ModDelay::modulateDelayTime() {
+    //TODO -- ADD INTERPOLATION
     modSignal = ((osc->output() + 1) * 0.5) * modDepth;
     circ->setDelayTimeSamps(msToSamps(modSignal + modOffset));
 }
