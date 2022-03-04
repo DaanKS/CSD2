@@ -9,7 +9,7 @@ ModDelay::~ModDelay() {
     delete osc;
     osc = nullptr;
 }
-void ModDelay::assignWave() {
+void ModDelay::assignWave() { //TODO -- RENAME TO INITIALIZE
     circ = new CircBuffer(samplerate * 2);
     osc = new Sine(samplerate);
 }
