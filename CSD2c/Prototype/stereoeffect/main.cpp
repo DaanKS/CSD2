@@ -56,23 +56,31 @@ int main() {
 
     float samplerate = 44100;
 
-    Waveshaper waveshaper(samplerate);
+    Waveshaper waveshaper;
         waveshaper.setKvalue(50);
+        waveshaper.setSamplerate(samplerate);
     myCallback.wave = &waveshaper;
-    Biquad biquad2(samplerate);
-        biquad2.setCutoffFreq(500);
+    Biquad biquad2;
+        biquad2.setSamplerate(samplerate);
+        biquad2.setCutoffFreq(10000);
         biquad2.setQFactor(0.1);
         biquad2.calculateOmega();
         biquad2.calculateAlpha();
         biquad2.calculateCoefficients();
     myCallback.biquad = &biquad2;
-    ModDelay modDelay_L(samplerate);
+    ModDelay modDelay_L;
+        modDelay_L.setSamplerate(samplerate);
+        modDelay_L.assignWave();
         modDelay_L.setRate(0.1);
     myCallback.mod_L = &modDelay_L;
-    ModDelay modDelay_R(samplerate);
+    ModDelay modDelay_R;
+        modDelay_R.setSamplerate(samplerate);
+        modDelay_R.assignWave();
         modDelay_R.setRate(0.2);
     myCallback.mod_R = &modDelay_R;
-    Tremolo tremo(samplerate);
+    Tremolo tremo;
+        tremo.setSamplerate(samplerate);
+        tremo.assignWave();
     myCallback.trem = &tremo;
 
     try {
@@ -95,6 +103,30 @@ int main() {
                 std::cin >> tempValue;
                 waveshaper.setKvalue(tempValue);
                 break;
+            case 'e':
+                std::cout << "Enter New Value for Cutoff: ";
+                std::cin >> tempValue;
+                biquad2.setCutoffFreq(tempValue);
+                std::cout << "Enter New Value for Qfactor: ";
+                std::cin >> tempValue;
+                biquad2.setQFactor(tempValue);
+                biquad2.calculateOmega();
+                biquad2.calculateAlpha();
+                biquad2.calculateCoefficients();
+                break;
+            case 'r': //TODO --- add setters for modDepth and Offset and Feedback
+                std::cout << "Enter New Value for Rate L: ";
+                std::cin >> tempValue;
+                modDelay_L.setRate(tempValue);
+                std::cout << "Enter New Value for Rate R: ";
+                std::cin >> tempValue;
+                modDelay_R.setRate(tempValue);
+                break;
+            case 't':
+                std::cout << "Enter New Value for Tremo Rate: ";
+                std::cin >> tempValue;
+                tremo.setRate(tempValue);
+
         }
     }
     //std::cin.get();
