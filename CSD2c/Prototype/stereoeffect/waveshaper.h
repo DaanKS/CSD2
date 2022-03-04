@@ -9,7 +9,7 @@ public:
     Waveshaper();
     ~Waveshaper();
 
-    void generateWaveTable();
+    void generateWaveTable();//TODO -- Add custom wavetables
     float output(float inputSample) override;
     float mapInRange(float input, float xLow, float xHigh, float yLow, float yHigh);
     float linearMap(float input, float low, float high);
