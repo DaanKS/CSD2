@@ -35,5 +35,5 @@ void ModDelay::setRate(float rate){
 uint ModDelay::msToSamps(float ms){
     //ms = (samplerate / 1000.0) / timeInSamples
     // using + 0.5 and then casting to uint for rounding
-    return uint((ms * (samplerate / 1000.0)) + 0.5);
+    return (ms * (samplerate / 1000.0));
 }
