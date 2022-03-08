@@ -8,7 +8,7 @@ typedef unsigned int uint;
 
 class CircBuffer{
 public:
-  CircBuffer(); //we use an empty construtor so we can reserve the object before knowing the samplerate
+  CircBuffer(); //we use an empty constructor so we can reserve the object before knowing the samplerate
   CircBuffer(uint size);
   ~CircBuffer();
 
@@ -16,12 +16,26 @@ public:
   void setDelayTimeSamps(uint delayTimeSamps);
 
   inline float tick(float inputSample){writeToBuffer(inputSample);return readFromBuffer();}
-  inline void writeToBuffer(float inputSample){buffer[writeIndex] = inputSample;}
-  inline float readFromBuffer(){return buffer[readIndex];}
+  inline void writeToBuffer(float inputSample){buffer[(uint)writeIndex] = inputSample;}
+  inline float readFromBuffer(){
+
+      float temp_High = buffer[(uint)(readIndex + 0.5)];
+      float temp_Low = buffer[(uint)readIndex];
+      float temp_input = (uint)(readIndex + 0.5) - readIndex;
+
+      float outputSample = linearMap(temp_input, temp_Low, temp_High);
+      return outputSample;}
 
   inline void incrementIndeces(){
     incrementWriteIndex();
     incrementReadIndex();
+  }
+
+  inline float mapInRange(float input, float xLow, float xHigh, float yLow, float yHigh){
+      return (yLow * (xHigh - input) + yHigh * (input - xLow)) / (xHigh - xLow);
+  }
+  inline float linearMap(float input, float low, float high){
+      return mapInRange(input, 0, 1, low, high);
   }
 
 private:
@@ -38,7 +52,7 @@ private:
 //wrapping function. Using pointers, wow this is super smart @ciska.
 //By giving the index as a pointer we are able to handle it as if we are changing
 //the index as if it was an object. "index" is replaced by "readIndex" or "writeIndex"
-  inline void wrapHeader(uint& index){
+  inline void wrapHeader(float& index){
     if(index >= m_size){
        index -= m_size;
     }
@@ -50,6 +64,6 @@ void deleteBuffer();
   float* buffer;
   uint m_size;
   uint delayTimeSamps;
-  uint writeIndex;
-  uint readIndex;
+    float writeIndex;
+    float readIndex;
 };
