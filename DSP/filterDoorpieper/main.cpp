@@ -31,7 +31,7 @@ int main() {
     //Y[n] = (e^(i * n * omega) + (e^(i * n * omega) * e^(-i * omega)) / 2)
     const std::complex<double> i(0.0, 1.0);
     const double Pie = std::numbers::pi;
-    for(int n = 0; n < 1000; n++){
+    for(int n = 0; n < 1001; n++){
         double omega = (n / 1000) * Pie;
         std::cout << "n: " << n << " " << (exp(i * omega) + (exp(i * omega) * exp(-i * omega))) / 2.0 << std::endl;
     }
