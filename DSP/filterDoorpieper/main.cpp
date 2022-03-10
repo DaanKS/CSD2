@@ -30,13 +30,13 @@ int main() {
     const std::complex<double> i(0.0, 1.0);
     const std::complex<double> o(1.0, 0.0);
     const double Pie = std::numbers::pi; // pi = nyquist frequency
+    std::complex<double> H[1001];
+
     for(int j = 0; j < 1001; j++){
-        double omega = (j / 1000) * Pie;
+        double omega = ((double)j / 1000.0) * Pie;
        // std::cout << "Index: " << j << " " << (exp(i * omega) + (exp(i * omega) * exp(-i * omega))) / 2.0 << std::endl;
-        std::cout << "Index: " << j << " " << (o + exp(-i * omega)) / 2.0 << std::endl;
+        H[j] = ((o + exp(-i * omega)) / 2.0);
+        std::cout << abs(H[j]) << std::endl;
     }
-
-
-
     return 0;
 }
