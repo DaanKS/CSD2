@@ -28,12 +28,12 @@ int main() {
     //X[n] = e^(i * n * omega)
     //Y[n] = (e^(i * n * omega) + e^(i * (n - 1) * omega)) / 2.0
     // omega = 1/4π
-    //Y[n] = e^(i * n * omega) + (e^(i * n * omega) * e^(-i * omega))
+    //Y[n] = (e^(i * n * omega) + (e^(i * n * omega) * e^(-i * omega)) / 2)
     const std::complex<double> i(0.0, 1.0);
     const double Pie = std::numbers::pi;
     for(int n = 0; n < 1000; n++){
         double omega = (n / 1000) * Pie;
-        std::cout << "n: " << n << " " << exp(i * omega) + (exp(i * omega) * exp(-i * omega)) << std::endl;
+        std::cout << "n: " << n << " " << (exp(i * omega) + (exp(i * omega) * exp(-i * omega))) / 2.0 << std::endl;
     }
 
 
