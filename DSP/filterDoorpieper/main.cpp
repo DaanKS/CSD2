@@ -20,15 +20,22 @@ int main() {
     std::cout << " is " << std::polar (2.0, 0.5) << '\n';
 
     std::cout << "pi: " << std::numbers::pi << std::endl;
+    std::cout << "Euler's constant ^ 1: " << exp(1) << std::endl; //Euler's constant raised to the number inside the brackets
+    std::cout << "Euler's constant ^ 0: " << exp(0) << std::endl;
 
-    float coefficient_1;
-    float coefficient_2;
-    std::cout << "enter first coefficient: ";
-    std::cin >> coefficient_1;
-    std::cout << "enter second coefficient: ";
-    std::cin >> coefficient_2;
+    //Y[n] = (X[n] + X[n-1]) / 2.0
 
-    std::cout << coefficient_1 << " * x[n] + " << coefficient_2 << " * x[n-1] " << std::endl;
+    //X[n] = e^(i * n * omega)
+    //Y[n] = (e^(i * n * omega) + e^(i * (n - 1) * omega)) / 2.0
+    // omega = 1/4π
+    //Y[n] = e^(i * n * omega) + (e^(i * n * omega) * e^(-i * omega))
+    const std::complex<double> i(0.0, 1.0);
+    const double Pie = std::numbers::pi;
+    for(int n = 0; n < 1000; n++){
+        double omega = (n / 1000) * Pie;
+        std::cout << "n: " << n << " " << exp(i * omega) + (exp(i * omega) * exp(-i * omega)) << std::endl;
+    }
+
 
 
     return 0;
