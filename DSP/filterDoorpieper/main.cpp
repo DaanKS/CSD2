@@ -33,8 +33,7 @@ int main() {
     std::complex<double> H[1001];
 
     for(int j = 0; j < 1001; j++){
-        double omega = ((double)j / 1000.0) * Pie;
-       // std::cout << "Index: " << j << " " << (exp(i * omega) + (exp(i * omega) * exp(-i * omega))) / 2.0 << std::endl;
+        double omega = ((double)j / 1000.0) * (Pie);
         H[j] = ((o + exp(-i * omega)) / 2.0);
         std::cout << abs(H[j]) << std::endl;
     }
