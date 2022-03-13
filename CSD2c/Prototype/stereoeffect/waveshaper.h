@@ -15,7 +15,7 @@ public:
     float linearMap(float input, float low, float high);
     void setKvalue(float kValue); //Steepness of S-Curve
 
-    float clipping(float inputSample);
+    float clipping(float inputSample, float c_threshold);
 
     void setBufferSize(int bufferSize);
     
