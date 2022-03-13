@@ -22,8 +22,7 @@ void Waveshaper::generateWaveTable() {
 }
 
 float Waveshaper::output(float inputSample) {
-    //TODO --> Add clipping
-    const float tempSample = clipping(inputSample);
+    const float tempSample = clipping(inputSample, 0.9f);
     float index = (tempSample + 1) * (bufferSize / 2.0);
     int i = (int) index;
     float indexDecimal = index - float(i);
@@ -51,11 +50,11 @@ void Waveshaper::setBufferSize(int bufferSize) {
     generateWaveTable();
 }
 
-float Waveshaper::clipping(float inputSample) {
-    if (inputSample >= 0.9f){
-        return 0.9f;
-    }else if (inputSample < -0.9f){
-        return -0.9f;
+float Waveshaper::clipping(float inputSample, float c_threshold) {
+    if (inputSample >= c_threshold){
+        return c_threshold;
+    }else if (inputSample <= -c_threshold){
+        return -c_threshold;
     } else {
         return inputSample;
     }
