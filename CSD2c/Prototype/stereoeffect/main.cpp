@@ -39,7 +39,7 @@ struct MyCallback : AudioIODeviceCallback {
     }
     void process(float* input, float* output, int numSamples, int numChannels) override {
         for(int sample = 0; sample < numSamples; ++ sample){
-            float tempSample = biquad->output(wave->output(input[sample * 2]));
+            float tempSample = biquad->output(trem->output(wave->output(input[sample * 2])));
 
             output[sample * 2] = mod_L->output(tempSample);
             output[sample * 2 + 1] = mod_R->output(tempSample);
@@ -57,13 +57,13 @@ int main() {
     float samplerate = 44100;
 
     Waveshaper waveshaper;
-        waveshaper.setKvalue(50);
+        waveshaper.setKvalue(1.0);
         waveshaper.setSamplerate(samplerate);
     myCallback.wave = &waveshaper;
     Biquad biquad2;
         biquad2.setSamplerate(samplerate);
-        biquad2.setCutoffFreq(10000);
-        biquad2.setQFactor(0.1);
+        biquad2.setCutoffFreq(1000);
+        biquad2.setQFactor(1.0);
         biquad2.calculateOmega();
         biquad2.calculateAlpha();
         biquad2.calculateCoefficients();
@@ -76,7 +76,7 @@ int main() {
     ModDelay modDelay_R;
         modDelay_R.setSamplerate(samplerate);
         modDelay_R.assignWave();
-        modDelay_R.setRate(0.2);
+        modDelay_R.setRate(0.23);
     myCallback.mod_R = &modDelay_R;
     Tremolo tremo;
         tremo.setSamplerate(samplerate);

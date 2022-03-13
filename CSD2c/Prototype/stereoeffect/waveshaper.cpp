@@ -22,7 +22,9 @@ void Waveshaper::generateWaveTable() {
 }
 
 float Waveshaper::output(float inputSample) {
-    float index = (inputSample + 1) * (bufferSize / 2.0);
+    //TODO --> Add clipping
+    const float tempSample = clipping(inputSample);
+    float index = (tempSample + 1) * (bufferSize / 2.0);
     int i = (int) index;
     float indexDecimal = index - float(i);
     return linearMap(indexDecimal, buffer[i], buffer[i + 1]);
@@ -47,4 +49,14 @@ void Waveshaper::setBufferSize(int bufferSize) {
     buffer = (float *) malloc(bufferSize * sizeof(float));
     memset(buffer, 0, bufferSize * sizeof(float));
     generateWaveTable();
+}
+
+float Waveshaper::clipping(float inputSample) {
+    if (inputSample >= 0.9f){
+        return 0.9f;
+    }else if (inputSample < -0.9f){
+        return -0.9f;
+    } else {
+        return inputSample;
+    }
 }
