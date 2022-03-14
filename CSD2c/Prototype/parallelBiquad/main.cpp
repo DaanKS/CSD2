@@ -83,7 +83,7 @@ int main() {
                 biquad2.calculateAlpha();
                 biquad2.calculateCoefficients();
                 break;
-            
+
 
         }
     }

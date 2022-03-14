@@ -4,9 +4,7 @@
 
 #include "biqHPF.h"
 
-BiqHPF::BiqHPF() : Biquad(),
-                   m_cutoff(800), m_qFactor(1.0), outputSample(0),
-                   x_his1(0), x_his2(0), y_his1(0)
+BiqHPF::BiqHPF() : Biquad()
 {}
 BiqHPF::~BiqHPF() = default;
 
