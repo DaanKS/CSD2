@@ -24,13 +24,13 @@ public:
 
 
 
-private:
-    void calculateBzero();
-    void calculateBone();
-    void calculateBtwo();
-    void calculateAzero();
-    void calculateAone();
-    void calculateAtwo();
+protected:
+    virtual void calculateBzero();
+    virtual void calculateBone();
+    virtual void calculateBtwo();
+    virtual void calculateAzero();
+    virtual void calculateAone();
+    virtual void calculateAtwo();
 
     float m_cutoff;
     float m_qFactor;
