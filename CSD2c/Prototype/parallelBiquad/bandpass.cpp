@@ -9,5 +9,5 @@ void Bandpass::setBandWidth(float bandwidth) {
 }
 
 void Bandpass::calculateAlpha() {
-
+    this->alpha = sin(omega) * sinh((log(2)/ 2.0) * m_bandwidth * (omega / sin(omega)));
 }
