@@ -24,6 +24,7 @@ struct MyCallback : AudioIODeviceCallback {
     void process(float* input, float* output, int numSamples, int numChannels) override {
         for(int sample = 0; sample < numSamples; ++ sample){
             float tempSample = bandpass->output(input[sample * 2]);
+            //float tempSample = input[sample * 2];
             float tempSample_1 = wave_1->output(biquad->output(tempSample));
             float tempSample_2 = wave_2->output(biqhpf->output(tempSample));
 
@@ -66,14 +67,14 @@ int main() {
         biquad3.calculateAlpha();
         biquad3.calculateCoefficients();
     myCallback.biqhpf = &biquad3;
-    Bandpass bandpass;
-        bandpass.setSamplerate(samplerate);
-        bandpass.setCutoffFreq(2000);
-        bandpass.setBandWidth(1.0);
-        bandpass.calculateOmega();
-        bandpass.calculateAlpha();
-        bandpass.calculateCoefficients();
-    myCallback.bandpass = &bandpass;
+    Bandpass bandpass1;
+        bandpass1.setSamplerate(samplerate);
+        bandpass1.setCutoffFreq(2000);
+        bandpass1.setBandWidth(1.0);
+        bandpass1.calculateOmega();
+        bandpass1.calculateAlpha();
+        bandpass1.calculateCoefficients();
+    myCallback.bandpass = &bandpass1;
 
     try {
         portAudio.setup(44100, 512);
