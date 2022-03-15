@@ -2,6 +2,7 @@
 #include "waveshaper.h"
 #include "biquad.h"
 #include "biqHPF.h"
+#include "bandpass.h"
 #include <iostream>
 #include <stdexcept>
 #include <exception>
@@ -14,6 +15,7 @@ struct MyCallback : AudioIODeviceCallback {
     AudioEffect* wave_2;
     AudioEffect* biquad;
     AudioEffect* biqhpf;
+    AudioEffect* bandpass;
 
 
     void prepareToPlay(int sampleRate, int numSamplesPerBlock) override {
@@ -21,8 +23,9 @@ struct MyCallback : AudioIODeviceCallback {
     }
     void process(float* input, float* output, int numSamples, int numChannels) override {
         for(int sample = 0; sample < numSamples; ++ sample){
-            float tempSample_1 = wave_1->output(biquad->output(input[sample * 2]));
-            float tempSample_2 = wave_2->output(biqhpf->output(input[sample * 2]));
+            float tempSample = bandpass->output(input[sample * 2]);
+            float tempSample_1 = wave_1->output(biquad->output(tempSample));
+            float tempSample_2 = wave_2->output(biqhpf->output(tempSample));
 
             output[sample * 2] = tempSample_1;
             output[sample * 2 + 1] = tempSample_2;
@@ -63,6 +66,14 @@ int main() {
         biquad3.calculateAlpha();
         biquad3.calculateCoefficients();
     myCallback.biqhpf = &biquad3;
+    Bandpass bandpass;
+        bandpass.setSamplerate(samplerate);
+        bandpass.setCutoffFreq(2000);
+        bandpass.setBandWidth(1.0);
+        bandpass.calculateOmega();
+        bandpass.calculateAlpha();
+        bandpass.calculateCoefficients();
+    myCallback.bandpass = &bandpass;
 
     try {
         portAudio.setup(44100, 512);
