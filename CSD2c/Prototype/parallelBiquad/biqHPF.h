@@ -17,5 +17,5 @@ protected:
      void calculateBtwo() override;
      void calculateAzero() override;
      void calculateAone() override;
-     void calculateAtwo() override;
+     void calculateAtwo() override ;
 };
