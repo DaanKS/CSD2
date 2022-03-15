@@ -5,6 +5,7 @@ public:
     Bandpass();
     ~Bandpass();
 
+    void setBandWidth(float bandwidth);
     void calculateAlpha() override;
 
 protected:
@@ -14,4 +15,6 @@ protected:
     void calculateAzero() override;
     void calculateAone() override;
     void calculateAtwo() override;
+
+    float m_bandwidth;
 };
