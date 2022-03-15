@@ -43,6 +43,15 @@ int main() {
 
     float samplerate = 44100;
 
+    Bandpass bandpass1;
+    bandpass1.setSamplerate(samplerate);
+    bandpass1.setCutoffFreq(2000);
+    bandpass1.setBandWidth(1.0);
+    bandpass1.calculateOmega();
+    bandpass1.calculateAlpha();
+    bandpass1.calculateCoefficients();
+    myCallback.bandpass = &bandpass1;
+
     Waveshaper waveshaper;
         waveshaper.setKvalue(100.0);
         waveshaper.setSamplerate(samplerate);
@@ -67,14 +76,7 @@ int main() {
         biquad3.calculateAlpha();
         biquad3.calculateCoefficients();
     myCallback.biqhpf = &biquad3;
-    Bandpass bandpass1;
-        bandpass1.setSamplerate(samplerate);
-        bandpass1.setCutoffFreq(2000);
-        bandpass1.setBandWidth(1.0);
-        bandpass1.calculateOmega();
-        bandpass1.calculateAlpha();
-        bandpass1.calculateCoefficients();
-    myCallback.bandpass = &bandpass1;
+
 
     try {
         portAudio.setup(44100, 512);
