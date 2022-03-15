@@ -19,7 +19,7 @@ public:
     void setQFactor(float qFactor);
 
     void calculateOmega();
-    void calculateAlpha();
+    virtual void calculateAlpha();
     void calculateCoefficients();
 
 
