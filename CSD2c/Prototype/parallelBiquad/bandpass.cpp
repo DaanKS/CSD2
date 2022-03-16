@@ -13,13 +13,15 @@ void Bandpass::calculateAlpha() {
 }
 
 void Bandpass::calculateBzero() {
-     this->Bzero = (sin(omega) / 2);
+    this->Bzero = (m_qFactor * alpha);
+    //this->Bzero = (sin(omega) / 2);
 }
 void Bandpass::calculateBone() {
     this->Bone = 0;
 }
 void Bandpass::calculateBtwo() {
-    this->Btwo = -1 * (sin(omega) / 2);
+    this->Btwo = ((-1 * m_qFactor) * alpha);
+    //this->Btwo = -1 * (sin(omega) / 2);
 }
 void Bandpass::calculateAzero() {
     this->Azero = 1 + alpha;
