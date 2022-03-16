@@ -32,5 +32,5 @@ void PreDelay::initializeBuffer() {
 
 float PreDelay::msToSamples(float delayTime) {
     //cast float samples to uint
-    return static_cast<uint((delayTime * (m_samplerate / 1000.0)));
+    return static_cast<uint>((delayTime * (m_samplerate / 1000.0)));
 }
