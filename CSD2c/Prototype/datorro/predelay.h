@@ -1,6 +1,7 @@
 #include "circbuffer.h"
 #pragma once
 
+//TODO --> Rename to FixedDelay
 class PreDelay{
 public:
     PreDelay();
