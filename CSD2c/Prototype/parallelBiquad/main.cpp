@@ -25,8 +25,8 @@ struct MyCallback : AudioIODeviceCallback {
         for(int sample = 0; sample < numSamples; ++ sample){
             float tempSample = bandpass->output(input[sample * 2]);
             //float tempSample = input[sample * 2];
-            float tempSample_1 = wave_1->output(tempSample);//biquad->output(tempSample));
-            float tempSample_2 = wave_2->output(tempSample);//biqhpf->output(tempSample));
+            float tempSample_1 = wave_1->output(biquad->output(tempSample));
+            float tempSample_2 = wave_2->output(biqhpf->output(tempSample));
 
             output[sample * 2] = tempSample_1;
             output[sample * 2 + 1] = tempSample_2;
@@ -45,9 +45,9 @@ int main() {
 
     Bandpass bandpass1;
     bandpass1.setSamplerate(samplerate);
-    bandpass1.setCutoffFreq(8000);
-    bandpass1.setBandWidth(0.01);
-    bandpass1.setQFactor(3.0);
+    bandpass1.setCutoffFreq(1000);
+    bandpass1.setBandWidth(10.0);
+    bandpass1.setQFactor(10.0);
     bandpass1.calculateOmega();
     bandpass1.calculateAlpha();
     bandpass1.calculateCoefficients();
