@@ -9,6 +9,8 @@ float Onepole::output(float inputSample) {
 }
 
 void Onepole::setCoefficinets(float A, float B) {
+    //The more B means the more cutoff
+    //TODO -> Find formula for cutoff frequency in Hz
     this->m_A = A;
     this->m_B = B;
 }
