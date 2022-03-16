@@ -16,7 +16,7 @@ public:
     void msToSamples(float delayTime);
     void initializeBuffer();
 
-private:
+protected:
     float m_coeffG;
     float m_delayTime;
     double m_samplerate;
