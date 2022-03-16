@@ -5,7 +5,7 @@ class Allpass{
 public:
     Allpass();
     Allpass(float coeff_G, float delayTime, double samplerate);
-    ~Allpass();
+    virtual ~Allpass();
 
     virtual float output(float inputSample);
 
