@@ -7,7 +7,7 @@ public:
     Allpass(float coeff_G, float delayTime, double samplerate);
     ~Allpass();
 
-    float output(float inputSample);
+    virtual float output(float inputSample);
 
     void setCoefficientG(float coeff_G);
     void setDelayTime(float delayTime);
