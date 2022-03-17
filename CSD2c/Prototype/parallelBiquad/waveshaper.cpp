@@ -21,7 +21,7 @@ void Waveshaper::generateWaveTable() {
     }
 }
 
-float Waveshaper::output(float inputSample) noexcept {
+float Waveshaper::output(float inputSample)  {
     const auto tempSample = clipping(inputSample, 0.9f);
     const auto index = (tempSample + 1.0f) * (bufferSize / 2.0f);
     const auto i = static_cast<int>(index);
