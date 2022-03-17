@@ -57,3 +57,16 @@ BiquadCoefficients Biquad::makeHighPass(float cutoff, float qFactor, float sampl
         .Atwo = 1.0 - alpha
     };
 }
+
+BiquadCoefficients Biquad::makeBandPass(float cutoff, float qFactor, float samplerate, float bandwidth) noexcept{
+    const auto omega = 2 * M_PI * (cutoff / samplerate);
+    const auto alpha = sin(omega) * sinh((log(2)/ 2.0f) * bandwidth * (omega / sin(omega)));
+    return {
+        .Bzero = (qFactor * alpha),
+        .Bone = 0,
+        .Btwo = ((-1 * qFactor) * alpha),
+        .Azero = 1 + alpha,
+        .Aone = -2.0 * cos(omega),
+        .Atwo = 1.0 - alpha
+    };
+}

@@ -23,6 +23,7 @@ public:
 
     BiquadCoefficients makeLowPass(float cutoff, float qFactor, float samplerate) noexcept;
     BiquadCoefficients makeHighPass(float cutoff, float qFactor, float samplerate) noexcept;
+    BiquadCoefficients makeBandPass(float cutoff, float qFactor, float samplerate, float bandwidth) noexcept;
 
 private:
     std::atomic<BiquadCoefficients> currentCoefficients;
