@@ -22,6 +22,7 @@ public:
     void setCoefficients(const BiquadCoefficients& coefficients);
 
     BiquadCoefficients makeLowPass(float cutoff, float qFactor, float samplerate) noexcept;
+    BiquadCoefficients makeHighPass(float cutoff, float qFactor, float samplerate) noexcept;
 
 private:
     std::atomic<BiquadCoefficients> currentCoefficients;

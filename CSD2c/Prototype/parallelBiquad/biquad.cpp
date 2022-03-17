@@ -14,7 +14,7 @@ Biquad::~Biquad() = default;
 
 float Biquad::output(float inputSample) noexcept {
 
-const auto [Bzero, Bone, Btwo, Azero, Aone, Atwo] = currentCoefficients;
+const auto [Bzero, Bone, Btwo, Azero, Aone, Atwo] = currentCoefficients.load();
 outputSample = ((Bzero / Azero) * inputSample) +
                ((Bone / Azero) * x_his1) +
                ((Btwo / Azero) * x_his2) -
@@ -29,19 +29,31 @@ return outputSample;
 }
 
 void Biquad::setCoefficients(const BiquadCoefficients &coefficients) {
-    currentCoefficients = coefficients;
+    currentCoefficients.store(coefficients);
 }
 
 BiquadCoefficients Biquad::makeLowPass(float cutoff, float qFactor, float samplerate) noexcept {
     const auto omega = 2 * M_PI * (cutoff / samplerate);
     const auto alpha = (sin(omega) / (2 * qFactor));
     return {
-        .Bzero = (1.0 - cos(omega)) / 2.0;
-        .Bone = (1.0 - cos(omega));
-        .Btwo = ((1.0 - cos(omega)) / 2.0);
-        .Azero = 1.0 + alpha;
-        .Aone = -2.0 * cos(omega);
-        .Atwo = 1.0 - alpha;
-    }
+        .Bzero = (1.0 - cos(omega)) / 2.0,
+        .Bone = (1.0 - cos(omega)),
+        .Btwo = ((1.0 - cos(omega)) / 2.0),
+        .Azero = 1.0 + alpha,
+        .Aone = -2.0 * cos(omega),
+        .Atwo = 1.0 - alpha
+    };
 }
 
+BiquadCoefficients Biquad::makeHighPass(float cutoff, float qFactor, float samplerate) noexcept {
+    const auto omega = 2 * M_PI * (cutoff / samplerate);
+    const auto alpha = (sin(omega) / (2 * qFactor));
+    return {
+        .Bzero = (1.0 + cos(omega)) / 2.0,
+        .Bone = -1 * (1.0 + cos(omega)),
+        .Btwo = (1.0 + cos(omega)) / 2.0,
+        .Azero = 1.0 + alpha,
+        .Aone = -2.0 * cos(omega),
+        .Atwo = 1.0 - alpha
+    };
+}
