@@ -11,21 +11,21 @@ Waveshaper::~Waveshaper() {
 
 void Waveshaper::generateWaveTable() {
     //Thanks ciska
-    float normalizeFactor = 1.0f / atan(kValue);
-    for (int i = 0; i < bufferSize; i++) {
+    const auto float normalizeFactor = 1.0f / atan(kValue);
+    for (auto i = 0; i < bufferSize; i++) {
         // calculate s-curve with arctangent
         // calculate x in range [-1.0f, 1.0f]
-        float x = mapInRange((float) i, 0, bufferSize, -1.0f, 1.0f);
+        const auto x = mapInRange((float) i, 0, bufferSize, -1.0f, 1.0f);
         // formula: Pirkle 2013, "Designing Audio Effect Plug-ins in C++" p. 497
         buffer[i] = normalizeFactor * atan(kValue * x);
     }
 }
 
 float Waveshaper::output(float inputSample) {
-    const float tempSample = clipping(inputSample, 0.9f);
-    float index = (tempSample + 1) * (bufferSize / 2.0);
-    int i = (int) index;
-    float indexDecimal = index - float(i);
+    const auto tempSample = clipping(inputSample, 0.9f);
+    auto index = (tempSample + 1) * (bufferSize / 2.0);
+    auto i = static_cast<int>(index);
+    auto indexDecimal = index - static_cast<float>(i);
     return linearMap(indexDecimal, buffer[i], buffer[i + 1]);
 }
 
