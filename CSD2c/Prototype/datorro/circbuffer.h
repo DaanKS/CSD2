@@ -19,12 +19,13 @@ public:
   inline void writeToBuffer(float inputSample){buffer[(uint)writeIndex] = inputSample;}
   inline float readFromBuffer(){
 
-      float temp_High = buffer[(uint)(readIndex + 0.5)];
-      float temp_Low = buffer[(uint)readIndex];
-      float temp_input = (uint)(readIndex + 0.5) - readIndex;
+      const float temp_High = buffer[(uint)(readIndex + 0.5)];
+      const float temp_Low = buffer[(uint)readIndex];
+      const float temp_input = (uint)(readIndex + 0.5) - readIndex;
 
       float outputSample = linearMap(temp_input, temp_Low, temp_High);
-      return outputSample;}
+      return outputSample;
+  }
 
   inline void incrementIndeces(){
     incrementWriteIndex();
