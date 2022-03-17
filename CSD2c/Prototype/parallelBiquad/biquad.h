@@ -27,7 +27,6 @@ private:
     std::atomic<BiquadCoefficients> currentCoefficients;
 
     float outputSample;
-
     float x_his1;
     float x_his2;
     float y_his1;

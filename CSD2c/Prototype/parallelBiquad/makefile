@@ -1,8 +1,8 @@
 CXX= g++
-CXXFLAGS = -I/usr/local/include -Wall -std=c++1z
+CXXFLAGS = -I/usr/local/include -Wall -std=c++20
 LDFLAGS=-lportaudio -ljack
 # the cpp files from the current project to include
-SRC_PROJECT = audioeffect.cpp biquad.cpp biqHPF.cpp bandpass.cpp waveshaper.cpp main.cpp
+SRC_PROJECT = audioeffect.cpp biquad.cpp waveshaper.cpp main.cpp
 # the directory to the folder with the shared modules
 SHAREDCODE_PATH = ../../../CSD2c/sharedCode/
 # the modules to include

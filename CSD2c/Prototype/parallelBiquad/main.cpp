@@ -1,8 +1,6 @@
 #include "port_audio.h"
 #include "waveshaper.h"
 #include "biquad.h"
-#include "biqHPF.h"
-#include "bandpass.h"
 #include <iostream>
 #include <stdexcept>
 #include <exception>
@@ -14,7 +12,7 @@ struct MyCallback : AudioIODeviceCallback {
     AudioEffect* wave_1;
     AudioEffect* wave_2;
     AudioEffect* biquad;
-    AudioEffect* biqhpf;
+    //AudioEffect* biqhpf;
     AudioEffect* bandpass;
 
 
@@ -23,13 +21,13 @@ struct MyCallback : AudioIODeviceCallback {
     }
     auto process(float* input, float* output, int numSamples, int numChannels) -> void override {
         for(auto sample = 0; sample < numSamples; ++ sample){
-            auto tempSample = bandpass->output(input[sample * 2]);
+            auto tempSample = input[sample * 2];//bandpass->output(input[sample * 2]);
             //float tempSample = input[sample * 2];
             auto tempSample_1 = wave_1->output(biquad->output(tempSample));
-            auto tempSample_2 = wave_2->output(biqhpf->output(tempSample));
+           // auto tempSample_2 = wave_2->output(biqhpf->output(tempSample));
 
             output[sample * 2] = tempSample_1;
-            output[sample * 2 + 1] = tempSample_2;
+          //  output[sample * 2 + 1] = tempSample_2;
         }
     }
     auto releaseResources() -> void override {}
@@ -42,7 +40,7 @@ auto main() -> int {
     auto portAudio = PortAudio(myCallback);
 
     auto samplerate = 44100.0f;
-
+/*
     auto bandpass1 = Bandpass();
         bandpass1.setSamplerate(samplerate);
         bandpass1.setCutoffFreq(1000);
@@ -52,7 +50,7 @@ auto main() -> int {
         bandpass1.calculateAlpha();
         bandpass1.calculateCoefficients();
     myCallback.bandpass = &bandpass1;
-
+*/
     auto waveshaper = Waveshaper();
         waveshaper.setKvalue(100.0);
         waveshaper.setSamplerate(samplerate);
@@ -69,6 +67,7 @@ auto main() -> int {
         biquad2.calculateAlpha();
         biquad2.calculateCoefficients();
     myCallback.biquad = &biquad2;
+ /*
     auto biquad3 = BiqHPF();
         biquad3.setSamplerate(samplerate);
         biquad3.setCutoffFreq(200);
@@ -77,7 +76,7 @@ auto main() -> int {
         biquad3.calculateAlpha();
         biquad3.calculateCoefficients();
     myCallback.biqhpf = &biquad3;
-
+*/
 
     try {
         portAudio.setup(44100, 512);
