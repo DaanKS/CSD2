@@ -21,8 +21,8 @@ struct MyCallback : AudioIODeviceCallback {
     auto prepareToPlay(int sampleRate, int numSamplesPerBlock) -> void override {
 
     }
-    void process(float* input, float* output, int numSamples, int numChannels) override {
-        for(int sample = 0; sample < numSamples; ++ sample){
+    auto process(float* input, float* output, int numSamples, int numChannels) -> void override {
+        for(auto sample = 0; sample < numSamples; ++ sample){
             auto tempSample = bandpass->output(input[sample * 2]);
             //float tempSample = input[sample * 2];
             auto tempSample_1 = wave_1->output(biquad->output(tempSample));
@@ -32,11 +32,11 @@ struct MyCallback : AudioIODeviceCallback {
             output[sample * 2 + 1] = tempSample_2;
         }
     }
-    void releaseResources() override {}
+    auto releaseResources() -> void override {}
 
 };
 
-int main() {
+auto main() -> int {
 
     auto myCallback = MyCallback();
     auto portAudio = PortAudio(myCallback);
