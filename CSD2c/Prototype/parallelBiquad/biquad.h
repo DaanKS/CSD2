@@ -4,9 +4,14 @@
 
 #include "audioeffect.h"
 #include <cmath>
+#include <atomic>
 #include <iostream>
 
 #pragma once
+
+struct BiquadCoefficients {
+    double Bzero, Bone, Btwo, Azero, Aone, Atwo;
+};
 
 class Biquad : public AudioEffect{
 public:
@@ -14,31 +19,14 @@ public:
     ~Biquad();
 
     float output(float inputSample) noexcept;
+    void setCoefficients(const BiquadCoefficients& coefficients);
 
-    void setCutoffFreq(float cutoffFreq);
-    void setQFactor(float qFactor);
+    BiquadCoefficients makeLowPass(float cutoff, float qFactor, float samplerate) noexcept;
 
-    void calculateOmega();
-    virtual void calculateAlpha();
-    void calculateCoefficients();
+private:
+    std::atomic<BiquadCoefficients> currentCoefficients;
 
-
-
-protected:
-    virtual void calculateBzero();
-    virtual void calculateBone();
-    virtual void calculateBtwo();
-    virtual void calculateAzero();
-    virtual void calculateAone();
-    virtual void calculateAtwo();
-
-    float m_cutoff;
-    float m_qFactor;
-    float omega, alpha;
     float outputSample;
-
-    float Bzero, Bone, Btwo;
-    float Azero, Aone, Atwo;
 
     float x_his1;
     float x_his2;
