@@ -18,15 +18,15 @@ struct MyCallback : AudioIODeviceCallback {
     AudioEffect* bandpass;
 
 
-    void prepareToPlay(int sampleRate, int numSamplesPerBlock) override {
+    auto prepareToPlay(int sampleRate, int numSamplesPerBlock) -> void override {
 
     }
     void process(float* input, float* output, int numSamples, int numChannels) override {
         for(int sample = 0; sample < numSamples; ++ sample){
-            float tempSample = bandpass->output(input[sample * 2]);
+            auto tempSample = bandpass->output(input[sample * 2]);
             //float tempSample = input[sample * 2];
-            float tempSample_1 = wave_1->output(biquad->output(tempSample));
-            float tempSample_2 = wave_2->output(biqhpf->output(tempSample));
+            auto tempSample_1 = wave_1->output(biquad->output(tempSample));
+            auto tempSample_2 = wave_2->output(biqhpf->output(tempSample));
 
             output[sample * 2] = tempSample_1;
             output[sample * 2 + 1] = tempSample_2;
@@ -41,27 +41,27 @@ int main() {
     auto myCallback = MyCallback();
     auto portAudio = PortAudio(myCallback);
 
-    float samplerate = 44100;
+    auto samplerate = 44100.0f;
 
-    Bandpass bandpass1;
-    bandpass1.setSamplerate(samplerate);
-    bandpass1.setCutoffFreq(1000);
-    bandpass1.setBandWidth(10.0);
-    bandpass1.setQFactor(10.0);
-    bandpass1.calculateOmega();
-    bandpass1.calculateAlpha();
-    bandpass1.calculateCoefficients();
+    auto bandpass1 = Bandpass();
+        bandpass1.setSamplerate(samplerate);
+        bandpass1.setCutoffFreq(1000);
+        bandpass1.setBandWidth(10.0);
+        bandpass1.setQFactor(10.0);
+        bandpass1.calculateOmega();
+        bandpass1.calculateAlpha();
+        bandpass1.calculateCoefficients();
     myCallback.bandpass = &bandpass1;
 
-    Waveshaper waveshaper;
+    auto waveshaper = Waveshaper();
         waveshaper.setKvalue(100.0);
         waveshaper.setSamplerate(samplerate);
     myCallback.wave_1 = &waveshaper;
-    Waveshaper waveshaper2;
+    auto waveshaper2 = Waveshaper();
         waveshaper2.setKvalue(100.0);
         waveshaper2.setSamplerate(samplerate);
     myCallback.wave_2 = &waveshaper2;
-    Biquad biquad2;
+    auto biquad2 = Biquad();
         biquad2.setSamplerate(samplerate);
         biquad2.setCutoffFreq(500);
         biquad2.setQFactor(1.0);
@@ -69,7 +69,7 @@ int main() {
         biquad2.calculateAlpha();
         biquad2.calculateCoefficients();
     myCallback.biquad = &biquad2;
-    BiqHPF biquad3;
+    auto biquad3 = BiqHPF();
         biquad3.setSamplerate(samplerate);
         biquad3.setCutoffFreq(200);
         biquad3.setQFactor(1.0);
@@ -87,8 +87,8 @@ int main() {
     }
 
     /* waiting / control loop */
-    float tempValue;
-    bool running = true;
+    auto  tempValue = 0.0f;
+    auto running = true;
     while(running) {
         switch (std::cin.get()) {
             case 'q':
@@ -102,9 +102,12 @@ int main() {
             case 'e':
                 std::cout << "Enter New Value for Cutoff: ";
                 std::cin >> tempValue;
+                auto tempDistance = 0.0f;
+                std::cout << "Enter New Value for Distance between the two filters: ";
+                std::cin >> tempDistance;
 
                 biquad2.setCutoffFreq(tempValue);
-                biquad3.setCutoffFreq(tempValue);
+                biquad3.setCutoffFreq(tempValue + tempDistance);
 
                 std::cout << "Enter New Value for Qfactor: ";
                 std::cin >> tempValue;
