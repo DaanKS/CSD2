@@ -11,7 +11,7 @@ Waveshaper::~Waveshaper() {
 
 void Waveshaper::generateWaveTable() {
     //Thanks ciska
-    const auto float normalizeFactor = 1.0f / atan(kValue);
+    const auto normalizeFactor = 1.0f / atan(kValue);
     for (auto i = 0; i < bufferSize; i++) {
         // calculate s-curve with arctangent
         // calculate x in range [-1.0f, 1.0f]
