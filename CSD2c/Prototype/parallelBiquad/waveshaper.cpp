@@ -23,9 +23,9 @@ void Waveshaper::generateWaveTable() {
 
 float Waveshaper::output(float inputSample) {
     const auto tempSample = clipping(inputSample, 0.9f);
-    auto index = (tempSample + 1) * (bufferSize / 2.0);
-    auto i = static_cast<int>(index);
-    auto indexDecimal = index - static_cast<float>(i);
+    const auto index = (tempSample + 1) * (bufferSize / 2.0);
+    const auto i = static_cast<int>(index);
+    const auto indexDecimal = index - static_cast<float>(i);
     return linearMap(indexDecimal, buffer[i], buffer[i + 1]);
 }
 
