@@ -34,3 +34,6 @@ private:
     float y_his1;
 
 };
+
+// http://shepazu.github.io/Audio-EQ-Cookbook/audio-eq-cookbook.html
+// TODO -> add more filters!
