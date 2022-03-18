@@ -54,6 +54,9 @@ auto main() -> int {
     auto biquad_2 = Biquad();
         biquad_2.setCoefficients(biquad_2.makeHighPass(700, 3.0, samplerate));
         myCallback.biqhpf = &biquad_2;
+    auto biquad_3 = Biquad();
+        biquad_3.setCoefficients(biquad_3.makeBandPass(600, 3.0, samplerate, 2.0));
+        myCallback.bandpass = &biquad_3;
 
     try {
         portAudio.setup(44100, 512);
