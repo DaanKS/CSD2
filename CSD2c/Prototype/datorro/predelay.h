@@ -18,6 +18,6 @@ private:
     uint msToSamples(float delayTime);
 
     CircBuffer* circ;
-    float delayTimeSamples;
+    //float delayTimeSamples;
     double m_samplerate;
 };
