@@ -23,7 +23,7 @@ float ModAllPass::output(float inputSample) {
     tempSample = circ->readFromBuffer();
     circ->incrementIndeces();
     delayModulation();
-    return outputSample + tempSample + (inputSample * (-1 * m_coeffG));
+    return tempSample + (inputSample * (-1 * m_coeffG));
 }
 
 void ModAllPass::delayModulation() {
