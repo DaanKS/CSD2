@@ -21,7 +21,7 @@ public:
 private:
     float m_Rate;
     float m_Depth;
-    foat tempSample = 0.0f;
+    float tempSample = 0.0f;
 
     Sine* sin;
 
