@@ -44,7 +44,13 @@ BiquadCoefficients Biquad::makeLowPass(float cutoff, float qFactor, float sample
         .Atwo = 1.0 - alpha
     };
 }
-
+/**
+ * JS DOCS
+ * @param cutoff
+ * @param qFactor
+ * @param samplerate
+ * @return <BiquadCoefficients> 's filter coefficients
+ */
 BiquadCoefficients Biquad::makeHighPass(float cutoff, float qFactor, float samplerate) noexcept {
     const auto omega = 2 * M_PI * (cutoff / samplerate);
     const auto alpha = (sin(omega) / (2 * qFactor));
@@ -58,6 +64,14 @@ BiquadCoefficients Biquad::makeHighPass(float cutoff, float qFactor, float sampl
     };
 }
 
+/**
+ *
+ * @param cutoff is de cutoff frequency.
+ * @param qFactor
+ * @param samplerate
+ * @param bandwidth
+ * @return
+ */
 BiquadCoefficients Biquad::makeBandPass(float cutoff, float qFactor, float samplerate, float bandwidth) noexcept{
     const auto omega = 2 * M_PI * (cutoff / samplerate);
     const auto alpha = sin(omega) * sinh((log(2)/ 2.0f) * bandwidth * (omega / sin(omega)));
