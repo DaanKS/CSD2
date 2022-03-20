@@ -13,7 +13,7 @@ public:
     void setDelayTime(float delayTime);
 
     void setSamplerate(double samplerate);
-    void msToSamples(float delayTime);
+    float msToSamples(float delayTime);
     void initializeBuffer();
 
 protected:

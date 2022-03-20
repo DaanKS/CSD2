@@ -3,7 +3,7 @@
 Allpass::Allpass() : m_coeffG(0.0f), m_delayTime(0.0f),m_samplerate(0.0),tempSample(0.0f)  {}
 
 Allpass::Allpass(float coeff_G, float delayTime, double samplerate) :
-m_coeffG(coeffG), m_delayTime(delayTime),
+m_coeffG(coeff_G), m_delayTime(delayTime),
 m_samplerate(samplerate), tempSample(0.0f)
 {
     circ = new CircBuffer(m_samplerate);
@@ -14,7 +14,7 @@ Allpass::~Allpass() {
 }
 
 float Allpass::output(float inputSample) {
-    circ->writeToBuffer(inputSample + ((-1 * m_coeffG) * tempSample);
+    circ->writeToBuffer(inputSample + ((-1 * m_coeffG) * tempSample));
     tempSample = circ->readFromBuffer();
     circ->incrementIndeces();
     return (m_coeffG * inputSample) + tempSample;
@@ -26,7 +26,7 @@ void Allpass::setCoefficientG(float coeff_G){
 
 //TODO --> Fix Duplicate Code
 void Allpass::setDelayTime(float delayTime){
-    circ->setDelayTimeSamps(msToSamples(delayTime));
+    circ->setDelayTimeSamps(delayTime);
 }
 void Allpass::setSamplerate(double samplerate){
     this->m_samplerate = samplerate;
