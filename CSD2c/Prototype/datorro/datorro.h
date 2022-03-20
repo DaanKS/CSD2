@@ -25,8 +25,8 @@ private:
     Allpass ap_1, ap_2, ap_3, ap_4, ap_5, ap_6;
     ModAllPass map_1, map_2;
 
-    auto feedSample_1 = 0.0f;
-    auto feedSample_2 = 0.0f;
+    float feedSample_1 = 0.0f;
+    float feedSample_2 = 0.0f;
 
-    auto coefficientG5 = 0.1f;
+    float coefficientG5 = 0.1f;
 };
