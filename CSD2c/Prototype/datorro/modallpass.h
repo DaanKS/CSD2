@@ -16,9 +16,11 @@ public:
 
     void setModulationRate(float rate);
     void setModulationDepth(float depth);
-    void initializeOscillator();
+
 
 private:
+    void initializeOscillator();
+
     float m_Rate;
     float m_Depth;
     float tempSample = 0.0f;

@@ -8,6 +8,7 @@ m_Rate(rate), m_Depth(depth)
     this->m_samplerate = samplerate;
     this->m_coeffG = coeff_G;
     this->m_delayTime = delayTime;
+
     initializeOscillator();
 }
 
