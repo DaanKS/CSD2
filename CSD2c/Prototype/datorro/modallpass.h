@@ -12,6 +12,8 @@ public:
 
     float output(double inputSample) override;
 
+    void delayModulation();
+
     void setModulationRate(float rate);
     void setModulationDepth(float depth);
     void initializeOscillator();
@@ -19,6 +21,7 @@ public:
 private:
     float m_Depth;
     float m_Rate;
+    auto tempSample = 0.0f;
 
     Sine* sin;
 

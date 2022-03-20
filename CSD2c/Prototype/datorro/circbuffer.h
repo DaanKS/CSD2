@@ -23,7 +23,7 @@ public:
       const float temp_Low = buffer[(uint)readIndex];
       const float temp_input = (uint)(readIndex + 0.5) - readIndex;
 
-      float outputSample = linearMap(temp_input, temp_Low, temp_High);
+      const float outputSample = linearMap(temp_input, temp_Low, temp_High);
       return outputSample;
   }
 
