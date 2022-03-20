@@ -9,17 +9,19 @@
 
 struct MyCallback : AudioIODeviceCallback {
     Datorro* datorro;
-
+    float tempSample_1 = 0.0f;
+    float tempSample_2 = 0.0f;
+    float tempSample = 0.0f;
 
     auto prepareToPlay(int sampleRate, int numSamplesPerBlock) -> void override {
 
     }
     auto process(float* input, float* output, int numSamples, int numChannels) -> void override {
         for(auto sample = 0; sample < numSamples; ++ sample){
-            auto tempSample = datorro->output(input[sample * 2]);
+            tempSample = datorro->output(input[sample * 2]);
 
-            auto tempSample_1 = datorro->outputL(tempSample + (tempSample_2 * 0.5));
-            auto tempSample_2 = datorro->outputR(tempSample + (tempSample_1 * 0.5));
+            tempSample_1 = datorro->outputL(tempSample + (tempSample_2 * 0.5));
+            tempSample_2 = datorro->outputR(tempSample + (tempSample_1 * 0.5));
 
             output[sample * 2] = tempSample_1;
             output[sample * 2 + 1] = tempSample_2;
@@ -47,7 +49,7 @@ auto main() -> int {
     }
 
     /* waiting / control loop */
-    auto  tempValue = 0.0f;
+    //auto  tempValue = 0.0f;
     auto running = true;
     while(running) {
         switch (std::cin.get()) {
@@ -55,7 +57,7 @@ auto main() -> int {
                 running = false;
                 break;
             case 'w':
-             
+
                 break;
             case 'e':
 
