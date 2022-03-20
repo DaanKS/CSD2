@@ -36,22 +36,8 @@ auto main() -> int {
 
     auto samplerate = 44100.0f;
 
-    auto waveshaper = Waveshaper();
-        waveshaper.setKvalue(100.0);
-        myCallback.wave_1 = &waveshaper;
-    auto waveshaper2 = Waveshaper();
-        waveshaper2.setKvalue(100.0);
-        myCallback.wave_2 = &waveshaper2;
-
-    auto biquad_1 = Biquad();
-        biquad_1.setCoefficients(biquad_1.makeLowPass(500, 3.0, samplerate));
-        myCallback.biquad = &biquad_1;
-    auto biquad_2 = Biquad();
-        biquad_2.setCoefficients(biquad_2.makeHighPass(700, 3.0, samplerate));
-        myCallback.biqhpf = &biquad_2;
-    auto biquad_3 = Biquad();
-        biquad_3.setCoefficients(biquad_3.makeBandPass(600, 3.0, samplerate, 2.0));
-        myCallback.bandpass = &biquad_3;
+    auto datorro_1 = Datorro(samplerate);
+    myCallback.datorro = &datorro_1;
 
     try {
         portAudio.setup(44100, 512);
@@ -69,21 +55,9 @@ auto main() -> int {
                 running = false;
                 break;
             case 'w':
-                std::cout << "Enter New Value for K value: ";
-                std::cin >> tempValue;
-                waveshaper.setKvalue(tempValue);
+             
                 break;
             case 'e':
-                std::cout << "Enter New Value for Cutoff: ";
-                std::cin >> tempValue;
-                auto tempDistance = 0.0f;
-                std::cout << "Enter New Value for Distance between the two filters: ";
-                std::cin >> tempDistance;
-
-
-                std::cout << "Enter New Value for Qfactor: ";
-                std::cin >> tempValue;
-
 
                 break;
 
