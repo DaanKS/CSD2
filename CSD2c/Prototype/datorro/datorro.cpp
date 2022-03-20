@@ -1,9 +1,9 @@
 #include "datorro.h"
 
 Datorro::Datorro(float samplerate) : m_samplerate(samplerate)  {
-    bandWidth = Onepole();
-    damping_1 = Onepole();
-    damping_2 = Onepole();
+    bandWidth = Onepole(0.5);
+    damping_1 = Onepole(0.5);
+    damping_2 = Onepole(0.5);
 
     ap_1 = Allpass(0.75, 210, m_samplerate);
     ap_2 = Allpass(0.75, 158, m_samplerate);

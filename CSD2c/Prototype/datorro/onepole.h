@@ -3,6 +3,7 @@
 class Onepole{
 public:
     Onepole();
+    Onepole(float A);
     ~Onepole();
 
     float output(float inputSample);
