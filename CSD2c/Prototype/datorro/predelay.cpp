@@ -31,7 +31,7 @@ void PreDelay::initializeBuffer() {
     circ = new CircBuffer(m_samplerate);
 }
 
-float PreDelay::msToSamples(float delayTime) {
+uint PreDelay::msToSamples(float delayTime) {
     //cast float samples to uint
     return static_cast<uint>((delayTime * (m_samplerate / 1000.0)));
 }
