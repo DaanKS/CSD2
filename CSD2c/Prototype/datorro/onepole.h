@@ -11,6 +11,5 @@ public:
 
 private:
     float xHistory_1;
-
     float m_A;
 };
