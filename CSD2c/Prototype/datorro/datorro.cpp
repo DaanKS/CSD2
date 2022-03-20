@@ -25,3 +25,15 @@ Datorro::Datorro(float samplerate) : m_samplerate(samplerate)  {
 
 Datorro::~Datorro() {}
 
+
+float Datorro::output(float inputSample) {
+    //Predelay - Onepole - 4 * allpass filter
+   return ap_4->output(ap_3->output(ap_2->output(ap_1->output(bandWidth->output(predel.output(inputSample))))));
+}
+//Modulated AP, fixed delay, onepole filter, AP, fixe delay
+float Datorro::outputL(float inputSample) {
+    return fixed_3->output(ap_5->output(damping_1->output(fixed_1->output(map_1->output(inputSample)))));
+}
+float Datorro::outputR(float inputSample) {
+    return fixed_4->output(ap_6->output(damping_2->output(fixed_2->output(map_2->output(inputSample)))));
+}
