@@ -1,8 +1,9 @@
 #include "predelay.h"
 
 PreDelay::PreDelay() {}
-PreDelay::PreDelay(double samplerate) {
+PreDelay::PreDelay(double samplerate, float delayTime) {
     circ = new CircBuffer(static_cast<uint>(samplerate));
+    circ->setDelayTimeSamps(delayTime);
 }
 PreDelay::~PreDelay() {
     delete circ;

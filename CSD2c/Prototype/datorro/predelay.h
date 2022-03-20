@@ -5,7 +5,7 @@
 class PreDelay{
 public:
     PreDelay();
-    PreDelay(double samplerate);
+    PreDelay(double samplerate, float delayTime);
     ~PreDelay();
 
     float output(float inputSample);
