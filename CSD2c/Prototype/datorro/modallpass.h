@@ -10,7 +10,7 @@ public:
     ModAllPass(float coeff_G, float delayTime, double samplerate, float rate, float depth);
     ~ModAllPass();
 
-    float output(double inputSample) override;
+    float output(float inputSample) override;
 
     void delayModulation();
 
@@ -19,9 +19,9 @@ public:
     void initializeOscillator();
 
 private:
-    float m_Depth;
     float m_Rate;
-    auto tempSample = 0.0f;
+    float m_Depth;
+    foat tempSample = 0.0f;
 
     Sine* sin;
 

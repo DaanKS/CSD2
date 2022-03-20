@@ -18,7 +18,7 @@ ModAllPass::~ModAllPass() {
     circ = nullptr;
 }
 
-float ModAllPass::output(double inputSample) {
+float ModAllPass::output(float inputSample) {
     circ->writeToBuffer(inputSample + (tempSample * m_coeffG));
     tempSample = circ->readFromBuffer();
     circ->incrementIndeces();
