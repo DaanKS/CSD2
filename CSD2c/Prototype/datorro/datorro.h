@@ -20,10 +20,24 @@ public:
 private:
     double m_samplerate;
 
-    PreDelay fixed_1, fixed_2, fixed_3, fixed_4, predel;
-    Onepole bandWidth, damping_1, damping_2;
-    Allpass ap_1, ap_2, ap_3, ap_4, ap_5, ap_6;
-    ModAllPass map_1, map_2;
+    PreDelay* fixed_1;
+    PreDelay* fixed_2;
+    PreDelay* fixed_3;
+    PreDelay* fixed_4;
+    PreDelay* predel;
+
+    Onepole* bandWidth;
+    Onepole* damping_1;
+    Onepole* damping_2;
+
+    Allpass* ap_1;
+    Allpass* ap_2;
+    Allpass* ap_3;
+    Allpass* ap_4;
+    Allpass* ap_5;
+    Allpass* ap_6;
+    ModAllPass* map_1;
+    ModAllPass* map_2;
 
     float feedSample_1 = 0.0f;
     float feedSample_2 = 0.0f;

@@ -8,8 +8,8 @@
 
 
 struct MyCallback : AudioIODeviceCallback {
-    //Datorro* datorro;
-    ModAllPass* mod_1;
+    Datorro* datorro;
+    //ModAllPass* mod_1;
     //Allpass* mod_1;
     //Onepole* mod_1;
     //PreDelay* mod_1;
@@ -22,10 +22,10 @@ struct MyCallback : AudioIODeviceCallback {
     }
     auto process(float* input, float* output, int numSamples, int numChannels) -> void override {
         for(auto sample = 0; sample < numSamples; ++ sample){
-            tempSample = mod_1->output(input[sample * 2]);
+            tempSample = datorro->output(input[sample * 2]);
 
-            //tempSample_1 = datorro->outputL(tempSample); //+ (tempSample_2 * 0.5));
-            //tempSample_2 = datorro->outputR(tempSample); //+ (tempSample_1 * 0.5));
+            tempSample_1 = datorro->outputL(tempSample); //+ (tempSample_2 * 0.5));
+            tempSample_2 = datorro->outputR(tempSample); //+ (tempSample_1 * 0.5));
 
             output[sample * 2] = tempSample;
             output[sample * 2 + 1] = tempSample;
@@ -42,12 +42,12 @@ auto main() -> int {
 
     auto samplerate = 44100.0f;
 
-  //  auto datorro_1 = Datorro(samplerate);
-  //  myCallback.datorro = &datorro_1;
+    auto datorro_1 = Datorro(samplerate);
+    myCallback.datorro = &datorro_1;
 
-    auto modder_1 = ModAllPass(0.75, 1343, samplerate, 1.0, 12);
+  /*  auto modder_1 = ModAllPass(0.75, 1343, samplerate, 1.0, 12);
     //modder_1.setDelayTime(700);
-    myCallback.mod_1 = &modder_1;
+    myCallback.mod_1 = &modder_1; */
 
     try {
         portAudio.setup(44100, 512);
