@@ -4,7 +4,6 @@
 Onepole::Onepole() : xHistory_1(0.0f),m_A(1.0f){}
 Onepole::Onepole(float A) : xHistory_1(0.0f){
     this->m_A = A;
-    std::cout << "I am a onepole: " <<std::endl;
 }
 Onepole::~Onepole() = default;
 
