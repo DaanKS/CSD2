@@ -1,6 +1,6 @@
 #include "comb.h"
 
-Comb::Comb();
+Comb::Comb(){}
 Comb::Comb(float bufferSize, float delayTime, float feedforward, float feedback) :
 m_bufferSize(bufferSize), m_delayTime(delayTime), m_feedforward(feedforward), m_feedback(feedback)
 {
@@ -29,5 +29,5 @@ float Comb::output(float inputSample) {
 
 float Comb::msToSamples(float delayTime) {
     //cast float samples to uint
-    return static_cast<uint>((delayTime * (m_samplerate / 1000.0)));
+    return static_cast<uint>((delayTime * (m_bufferSize / 1000.0)));
 }
