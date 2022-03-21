@@ -20,6 +20,6 @@ private:
 
     float outputSample;
 
-    Circbuffer* circFF;
+    CircBuffer* circFF;
     CircBuffer* circFB;
 };
