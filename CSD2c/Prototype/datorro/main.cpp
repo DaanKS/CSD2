@@ -43,7 +43,7 @@ auto main() -> int {
 
     auto samplerate = 44100.0f;
 
-    auto datorro_1 = Comb(samplerate, );
+    auto datorro_1 = Comb(samplerate, 160, 1.0, 0.0);
     myCallback.datorro = &datorro_1;
 
   /*  auto modder_1 = ModAllPass(0.75, 1343, samplerate, 1.0, 12);

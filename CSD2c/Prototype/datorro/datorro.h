@@ -2,6 +2,7 @@
 #include "onepole.h"
 #include "allpass.h"
 #include "predelay.h"
+#include "comb.h"
 
 #pragma once
 
