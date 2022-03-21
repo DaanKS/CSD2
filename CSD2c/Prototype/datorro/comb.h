@@ -1,6 +1,6 @@
 #include "circbuffer.h"
 
-#pragma once;
+#pragma once
 
 class Comb{
 public:
