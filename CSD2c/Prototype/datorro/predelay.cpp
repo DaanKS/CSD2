@@ -5,7 +5,6 @@ PreDelay::PreDelay(double samplerate, float delayTime) {
     this->m_samplerate = samplerate;
     circ = new CircBuffer(static_cast<uint>(samplerate));
     circ->setDelayTimeSamps(msToSamples(delayTime));
-    std::cout << "succesfully made a predelay object" << std::endl;
 }
 PreDelay::~PreDelay() {
     delete circ;
@@ -35,7 +34,5 @@ void PreDelay::initializeBuffer() {
 
 uint PreDelay::msToSamples(float delayTime) {
     //cast float samples to uint
-    std::cout << "SampleRate MS to Samps: " << m_samplerate << std::endl;
-    std::cout << "MS to Samps " << ((m_samplerate / 1000.0f) * delayTime) << std::endl;
     return ((m_samplerate / 1000.0f) * delayTime);
 }
