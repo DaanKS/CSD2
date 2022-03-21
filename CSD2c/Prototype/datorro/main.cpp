@@ -8,11 +8,12 @@
 
 
 struct MyCallback : AudioIODeviceCallback {
-    Datorro* datorro;
+    //Datorro* datorro;
     //ModAllPass* mod_1;
     //Allpass* mod_1;
     //Onepole* mod_1;
     //PreDelay* mod_1;
+    Comb* datorro;
     float tempSample_1 = 0.0f;
     float tempSample_2 = 0.0f;
     float tempSample = 0.0f;
@@ -24,11 +25,11 @@ struct MyCallback : AudioIODeviceCallback {
         for(auto sample = 0; sample < numSamples; ++ sample){
             tempSample = datorro->output(input[sample * 2]);
 
-            tempSample_1 = datorro->outputL(tempSample + (tempSample_2 * 0.3));
-            tempSample_2 = datorro->outputR(tempSample + (tempSample_1 * 0.3));
+            //tempSample_1 = datorro->outputL(tempSample + (tempSample_2 * 0.3));
+            //tempSample_2 = datorro->outputR(tempSample + (tempSample_1 * 0.3));
 
-            output[sample * 2] = (tempSample_1 / 4.0) + input[sample * 2];
-            output[sample * 2 + 1] = (tempSample_2 / 4.0) + input[sample * 2];
+            output[sample * 2] = tempSample;//(tempSample_1 / 4.0) + input[sample * 2];
+            output[sample * 2 + 1] = tempSample;//(tempSample_2 / 4.0) + input[sample * 2];
         }
     }
     auto releaseResources() -> void override {}
@@ -42,7 +43,7 @@ auto main() -> int {
 
     auto samplerate = 44100.0f;
 
-    auto datorro_1 = Datorro(samplerate);
+    auto datorro_1 = Comb(samplerate, );
     myCallback.datorro = &datorro_1;
 
   /*  auto modder_1 = ModAllPass(0.75, 1343, samplerate, 1.0, 12);

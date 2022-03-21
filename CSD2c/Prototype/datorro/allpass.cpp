@@ -40,3 +40,4 @@ void Allpass::initializeBuffer() {
     //the time of the constructor - if we use portaudio
     circ = new CircBuffer(m_samplerate);
 }
+

@@ -5,9 +5,9 @@ Comb::Comb(float bufferSize, float delayTime, float feedforward, float feedback)
 m_bufferSize(bufferSize), m_delayTime(delayTime), m_feedforward(feedforward), m_feedback(feedback)
 {
     circFF = new CircBuffer(m_bufferSize);
-    circFF->setDelayTimeSamps(m_delayTime);
+    circFF->setDelayTimeSamps(msToSamples(m_delayTime));
     circFB = new CircBuffer(m_bufferSize);
-    circFB->setDelayTimeSamps(m_delayTime);
+    circFB->setDelayTimeSamps(msToSamples(m_delayTime));
 }
 Comb::~Comb(){
     delete circFB;
@@ -25,4 +25,9 @@ float Comb::output(float inputSample) {
     circFF->incrementIndeces();
 
     return outputSample;
+}
+
+float Allpass::msToSamples(float delayTime) {
+    //cast float samples to uint
+    return static_cast<uint>((delayTime * (m_samplerate / 1000.0)));
 }

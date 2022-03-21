@@ -10,6 +10,8 @@ public:
 
     float output(float inputSample);
 
+    float msToSamples(float delayTime);
+
 private:
     float m_bufferSize;
     float m_delayTime;
