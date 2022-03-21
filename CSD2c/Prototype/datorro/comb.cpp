@@ -27,7 +27,7 @@ float Comb::output(float inputSample) {
     return outputSample;
 }
 
-float Allpass::msToSamples(float delayTime) {
+float Comb::msToSamples(float delayTime) {
     //cast float samples to uint
     return static_cast<uint>((delayTime * (m_samplerate / 1000.0)));
 }
