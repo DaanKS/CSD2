@@ -7,7 +7,6 @@ m_coeffG(coeff_G), m_delayTime(delayTime),
 m_samplerate(samplerate), tempSample(0.0f)
 {
     circ = new CircBuffer(m_samplerate);
-    std::cout << "succesfully made an allpass object" << std:: endl;
 }
 Allpass::~Allpass() {
     delete circ;

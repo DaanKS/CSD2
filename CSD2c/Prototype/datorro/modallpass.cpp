@@ -8,13 +8,9 @@ m_Rate(rate), m_Depth(depth)
     this->m_samplerate = samplerate;
     this->m_coeffG = coeff_G;
     this->m_delayTime = delayTime;
-    std::cout << "Samplerate in Mod: " << m_samplerate << std::endl;
-    sin = new Sine(m_samplerate);
-    std::cout << "Rate in Mod: " << m_Rate << std::endl;
-    sin->setDelta(m_Rate);
 
-    //initializeOscillator();
-    std::cout << "succesfully made a modulated allpass object" << std::endl;
+    sin = new Sine(m_samplerate);
+    sin->setDelta(m_Rate);
 }
 
 ModAllPass::~ModAllPass() {

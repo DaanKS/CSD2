@@ -9,10 +9,10 @@
 
 struct MyCallback : AudioIODeviceCallback {
     //Datorro* datorro;
-    //ModAllPass* mod_1;
+    ModAllPass* mod_1;
     //Allpass* mod_1;
     //Onepole* mod_1;
-    PreDelay* mod_1;
+    //PreDelay* mod_1;
     float tempSample_1 = 0.0f;
     float tempSample_2 = 0.0f;
     float tempSample = 0.0f;
@@ -45,7 +45,7 @@ auto main() -> int {
   //  auto datorro_1 = Datorro(samplerate);
   //  myCallback.datorro = &datorro_1;
 
-    auto modder_1 = PreDelay(samplerate, 400);
+    auto modder_1 = ModAllPass(0.75, 1343, samplerate, 1.0, 12);
     //modder_1.setDelayTime(700);
     myCallback.mod_1 = &modder_1;
 
