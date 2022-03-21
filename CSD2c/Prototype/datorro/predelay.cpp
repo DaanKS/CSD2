@@ -4,7 +4,7 @@ PreDelay::PreDelay() {}
 PreDelay::PreDelay(double samplerate, float delayTime) {
     this->m_samplerate = samplerate;
     circ = new CircBuffer(static_cast<uint>(samplerate));
-    circ->setDelayTimeSamps(msToSamples(delayTime));
+    circ->setDelayTimeSamps(delayTime);
 }
 PreDelay::~PreDelay() {
     delete circ;

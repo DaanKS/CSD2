@@ -36,8 +36,12 @@ private:
     Allpass* ap_4;
     Allpass* ap_5;
     Allpass* ap_6;
+
+
     ModAllPass* map_1;
     ModAllPass* map_2;
+   // ModAllPass* map_3;
+    //ModAllPass* map_4;
 
     float feedSample_1 = 0.0f;
     float feedSample_2 = 0.0f;
