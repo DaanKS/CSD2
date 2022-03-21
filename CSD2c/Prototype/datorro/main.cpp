@@ -13,7 +13,7 @@ struct MyCallback : AudioIODeviceCallback {
     //Allpass* mod_1;
     //Onepole* mod_1;
     //PreDelay* mod_1;
-    Comb* datorro;
+    // Comb* datorro;
     float tempSample_1 = 0.0f;
     float tempSample_2 = 0.0f;
     float tempSample = 0.0f;
@@ -43,7 +43,7 @@ auto main() -> int {
 
     auto samplerate = 44100.0f;
 
-    auto datorro_1 = Comb(samplerate, 160, 1.0, 0.0);
+    auto datorro_1 = Datorro(samplerate);
     myCallback.datorro = &datorro_1;
 
   /*  auto modder_1 = ModAllPass(0.75, 1343, samplerate, 1.0, 12);
