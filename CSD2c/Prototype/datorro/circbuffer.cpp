@@ -27,9 +27,9 @@ void CircBuffer::deleteBuffer(){
 }
 
 void CircBuffer::setDelayTimeSamps(uint delayTimeSamps){
-  this->delayTimeSamps = delayTimeSamps;
-  //std::cout << "delayTime Samps" << delayTimeSamps << std::endl;
+  this->m_delayTimeSamps = delayTimeSamps;
+  std::cout << "delayTime Samps " << m_delayTimeSamps << std::endl;
   //TODO --- understand this
-  readIndex = writeIndex - delayTimeSamps + m_size;
+  readIndex = writeIndex - m_delayTimeSamps + m_size;
   wrapHeader(readIndex);
 }

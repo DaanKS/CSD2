@@ -8,8 +8,13 @@ m_Rate(rate), m_Depth(depth)
     this->m_samplerate = samplerate;
     this->m_coeffG = coeff_G;
     this->m_delayTime = delayTime;
+    std::cout << "Samplerate in Mod: " << m_samplerate << std::endl;
+    sin = new Sine(m_samplerate);
+    std::cout << "Rate in Mod: " << m_Rate << std::endl;
+    sin->setDelta(m_Rate);
 
-    initializeOscillator();
+    //initializeOscillator();
+    std::cout << "succesfully made a modulated allpass object" << std::endl;
 }
 
 ModAllPass::~ModAllPass() {
@@ -28,8 +33,7 @@ float ModAllPass::output(float inputSample) {
 }
 
 void ModAllPass::delayModulation() {
-    const auto modSignal = sin->output() * m_Depth;
-    circ->setDelayTimeSamps(modSignal + m_delayTime);
+    circ->setDelayTimeSamps((sin->output() * m_Depth) + m_delayTime);
 }
 
 void ModAllPass::setModulationRate(float rate){

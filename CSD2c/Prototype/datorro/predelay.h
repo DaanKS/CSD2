@@ -20,4 +20,5 @@ private:
     CircBuffer* circ;
     //float delayTimeSamples;
     double m_samplerate;
+    float outputSample;
 };

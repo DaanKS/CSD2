@@ -19,11 +19,11 @@ public:
   inline void writeToBuffer(float inputSample){buffer[(uint)writeIndex] = inputSample;}
   inline float readFromBuffer(){
 
-      const float temp_High = buffer[(uint)(readIndex + 0.5)];
-      const float temp_Low = buffer[(uint)readIndex];
-      const float temp_input = (uint)(readIndex + 0.5) - readIndex;
+      const float temp_High = buffer[static_cast<uint>(readIndex + 0.5)];
+      const float temp_Low = buffer[static_cast<uint>(readIndex)];
+      const float temp_input = static_cast<uint>(readIndex + 0.5) - readIndex;
 
-      const float outputSample = linearMap(temp_input, temp_Low, temp_High);
+      float outputSample = linearMap(temp_input, temp_Low, temp_High);
       return outputSample;
   }
 
@@ -64,7 +64,7 @@ void deleteBuffer();
 
   float* buffer;
   uint m_size;
-  uint delayTimeSamps;
+  uint m_delayTimeSamps;
     float writeIndex;
     float readIndex;
 };
