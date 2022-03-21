@@ -2,7 +2,7 @@
 #include <iostream>
 
 Datorro::Datorro(float samplerate) : m_samplerate(samplerate)  {
-    bandWidth = new Onepole(0.3);
+    bandWidth = new Onepole(0.7);
     damping_1 = new Onepole(0.5);
     damping_2 = new Onepole(0.5);
 

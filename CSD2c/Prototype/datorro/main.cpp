@@ -8,7 +8,7 @@
 
 
 struct MyCallback : AudioIODeviceCallback {
-    //Datorro* datorro;
+    Datorro* datorro;
     //ModAllPass* mod_1;
     //Allpass* mod_1;
     //Onepole* mod_1;
@@ -25,11 +25,11 @@ struct MyCallback : AudioIODeviceCallback {
         for(auto sample = 0; sample < numSamples; ++ sample){
             tempSample = datorro->output(input[sample * 2]);
 
-            //tempSample_1 = datorro->outputL(tempSample + (tempSample_2 * 0.3));
-            //tempSample_2 = datorro->outputR(tempSample + (tempSample_1 * 0.3));
+            tempSample_1 = datorro->outputL(tempSample);
+            tempSample_2 = datorro->outputR(tempSample);
 
-            output[sample * 2] = tempSample;//(tempSample_1 / 4.0) + input[sample * 2];
-            output[sample * 2 + 1] = tempSample;//(tempSample_2 / 4.0) + input[sample * 2];
+            output[sample * 2] = (tempSample_1 / 4.0) + input[sample * 2];
+            output[sample * 2 + 1] = (tempSample_2 / 4.0) + input[sample * 2];
         }
     }
     auto releaseResources() -> void override {}
