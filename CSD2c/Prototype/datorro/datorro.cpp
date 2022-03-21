@@ -51,8 +51,24 @@ float Datorro::output(float inputSample) {
 }
 //Modulated AP, fixed delay, onepole filter, AP, fixe delay
 float Datorro::outputL(float inputSample) {
-    return fixed_3->output(ap_5->output(damping_1->output(fixed_1->output(map_1->output(inputSample)))));
+    feedSampleL1 = map_1->output(inputSample + (feedSampleR5 * 0.3));
+    feedSampleL2 = fixed_1->output(feedSampleL1);
+    feedSampleL3 = damping_1->output(feedSampleL2);
+    feedSampleL4 = ap_5->output(feedSampleL3);
+    feedSampleL5 = fixed_3->output(feedSampleL4);
+
+    return (combL_1->output(feedSampleL1) + combL_2->output(feedSampleL1) + combL_4->output(feedSampleL2) + ( -1 * (combL_3->output(feedSampleL4) + combL_5->output(feedSampleR1) + combL_6->output(feedSampleR4) + combL_7->output(feedSampleR3))) ) * 0.15;
+
+    //return fixed_3->output(ap_5->output(damping_1->output(fixed_1->output(map_1->output(inputSample)))));
 }
 float Datorro::outputR(float inputSample) {
-    return fixed_4->output(ap_6->output(damping_2->output(fixed_2->output(map_2->output(inputSample)))));
+    feedSampleR1 = map_2->output(inputSample + (feedSampleL5 * 0.3));
+    feedSampleR2 = fixed_2->output(feedSampleR1);
+    feedSampleR3 = damping_2->output(feedSampleR2);
+    feedSampleR4 = ap_6->output(feedSampleR3);
+    feedSampleR5 = fixed_4->output(feedSampleR4);
+
+
+    return (combR_1->output(feedSampleR1) + combR_2->output(feedSampleR1) + combR_4->output(feedSampleR2) + ( -1 * (combR_3->output(feedSampleR4) + combR_5->output(feedSampleL1) + combR_6->output(feedSampleL4) + combR_7->output(feedSampleL3))) ) * 0.15;
+    //return fixed_4->output(ap_6->output(damping_2->output(fixed_2->output(map_2->output(inputSample)))));
 }

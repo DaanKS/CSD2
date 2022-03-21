@@ -60,8 +60,26 @@ private:
     Comb* combR_7;
 
 
-    float feedSample_1 = 0.0f;
-    float feedSample_2 = 0.0f;
+    float feedSampleL1 = 0.0f;
+    float feedSampleL2 = 0.0f;
+    float feedSampleL3 = 0.0f;
+    float feedSampleL4 = 0.0f;
+    float feedSampleL5 = 0.0f;
+    float feedSampleL6 = 0.0f;
+    float feedSampleL7 = 0.0f;
+
+    float feedSampleR1 = 0.0f;
+    float feedSampleR2 = 0.0f;
+    float feedSampleR3 = 0.0f;
+    float feedSampleR4 = 0.0f;
+    float feedSampleR5 = 0.0f;
+    float feedSampleR6 = 0.0f;
+    float feedSampleR7 = 0.0f;
+
+
+
 
     float coefficientG5 = 0.1f;
+
+
 };
