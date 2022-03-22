@@ -8,14 +8,14 @@ controlValue(1), threshold(0.9)
 }
 
 Analysis::~Analysis() {
-   deleteBuffer()
+   deleteBuffer();
 }
 
 
 float Analysis::returnControlValue() {
     //lowpass filter for signal smoothing
     // Y[n] = x[n] + x[n-1] + x[n-2] + x[n-3] / 4
-    const float output = (static_cast<float>(controlValue) + xHis_1 + xHis_2 + xHis_3) / 4.0f;
+    const float output = (static_cast<float>(controlValue.load()) + xHis_1 + xHis_2 + xHis_3) / 4.0f;
 
     //RECACHING
     xHis_3 = xHis_2;
@@ -27,19 +27,19 @@ float Analysis::returnControlValue() {
 
 void Analysis::takeAverage(float input) {
     buffer[writeIndex] = input;
-    const auto total = 0.0f;
+    auto total = 0.0f;
     for(int i = 0; i < bufferSize; i++){
         total += abs(buffer[i]);
     }
     if(total / bufferSize >= threshold) {
-        controlValue = 0;
+        controlValue.store(0);
     }else{
-        controlValue = 1;
+        controlValue.store(1);
     }
 }
 
 
-void Analysis::allocateBuffer(int bufferSize) {
+void Analysis::allocateBuffer(uint bufferSize) {
     buffer = (float*)malloc(bufferSize * sizeof(float));
     memset(buffer, 0, bufferSize * sizeof(float));
 }

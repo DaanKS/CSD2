@@ -8,10 +8,11 @@
  */
 //
 #include <iostream>
+#include <atomic>
 
 #pragma once
 
-#define unsigned int uint
+typedef unsigned int uint;
 
 class Analysis{
 public:
@@ -31,15 +32,15 @@ private:
         writeIndex++;
         wrapHeader(writeIndex);
     }
-    inline void wrapHeader(float& index){
-        if(index >= m_size){
-            index -= m_size;
+    inline void wrapHeader(uint& index){
+        if(index >= bufferSize){
+            index -= bufferSize;
         }
     }
 
     uint bufferSize;
     uint writeIndex;
-    int controlValue;
+    std::atomic<int> controlValue;
 
     float threshold;
     float* buffer;
