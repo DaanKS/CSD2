@@ -1,5 +1,6 @@
 #include "port_audio.h"
 #include "datorro.h"
+#include "analysis.h"
 #include <iostream>
 #include <stdexcept>
 #include <exception>
@@ -8,12 +9,14 @@
 
 
 struct MyCallback : AudioIODeviceCallback {
-    Datorro* datorro;
+    //Datorro* datorro;
     //ModAllPass* mod_1;
     //Allpass* mod_1;
     //Onepole* mod_1;
     //PreDelay* mod_1;
     // Comb* datorro;
+    Analysis* analysis;
+
     float tempSample_1 = 0.0f;
     float tempSample_2 = 0.0f;
     float tempSample = 0.0f;
@@ -23,13 +26,16 @@ struct MyCallback : AudioIODeviceCallback {
     }
     auto process(float* input, float* output, int numSamples, int numChannels) -> void override {
         for(auto sample = 0; sample < numSamples; ++ sample){
-            tempSample = datorro->output(input[sample * 2]);
+            //tempSample = datorro->output(input[sample * 2]);
 
-            tempSample_1 = datorro->outputL(tempSample);
-            tempSample_2 = datorro->outputR(tempSample);
+            //tempSample_1 = datorro->outputL(tempSample);
+            //tempSample_2 = datorro->outputR(tempSample);
 
-            output[sample * 2] = (tempSample_1 / 4.0) + input[sample * 2];
-            output[sample * 2 + 1] = (tempSample_2 / 4.0) + input[sample * 2];
+            analysis->takeAverage(input[sample]);
+            std::cout << "output of average" << analysis->returnControlValue() << std::endl;
+
+            output[sample * 2] = 0;//(tempSample_1 / 4.0) + input[sample * 2];
+            output[sample * 2 + 1] = 0;//(tempSample_2 / 4.0) + input[sample * 2];
         }
     }
     auto releaseResources() -> void override {}
@@ -46,9 +52,8 @@ auto main() -> int {
     auto datorro_1 = Datorro(samplerate);
     myCallback.datorro = &datorro_1;
 
-  /*  auto modder_1 = ModAllPass(0.75, 1343, samplerate, 1.0, 12);
-    //modder_1.setDelayTime(700);
-    myCallback.mod_1 = &modder_1; */
+    auto anal = Analysis(10);
+    myCallback.analysis = &anal;
 
     try {
         portAudio.setup(44100, 512);
