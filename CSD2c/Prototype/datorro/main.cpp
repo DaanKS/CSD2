@@ -14,7 +14,7 @@ struct MyCallback : AudioIODeviceCallback {
     //Allpass* mod_1;
     //Onepole* mod_1;
     //PreDelay* mod_1;
-    // Comb* datorro;
+    Comb* datorro;
     Analysis* analysis;
 
     float tempSample_1 = 0.0f;
@@ -26,16 +26,16 @@ struct MyCallback : AudioIODeviceCallback {
     }
     auto process(float* input, float* output, int numSamples, int numChannels) -> void override {
         for(auto sample = 0; sample < numSamples; ++ sample){
-            //tempSample = datorro->output(input[sample * 2]);
+            tempSample = datorro->output(input[sample * 2] + (tempSample * analysis->returnControlValue()));
 
             //tempSample_1 = datorro->outputL(tempSample);
             //tempSample_2 = datorro->outputR(tempSample);
 
-            analysis->takeAverage(input[sample]);
-            std::cout << "output of average" << analysis->returnControlValue() << std::endl;
+            analysis->takeAverage(tempSample);
+            std::cout << "output of average: " << analysis->returnControlValue() << std::endl;
 
-            output[sample * 2] = 0;//(tempSample_1 / 4.0) + input[sample * 2];
-            output[sample * 2 + 1] = 0;//(tempSample_2 / 4.0) + input[sample * 2];
+            output[sample * 2] = tempSample / 4.0;//(tempSample_1 / 4.0) + input[sample * 2];
+            output[sample * 2 + 1] = tempSample / 4.0;//(tempSample_2 / 4.0) + input[sample * 2];
         }
     }
     auto releaseResources() -> void override {}
@@ -49,8 +49,10 @@ auto main() -> int {
 
     auto samplerate = 44100.0f;
 
-    auto datorro_1 = Datorro(samplerate);
+
+    auto datorro_1 = Comb(samplerate, 100, 1.0, 0.0);
     myCallback.datorro = &datorro_1;
+
 
     auto anal = Analysis(10);
     myCallback.analysis = &anal;
