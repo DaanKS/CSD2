@@ -14,12 +14,18 @@ protected:
     int inputBufSize;
 
     unsigned int samplerate;
-    void envPerFx(int fxIndex);
+    int calcSampsBetweenAmps();
+    void calcSlopeIncrement(int fxIndex, int sampsBetweenAmps);
+    void envAtSamp(int fxIndex, int sampsBetweenAmps);
 private:
     EnergyDetect* energyDetect;
     //starting points from with to calculte amplitude
     int envPoint1 = 0;
     int envPoint2 = 1;
+    float ampEnvPoint1;
+    float ampEnvPoint2;
+    float slopeIncrement;
+    float slope = 0;
 };
 
 #endif //EINDOPDRACHT_GENERATOR_H
