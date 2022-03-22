@@ -14,7 +14,7 @@ int inputBufSize = samplerate * 10;
 float* inputBuffer;
 int recordedSamps;
 int nFrames = inputBufSize;
-int fxIndex = 0;
+int fxIndex = 2;
 
 //vector met numFX
 //make die envelopes, voor elke fx
@@ -38,6 +38,7 @@ int main(){
 //    std::cout<< inputBuffer[i] <<std::endl;
     recordedSamps++ ;
   }
+  std::cout<< "recorededSamps: " << recordedSamps <<std::endl;
   //recordedSamps becomes the new bufferSize within the EnergyDetect function
  Generator generator (inputBuffer, recordedSamps,
                     numberFX, fxIndex ,samplerate);
