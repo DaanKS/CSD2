@@ -1,5 +1,6 @@
 #include <cmath>
 #include <iostream>
+#include "squarelaw.h"
 
 class Waveshaper{
 public:
