@@ -45,20 +45,21 @@ int main() {
     float tempValue = 0.0f;
     /* waiting / control loop */
     while(running){
-        while(running){
-            switch (std::cin.get()) {
-                case 'q':
-                    running = false;
-                    break;
-                case 'w':
-                    std::cout << "new value for K: ";
-                    std::cin >> tempValue;
-                    wave.setKvalue(tempValue);
-                    break;
-                case 'e':
-                    std::cout << "new value for drywet: ";
-                    std::cin >> tempValue;
-                    wave.setDryWet(tempValue);
+        switch (std::cin.get()) {
+            case 'q':
+                running = false;
+                break;
+            case 'w':
+                std::cout << "new value for K: ";
+                std::cin >> tempValue;
+                wave.setKvalue(tempValue);
+                break;
+            case 'e':
+                std::cout << "new value for drywet: ";
+                std::cin >> tempValue;
+                wave.setDryWet(tempValue);
+                break;
+        }
     }
 
     try {
