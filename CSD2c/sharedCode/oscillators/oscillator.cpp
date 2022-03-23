@@ -1,4 +1,5 @@
 #include "oscillator.h"
+#include <iostream>
 
 Oscillator::Oscillator(double samplerate){
     resetPhase();
