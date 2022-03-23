@@ -5,6 +5,7 @@ Waveshaper::Waveshaper(double samplerate): bufferSize(4096), kValue(10.0), m_dry
 
     buffer = (float*)malloc(bufferSize * sizeof(float));
     memset(buffer, 0, bufferSize * sizeof(float));
+    generateWaveTable();
 }
 Waveshaper::~Waveshaper(){
     free(buffer);
@@ -23,10 +24,11 @@ void Waveshaper::generateWaveTable(){
 }
 
 float Waveshaper::output(float inputSample){
-    float index = (inputSample + 1) * (bufferSize / 2.0);
-    int i = (int) index;
-    float indexDecimal = index - float(i);
-    auto wetSample = linearMap(indexDecimal, buffer[i], buffer[i + 1]);
+    const auto tempSample = clipping(inputSample, 0.9f);
+    const auto index = (tempSample + 1.0f) * (bufferSize / 2.0f);
+    const auto i = static_cast<int>(index);
+    const auto indexDecimal = index - static_cast<float>(i);
+    const auto wetSample = linearMap(indexDecimal, buffer[i], buffer[i + 1]);
     return (wetSample * mix->getB(m_drywet)) + (inputSample * mix->getA(m_drywet));
 }
 float Waveshaper::mapInRange(float input, float xLow, float xHigh, float yLow, float yHigh){
@@ -38,14 +40,25 @@ float Waveshaper::linearMap(float input, float low, float high){
 
 void Waveshaper::setKvalue(float kValue){
     this->kValue = kValue;
+    setBufferSize(bufferSize);
 }
 void Waveshaper::setBufferSize(int bufferSize) {
     this->bufferSize = bufferSize;
     free(buffer);
-    buffer = (float*)malloc(bufferSize * sizeof(float));
+    buffer = (float *) malloc(bufferSize * sizeof(float));
     memset(buffer, 0, bufferSize * sizeof(float));
-}
+    generateWaveTable();
 
 void Waveshaper::setDryWet(float drywet) {
     this->m_drywet = drywet;
+}
+
+float Waveshaper::clipping(float inputSample, float c_threshold) {
+    if (inputSample >= c_threshold){
+        return c_threshold;
+    }else if (inputSample <= -c_threshold){
+        return -c_threshold;
+    } else {
+        return inputSample;
+    }
 }

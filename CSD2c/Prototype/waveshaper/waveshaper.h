@@ -17,6 +17,8 @@ public:
     void setKvalue(float kValue);
     void setBufferSize(int bufferSize);
     void setDryWet(float drywet);
+
+    float clipping(float inputSample, float c_threshold);
     
 protected:
     std::unique_ptr<Mix> mix;
@@ -25,4 +27,5 @@ protected:
     int bufferSize;
     float kValue;
     float m_drywet;
+    //float wetSample;
 };
