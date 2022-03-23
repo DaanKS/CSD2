@@ -15,7 +15,7 @@ struct MyCallback : AudioIODeviceCallback {
     //Onepole* mod_1;
     //PreDelay* mod_1;
     //Comb* datorro;
-    Analysis* analysis;
+   // Analysis* analysis;
 
     float tempSample_1 = 0.0f;
     float tempSample_2 = 0.0f;
@@ -53,9 +53,10 @@ auto main() -> int {
     auto datorro_1 = Datorro(samplerate);
     myCallback.datorro = &datorro_1;
 
-
+    /*
     auto anal = Analysis(100);
     myCallback.analysis = &anal;
+     */
 
     try {
         portAudio.setup(44100, 512);

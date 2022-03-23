@@ -6,6 +6,9 @@ Datorro::Datorro(float samplerate) : m_samplerate(samplerate)  {
     damping_1 = new Onepole(0.5);
     damping_2 = new Onepole(0.5);
 
+    hiDamping_1 = new Highpass(0.9);
+    hiDamping_2 = new Highpass(0.9);
+
     ap_1 = new Allpass(0.75, 210, m_samplerate);
     ap_2 = new Allpass(0.75, 158, m_samplerate);
     ap_3 = new Allpass(0.625, 561, m_samplerate);
@@ -45,29 +48,31 @@ Datorro::Datorro(float samplerate) : m_samplerate(samplerate)  {
 Datorro::~Datorro() {}
 
 
+
 float Datorro::output(float inputSample) {
     //Predelay - Onepole - 4 * allpass filter
    return ap_4->output(ap_3->output(ap_2->output(ap_1->output(bandWidth->output(predel->output(inputSample))))));
 }
-//Modulated AP, fixed delay, onepole filter, AP, fixe delay
+
+//Modulated AP, fixed delay, onepole filter, AP, fixed delay
 float Datorro::outputL(float inputSample) {
-    feedSampleL1 = map_1->output(inputSample + (feedSampleR5 * 0.3));
+    feedSampleL1 = map_1->output(inputSample + (feedSampleR6 * 0.35));
     feedSampleL2 = fixed_1->output(feedSampleL1);
     feedSampleL3 = damping_1->output(feedSampleL2);
     feedSampleL4 = ap_5->output(feedSampleL3);
     feedSampleL5 = fixed_3->output(feedSampleL4);
+    feedSampleL6 = hiDamping_1->output(feedSampleL5);
 
     return (combL_1->output(feedSampleL1) + combL_2->output(feedSampleL1) + combL_4->output(feedSampleL2) + ( -1 * (combL_3->output(feedSampleL4) + combL_5->output(feedSampleR1) + combL_6->output(feedSampleR4) + combL_7->output(feedSampleR3))) ) * 0.15;
-
     //return fixed_3->output(ap_5->output(damping_1->output(fixed_1->output(map_1->output(inputSample)))));
 }
 float Datorro::outputR(float inputSample) {
-    feedSampleR1 = map_2->output(inputSample + (feedSampleL5 * 0.3));
+    feedSampleR1 = map_2->output(inputSample + (feedSampleL6 * 0.35));
     feedSampleR2 = fixed_2->output(feedSampleR1);
     feedSampleR3 = damping_2->output(feedSampleR2);
     feedSampleR4 = ap_6->output(feedSampleR3);
     feedSampleR5 = fixed_4->output(feedSampleR4);
-
+    feedSampleR6 = hiDamping_2->output(feedSampleR5);
 
     return (combR_1->output(feedSampleR1) + combR_2->output(feedSampleR1) + combR_4->output(feedSampleR2) + ( -1 * (combR_3->output(feedSampleR4) + combR_5->output(feedSampleL1) + combR_6->output(feedSampleL4) + combR_7->output(feedSampleL3))) ) * 0.15;
     //return fixed_4->output(ap_6->output(damping_2->output(fixed_2->output(map_2->output(inputSample)))));

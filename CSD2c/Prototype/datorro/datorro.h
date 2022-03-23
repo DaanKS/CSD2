@@ -1,5 +1,6 @@
 #include "modallpass.h"
 #include "onepole.h"
+#include "highpass.h"
 #include "allpass.h"
 #include "predelay.h"
 #include "comb.h"
@@ -30,6 +31,9 @@ private:
     Onepole* bandWidth;
     Onepole* damping_1;
     Onepole* damping_2;
+
+    Highpass* hiDamping_1;
+    Highpass* hiDamping_2;
 
     Allpass* ap_1;
     Allpass* ap_2;
@@ -75,8 +79,6 @@ private:
     float feedSampleR5 = 0.0f;
     float feedSampleR6 = 0.0f;
     float feedSampleR7 = 0.0f;
-
-
 
 
     float coefficientG5 = 0.1f;
