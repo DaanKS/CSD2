@@ -6,27 +6,21 @@
 
 struct MyCallback : AudioIODeviceCallback {
     Waveshaper* trem;
-    Waveshaper* trem_2;
+    float tempSample = 0.0f;
 
 
-    void prepareToPlay(int sampleRate, int numSamplesPerBlock) override {
-        trem = new Waveshaper(sampleRate);
-        trem_2 = new Waveshaper(sampleRate);
-        trem->generateWaveTable();
-        trem_2->generateWaveTable();
-    }
+    void prepareToPlay(int sampleRate, int numSamplesPerBlock) override {}
+
     void process(float* input, float* output, int numSamples, int numChannels) override {
         for(int sample = 0; sample < numSamples; ++ sample){
-            output[sample * 2] = trem->output(input[sample * 2]);
-            output[sample * 2 + 1] = trem_2->output(input[sample * 2]);
+
+            tempSample = trem->output(input[sample * 2]);
+
+            output[sample * 2] = tempSample;
+            output[sample * 2 + 1] = tempSample;
         }
     }
-    void releaseResources() override {
-        delete trem;
-        trem = nullptr;
-        delete trem_2;
-        trem_2 = nullptr;
-    }
+    void releaseResources() override {}
 
 
 };
@@ -35,15 +29,37 @@ int main() {
     auto myCallback = MyCallback();
     auto portAudio = PortAudio(myCallback);
 
+    auto sampleRate = 44100.0f;
+    auto wave = Waveshaper(sampleRate);
+    myCallback.trem = &wave;
+
+
     try {
-        portAudio.setup(44100, 512);
+        portAudio.setup(sampleRate, 512);
     }
     catch (std::runtime_error& e) {
         std::cerr << "error: " << e.what() << "\n";
     }
 
+    bool running = true;
+    float tempValue = 0.0f;
     /* waiting / control loop */
-    std::cin.get();
+    while(running){
+        while(running){
+            switch (std::cin.get()) {
+                case 'q':
+                    running = false;
+                    break;
+                case 'w':
+                    std::cout << "new value for K: ";
+                    std::cin >> tempValue;
+                    wave.setKvalue(tempValue);
+                    break;
+                case 'e':
+                    std::cout << "new value for drywet: ";
+                    std::cin >> tempValue;
+                    wave.setDryWet(tempValue);
+    }
 
     try {
         portAudio.teardown();
