@@ -6,7 +6,7 @@ SRC_PROJECT = waveshaper.cpp main.cpp
 # the directory to the folder with the shared modules
 SHAREDCODE_PATH = ../../../CSD2c/sharedCode/
 # the modules to include
-MODULES = oscillators utilities
+MODULES = oscillators utilities panners
 
 
 # append shared code path prefix to modules
