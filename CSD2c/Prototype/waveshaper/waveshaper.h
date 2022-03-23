@@ -16,11 +16,13 @@ public:
 
     void setKvalue(float kValue);
     void setBufferSize(int bufferSize);
+    void setDryWet(float drywet);
     
 protected:
-
+    std::unique_ptr<Mix> mix;
     float* buffer;
 
     int bufferSize;
     float kValue;
+    float m_drywet;
 };

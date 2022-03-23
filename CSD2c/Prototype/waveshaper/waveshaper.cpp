@@ -1,6 +1,8 @@
 #include "waveshaper.h"
 
-Waveshaper::Waveshaper(double samplerate): bufferSize(4096), kValue(100.0) {
+Waveshaper::Waveshaper(double samplerate): bufferSize(4096), kValue(10.0), m_drywet(0.0f) {
+    mix = std::make_unique<Mix>();
+
     buffer = (float*)malloc(bufferSize * sizeof(float));
     memset(buffer, 0, bufferSize * sizeof(float));
 }
@@ -24,7 +26,8 @@ float Waveshaper::output(float inputSample){
     float index = (inputSample + 1) * (bufferSize / 2.0);
     int i = (int) index;
     float indexDecimal = index - float(i);
-    return linearMap(indexDecimal, buffer[i], buffer[i + 1]);
+    auto wetSample = linearMap(indexDecimal, buffer[i], buffer[i + 1]);
+    return (wetSample * mix->getB(m_drywet)) + (inputSample * mix->getA(m_drywet));
 }
 float Waveshaper::mapInRange(float input, float xLow, float xHigh, float yLow, float yHigh){
     return ( yLow * (xHigh - input) + yHigh * (input - xLow)) / (xHigh - xLow);
@@ -41,4 +44,8 @@ void Waveshaper::setBufferSize(int bufferSize) {
     free(buffer);
     buffer = (float*)malloc(bufferSize * sizeof(float));
     memset(buffer, 0, bufferSize * sizeof(float));
+}
+
+void Waveshaper::setDryWet(float drywet) {
+    this->m_drywet = drywet;
 }
