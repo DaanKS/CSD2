@@ -1,6 +1,8 @@
 //
 // Created by Dean on 21/02/2022.
 //
+// Formula's taken from http://shepazu.github.io/Audio-EQ-Cookbook/audio-eq-cookbook.html
+//
 
 #include "audioeffect.h"
 #include <cmath>
@@ -35,5 +37,4 @@ private:
 
 };
 
-// http://shepazu.github.io/Audio-EQ-Cookbook/audio-eq-cookbook.html
 // TODO -> add more filters!
