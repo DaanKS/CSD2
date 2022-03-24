@@ -48,6 +48,7 @@ void Waveshaper::setBufferSize(int bufferSize) {
     buffer = (float *) malloc(bufferSize * sizeof(float));
     memset(buffer, 0, bufferSize * sizeof(float));
     generateWaveTable();
+}
 
 void Waveshaper::setDryWet(float drywet) {
     this->m_drywet = drywet;
