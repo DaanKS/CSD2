@@ -4,6 +4,7 @@
 #include "allpass.h"
 #include "predelay.h"
 #include "comb.h"
+#include "squarelaw.h"
 
 #pragma once
 
@@ -19,7 +20,14 @@ public:
     void setPreDelay(float preDelay);
     void setBandWidth(float bandwidth);
 
+    void setDryWet(float drywet);
+
+
 private:
+    std::unique_ptr<Mix> mix;
+    float m_dryWet;
+
+
     double m_samplerate;
 
     PreDelay* fixed_1;
@@ -80,8 +88,9 @@ private:
     float feedSampleR6 = 0.0f;
     float feedSampleR7 = 0.0f;
 
-
     float coefficientG5 = 0.1f;
+    float tempSample_1 = 0.0f;
+    float tempSample_2 = 0.0f;
 
 
 };
