@@ -17,13 +17,13 @@ float Bibiquad::outputHP(float inputSample) {
 }
 
 
-float Bibiquad::setCutoffFrequency(float cutoff) {
+void Bibiquad::setCutoffFrequency(float cutoff) {
     this->m_cutoff = cutoff;
 }
-float Bibiquad::setQFactor(float qFactor) {
+void Bibiquad::setQFactor(float qFactor) {
     this->m_qFactor = qFactor;
 }
-float Bibiquad::setDifference(float difference) {
+void Bibiquad::setDifference(float difference) {
     this->m_difference = difference;
 }
 void Bibiquad::makeFilters(){
