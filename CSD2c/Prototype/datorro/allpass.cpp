@@ -36,7 +36,5 @@ float Allpass::msToSamples(float delayTime) {
     return static_cast<uint>((delayTime * (m_samplerate / 1000.0)));
 }
 void Allpass::initializeBuffer() {
-    //circbuffer is made here, because we don't know the samplerate yet at
-    //the time of the constructor - if we use portaudio
     circ = new CircBuffer(m_samplerate);
 }
