@@ -1,7 +1,7 @@
 #include "datorro.h"
 #include <iostream>
 
-Datorro::Datorro(float samplerate) : m_dryWet(0.0), m_samplerate(samplerate) {
+Datorro::Datorro(float samplerate) : m_dryWet(1.0), m_samplerate(samplerate) {
     mix = std::make_unique<Mix>();
 
     bandWidth = new Onepole(0.7);
@@ -78,7 +78,7 @@ float Datorro::outputR(float inputSample) {
     feedSampleR5 = fixed_4->output(feedSampleR4);
     feedSampleR6 = hiDamping_2->output(feedSampleR5);
 
-    tempSample_1 = (combR_1->output(feedSampleR1) + combR_2->output(feedSampleR1) + combR_4->output(feedSampleR2) + ( -1 * (combR_3->output(feedSampleR4) + combR_5->output(feedSampleL1) + combR_6->output(feedSampleL4) + combR_7->output(feedSampleL3))) ) * 0.15;
+    tempSample_2 = (combR_1->output(feedSampleR1) + combR_2->output(feedSampleR1) + combR_4->output(feedSampleR2) + ( -1 * (combR_3->output(feedSampleR4) + combR_5->output(feedSampleL1) + combR_6->output(feedSampleL4) + combR_7->output(feedSampleL3))) ) * 0.15;
 
     return (tempSample_2 * mix->getB(m_dryWet)) + (inputSample * mix->getA(m_dryWet));
     //return fixed_4->output(ap_6->output(damping_2->output(fixed_2->output(map_2->output(inputSample)))));
@@ -86,5 +86,4 @@ float Datorro::outputR(float inputSample) {
 
 void Datorro::setDryWet(float drywet) {
     this->m_dryWet = drywet;
-
 }
