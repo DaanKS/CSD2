@@ -1,6 +1,6 @@
 #include "bibiquad.h"
 
-Bibiquad::Bibiquad(double samplerate):m_samplerate(samplerate),
+Bibiquad::Bibiquad(double samplerate): AudioEffect(), m_samplerate(samplerate),
 m_cutoff(1000), m_qFactor(3.0), m_difference(300){
     Lopass = new Biquad();
     Hipass = new Biquad();
@@ -8,6 +8,10 @@ m_cutoff(1000), m_qFactor(3.0), m_difference(300){
     Hipass->makeHighPass(m_cutoff + m_difference, m_qFactor, m_samplerate);
 }
 Bibiquad::~Bibiquad() = default;
+
+float Bibiquad::output(float inputSample) {
+    return 0;
+}
 
 float Bibiquad::outputLP(float inputSample){
     return Lopass->output(inputSample);

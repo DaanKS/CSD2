@@ -2,11 +2,12 @@
 
 #pragma once
 
-class Bibiquad{
+class Bibiquad : public AudioEffect{
 public:
     Bibiquad(double samplerate);
     ~Bibiquad();
 
+    float output(float inputSample) override;
     float outputLP(float inputSample);
     float outputHP(float inputSample);
 
