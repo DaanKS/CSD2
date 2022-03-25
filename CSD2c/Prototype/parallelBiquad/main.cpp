@@ -1,6 +1,7 @@
 #include "port_audio.h"
 #include "waveshaper.h"
 #include "biquad.h"
+#include "bibiquad.h"
 #include <iostream>
 #include <stdexcept>
 #include <exception>
@@ -11,8 +12,8 @@
 struct MyCallback : AudioIODeviceCallback {
     AudioEffect* wave_1;
     AudioEffect* wave_2;
-    AudioEffect* biquad;
-    AudioEffect* biqhpf;
+    AudioEffect* dualbiquad;
+    //AudioEffect* hipass;
     AudioEffect* bandpass;
 
 
@@ -23,8 +24,8 @@ struct MyCallback : AudioIODeviceCallback {
         for(auto sample = 0; sample < numSamples; ++ sample){
             auto tempSample = input[sample * 2];//bandpass->output(input[sample * 2]);
 
-            auto tempSample_1 = wave_1->output(biquad->output(tempSample));
-            auto tempSample_2 = wave_2->output(biqhpf->output(tempSample));
+            auto tempSample_1 = wave_1->output(dualbiquad->outputLP(tempSample));
+            auto tempSample_2 = wave_2->output(dualbiquad->outputHP(tempSample));
 
             output[sample * 2] = tempSample_1;
             output[sample * 2 + 1] = tempSample_2;
@@ -48,12 +49,18 @@ auto main() -> int {
         waveshaper2.setKvalue(100.0);
         myCallback.wave_2 = &waveshaper2;
 
+    auto dualBiquad = Bibiquad(samplerate);
+        myCallback.dualbiquad = &dualBiquad;
+/*
     auto biquad_1 = Biquad();
         biquad_1.setCoefficients(biquad_1.makeLowPass(500, 3.0, samplerate));
         myCallback.biquad = &biquad_1;
     auto biquad_2 = Biquad();
         biquad_2.setCoefficients(biquad_2.makeHighPass(700, 3.0, samplerate));
         myCallback.biqhpf = &biquad_2;
+*/
+
+
     auto biquad_3 = Biquad();
         biquad_3.setCoefficients(biquad_3.makeBandPass(600, 3.0, samplerate, 2.0));
         myCallback.bandpass = &biquad_3;
