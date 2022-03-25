@@ -34,8 +34,8 @@ struct MyCallback : AudioIODeviceCallback {
             //analysis->takeAverage(tempSample);
             //std::cout << "output of average: " << analysis->returnControlValue() << std::endl;
 
-            output[sample * 2] = (tempSample_1 / 4.0) + input[sample * 2];
-            output[sample * 2 + 1] = (tempSample_2 / 4.0) + input[sample * 2];
+            output[sample * 2] = (tempSample_1);// + input[sample * 2];
+            output[sample * 2 + 1] = (tempSample_2);// + input[sample * 2];
         }
     }
     auto releaseResources() -> void override {}
@@ -52,7 +52,6 @@ auto main() -> int {
 
     auto datorro_1 = Datorro(samplerate);
     myCallback.datorro = &datorro_1;
-    std::cout << "built datorro in main" << std::endl;
 
     /*
     auto anal = Analysis(100);
@@ -68,7 +67,7 @@ auto main() -> int {
     }
 
     /* waiting / control loop */
-    //auto  tempValue = 0.0f;
+    auto  tempValue = 0.0f;
     auto running = true;
     while(running) {
         switch (std::cin.get()) {
@@ -76,10 +75,14 @@ auto main() -> int {
                 running = false;
                 break;
             case 'w':
-
+                std::cout << "set new value for drywet: ";
+                std::cin >> tempValue;
+                datorro_1.setDryWet(tempValue);
                 break;
             case 'e':
-
+                std::cout << "set new value for predelay: ";
+                std::cin >> tempValue;
+                datorro_1.setPreDelay(tempValue);
                 break;
 
 
