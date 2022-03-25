@@ -52,6 +52,7 @@ auto main() -> int {
 
     auto datorro_1 = Datorro(samplerate);
     myCallback.datorro = &datorro_1;
+    std::cout << "built datorro in main" << std::endl;
 
     /*
     auto anal = Analysis(100);

@@ -27,7 +27,6 @@ private:
     std::unique_ptr<Mix> mix;
     float m_dryWet;
 
-
     double m_samplerate;
 
     PreDelay* fixed_1;

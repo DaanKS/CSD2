@@ -1,7 +1,7 @@
 #include "datorro.h"
 #include <iostream>
 
-Datorro::Datorro(float samplerate) : m_samplerate(samplerate)  {
+Datorro::Datorro(float samplerate) : m_dryWet(0.0), m_samplerate(samplerate) {
     mix = std::make_unique<Mix>();
 
     bandWidth = new Onepole(0.7);
@@ -44,7 +44,6 @@ Datorro::Datorro(float samplerate) : m_samplerate(samplerate)  {
     combR_7 = new Comb(m_samplerate, 52, 1.0, 0.0);
 
     std::cout << "\ndatorro constructor is a succes\n" << std::endl;
-
 }
 
 Datorro::~Datorro() {}
@@ -53,6 +52,7 @@ Datorro::~Datorro() {}
 
 float Datorro::output(float inputSample) {
     //Predelay - Onepole - 4 * allpass filter
+    //std::cout << "output function called" << std::endl;
    return ap_4->output(ap_3->output(ap_2->output(ap_1->output(bandWidth->output(predel->output(inputSample))))));
 }
 
