@@ -6,7 +6,7 @@
 
 class Waveshaper : public AudioEffect{
 public:
-    Waveshaper();
+    Waveshaper(double samplerate);
     ~Waveshaper();
 
     void generateWaveTable();//TODO -- Add custom wavetables

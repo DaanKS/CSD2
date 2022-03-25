@@ -1,6 +1,6 @@
 #include "waveshaper.h"
 
-Waveshaper::Waveshaper() : AudioEffect(), bufferSize(4096), kValue(100.0) {
+Waveshaper::Waveshaper(double samplerate) : AudioEffect(samplerate), bufferSize(4096), kValue(100.0) {
     buffer = (float *) malloc(bufferSize * sizeof(float));
     memset(buffer, 0, bufferSize * sizeof(float));
 }

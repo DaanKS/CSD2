@@ -9,7 +9,7 @@
 
 class AudioEffect{
 public:
-  AudioEffect();
+  AudioEffect(double samplerate);
   virtual ~AudioEffect();
 
   virtual float output(float inputSample) = 0;

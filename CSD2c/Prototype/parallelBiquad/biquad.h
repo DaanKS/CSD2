@@ -17,7 +17,7 @@ struct BiquadCoefficients {
 
 class Biquad : public AudioEffect{
 public:
-    Biquad();
+    Biquad(double samplerate);
     ~Biquad();
 
     float output(float inputSample) noexcept;

@@ -24,8 +24,8 @@ struct MyCallback : AudioIODeviceCallback {
         for(auto sample = 0; sample < numSamples; ++ sample){
             auto tempSample = input[sample * 2];//bandpass->output(input[sample * 2]);
 
-            auto tempSample_1 = wave_1->output(dualbiquad->outputLP(tempSample));
-            auto tempSample_2 = wave_2->output(dualbiquad->outputHP(tempSample));
+            auto tempSample_1 = wave_1->output(((Bibiquad)dualbiquad)->outputLP(tempSample));
+            auto tempSample_2 = wave_2->output((Bibiquad)dualbiquad)->outputHP(tempSample));
 
             output[sample * 2] = tempSample_1;
             output[sample * 2 + 1] = tempSample_2;

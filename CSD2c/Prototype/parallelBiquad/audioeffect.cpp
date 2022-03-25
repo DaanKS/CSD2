@@ -1,6 +1,6 @@
 #include "audioeffect.h"
 
-AudioEffect::AudioEffect() : drywet(0.0){
+AudioEffect::AudioEffect(double samplerate) : drywet(0.0){
 }
 AudioEffect::~AudioEffect(){}
 
