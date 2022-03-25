@@ -88,6 +88,7 @@ private:
     float feedSampleR7 = 0.0f;
 
     float coefficientG5 = 0.1f;
+    float earlyTempSample = 0.0f;
     float tempSample_1 = 0.0f;
     float tempSample_2 = 0.0f;
 

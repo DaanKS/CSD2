@@ -53,7 +53,8 @@ Datorro::~Datorro() {}
 float Datorro::output(float inputSample) {
     //Predelay - Onepole - 4 * allpass filter
     //std::cout << "output function called" << std::endl;
-   return ap_4->output(ap_3->output(ap_2->output(ap_1->output(bandWidth->output(predel->output(inputSample))))));
+    earlyTempSample =    ap_4->output(ap_3->output(ap_2->output(ap_1->output(bandWidth->output(predel->output(inputSample))))));
+    return (earlyTempSample * mix->getB(m_dryWet)) + (inputSample * mix->getA(m_dryWet));
 }
 
 //Modulated AP, fixed delay, onepole filter, AP, fixed delay
