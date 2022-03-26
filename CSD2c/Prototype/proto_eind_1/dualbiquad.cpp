@@ -1,36 +1,36 @@
-#include "dualquad.h"
+#include "dualbiquad.h"
 
-Bibiquad::Bibiquad(double samplerate): AudioEffect(samplerate), m_samplerate(samplerate),
+DualBiquad::DualBiquad(double samplerate): AudioEffect(samplerate), m_samplerate(samplerate),
 m_cutoff(1000), m_qFactor(3.0), m_difference(300){
     Lopass = new Biquad(m_samplerate);
     Hipass = new Biquad(m_samplerate);
     Lopass->makeLowPass(m_cutoff, m_qFactor, m_samplerate);
     Hipass->makeHighPass(m_cutoff + m_difference, m_qFactor, m_samplerate);
 }
-Bibiquad::~Bibiquad() = default;
+DualBiquad::~DualBiquad() = default;
 
-float Bibiquad::output(float inputSample) {
+float DualBiquad::output(float inputSample) {
     return 0;
 }
 
-float Bibiquad::outputLP(float inputSample){
+float DualBiquad::outputLP(float inputSample){
     return Lopass->output(inputSample);
 }
-float Bibiquad::outputHP(float inputSample) {
+float DualBiquad::outputHP(float inputSample) {
     return Hipass->output(inputSample);
 }
 
 
-void Bibiquad::setCutoffFrequency(float cutoff) {
+void DualBiquad::setCutoffFrequency(float cutoff) {
     this->m_cutoff = cutoff;
 }
-void Bibiquad::setQFactor(float qFactor) {
+void DualBiquad::setQFactor(float qFactor) {
     this->m_qFactor = qFactor;
 }
-void Bibiquad::setDifference(float difference) {
+void DualBiquad::setDifference(float difference) {
     this->m_difference = difference;
 }
-void Bibiquad::makeFilters(){
+void DualBiquad::makeFilters(){
     Lopass->makeLowPass(m_cutoff, m_qFactor, m_samplerate);
     Hipass->makeHighPass(m_cutoff + m_difference, m_qFactor, m_samplerate);
 }
