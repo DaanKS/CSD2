@@ -10,13 +10,14 @@ public:
               int fxIndex, unsigned int samplerate);
     ~Generator();
 
+    float envAtSamp(int fxIndex);
+
 protected:
     int inputBufSize;
 
     unsigned int samplerate;
-    int calcSampsBetweenAmps();
-    void calcSlopeIncrement(int fxIndex, int sampsBetweenAmps);
-    void envAtSamp(int fxIndex, int sampsBetweenAmps);
+    void calcSampsBetweenAmps();
+    void calcSlopeIncrement(int fxIndex);
 private:
     EnergyDetect* energyDetect;
     //starting points from with to calculte amplitude
@@ -25,6 +26,7 @@ private:
     float ampEnvPoint1;
     float ampEnvPoint2;
     float slopeIncrement;
+    int sampsBetweenAmps;
     float slope = 0;
 };
 

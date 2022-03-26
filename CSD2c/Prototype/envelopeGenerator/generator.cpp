@@ -11,10 +11,10 @@ Generator::Generator(float inputBuffer[], int inputBufSize, int numberFx,
 
 
 
-  int sampsBetweenAmps = calcSampsBetweenAmps();
-  calcSlopeIncrement(fxIndex, sampsBetweenAmps);
+  calcSampsBetweenAmps();
+  calcSlopeIncrement(fxIndex);
   for (int i = 0; i < inputBufSize; i++){
-    envAtSamp(fxIndex, sampsBetweenAmps);
+    envAtSamp(fxIndex);
   }
 }
 
@@ -28,18 +28,17 @@ Generator::~Generator() {
 #endif
 }
 
-int Generator::calcSampsBetweenAmps() {
+void Generator::calcSampsBetweenAmps() {
   //the length of the total envelope = number of inputBuffer samps (inputBufSize)
   //the amount of time between amps is devided depending on the lenth of
   //the input and the size of the envAmpBuffer
-  int sampsBetweenAmps = inputBufSize / energyDetect->envAmpBufferSize;
+  sampsBetweenAmps = inputBufSize / energyDetect->envAmpBufferSize;
 #if DEBUG > 2
   std::cout<< "sampsBetweenAmps: " << sampsBetweenAmps <<std::endl;
 #endif
-  return  sampsBetweenAmps;
 }
 
-void Generator::calcSlopeIncrement(int fxIndex, int sampsBetweenAmps) {
+void Generator::calcSlopeIncrement(int fxIndex) {
   //point 1 to point 2 in a given amount of samples
   //if check so the index od envSlope2 stays in range of the envAmpBufferSize
   if (envPoint2 < energyDetect->envAmpBufferSize){
@@ -56,19 +55,20 @@ void Generator::calcSlopeIncrement(int fxIndex, int sampsBetweenAmps) {
   }
 }
 
-void Generator::envAtSamp(int fxIndex, int sampsBetweenAmps) {
+float Generator::envAtSamp(int fxIndex) {
   //this function get excecuted at audio rate
   //and returns the amp value for each effect
 
   //TODO: 0 at beginning and 0 at ending of each envelope
   //TODO: duration of each envelope depending on the length of the inputBuffer
   //with some nice algoritm
+  float ampAtSamp;
   if(slope < ampEnvPoint2) {
     //slope starts at 0 cuz all envelopes start at 0
     //after it has been added to the first envelope value
     //the slope get increangily bigger depending on de sampsBetweenAmps
 
-    float ampAtSamp = ampEnvPoint1 + slope;
+    ampAtSamp = ampEnvPoint1 + slope;
     slope = slope + slopeIncrement;
 #if DEBUG > 2
     std::cout<< "envPoint1" << ampEnvPoint1 <<std::endl;
@@ -80,6 +80,7 @@ void Generator::envAtSamp(int fxIndex, int sampsBetweenAmps) {
     envPoint2++;
     //slope gets reset to 0 zo the origanl amp value is the env
     slope = 0;
-    calcSlopeIncrement(fxIndex, sampsBetweenAmps);
+    calcSlopeIncrement(fxIndex);
   }
+  return ampAtSamp;
 }

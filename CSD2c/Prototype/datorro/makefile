@@ -1,10 +1,10 @@
 CXX= g++
-CXXFLAGS = -I/usr/local/include -Wall -std=c++20
+CXXFLAGS = -I/usr/local/include -Wall -std=c++2a
 LDFLAGS=-lportaudio -ljack
 # the cpp files from the current project to include
 SRC_PROJECT = analysis.cpp highpass.cpp allpass.cpp circbuffer.cpp modallpass.cpp onepole.cpp predelay.cpp comb.cpp datorro.cpp main.cpp
 # the directory to the folder with the shared modules
-SHAREDCODE_PATH = ../../../CSD2c/sharedCode/
+SHAREDCODE_PATH = ../../sharedCode/
 # the modules to include
 MODULES = oscillators utilities panners
 
