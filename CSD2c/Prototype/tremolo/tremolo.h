@@ -1,6 +1,6 @@
-#include "sine.h"
-#include "square.h"
-#include "saw.h"
+#include <sine.h>
+#include <square.h>
+#include <saw.h>
 #include <iostream>
 
 class Tremolo{
@@ -14,7 +14,7 @@ public:
   Tremolo(double samplerate);
   ~Tremolo();
 
-  double outputSample(double inputSample);
+  float output(float inputSample);
 
   void assignWave(int waveformtype);
 
