@@ -2,7 +2,8 @@
 #include <iostream>
 #include <juce_audio.h>
 #include <squarelaw.h>
-#include "tremolo.h"
+#include "datorro.h"
+#include "dualbiquad.h"
 
 
 struct TestCallback : AudioCallback
@@ -11,13 +12,12 @@ struct TestCallback : AudioCallback
     {
         for (int channel = 0; channel < numOutputChannels; ++channel){
             for (int sample = 0; sample < numSamples; ++sample){
-                output[channel][sample] = tremolo->output(input[0][sample]);
+                output[channel][sample] = output(input[0][sample]);
             }
         }
     }
 
-    //std::vector<Hypertan> hypertans;
-    Tremolo* tremolo;
+
 };
 
 
