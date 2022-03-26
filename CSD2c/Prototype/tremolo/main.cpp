@@ -1,7 +1,7 @@
 
 #include <iostream>
 #include <juce_audio.h>
-//#include <squarelaw.h>
+#include <squarelaw.h>
 #include "tremolo.h"
 
 
@@ -27,6 +27,7 @@ int main()
     AudioBackend audioBackend;
 
     auto trem = Tremolo(44100);
+    trem.setRate(1.0);
     callback.tremolo = &trem;
 
 
