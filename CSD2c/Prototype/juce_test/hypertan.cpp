@@ -6,5 +6,5 @@ Hypertan::Hypertan() {
 Hypertan::~Hypertan() = default;
 
 float Hypertan::output(float inputSample) {
-    return tanh(inputSample * 2);
+    return tanh(inputSample * 10);
 }

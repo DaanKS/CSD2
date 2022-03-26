@@ -4,22 +4,21 @@
 #include <random>
 #include <thread>
 #include "hypertan.h"
+#include <vector>
 
 struct TestCallback : AudioCallback
 {
     void process (const float** input, float** output, int numInputChannels, int numOutputChannels, int numSamples) override
     {
-        for (int channel = 0; channel < numOutputChannels; ++channel)
-        {
-            for (int sample = 0; sample < numSamples; ++sample)
-            {
-                output[channel][sample] = tAnh->output(input[channel][sample]);
+        for (int channel = 0; channel < numOutputChannels; ++channel){
+            for (int sample = 0; sample < numSamples; ++sample){
+                output[channel][sample] = hypertans->output(input[0][sample]);
             }
         }
     }
 
-
-    Hypertan* tAnh;
+    //std::vector<Hypertan> hypertans;
+    Hypertan* hypertans;
 };
 
 
@@ -28,11 +27,9 @@ int main()
     TestCallback callback;
     AudioBackend audioBackend;
 
-    auto hyperTan = Hypertan();
-    callback.tAnh = &hyperTan;
 
     audioBackend.registerCallback (&callback);
-    audioBackend.openDefaultIODevice (0, 2);
+    audioBackend.openDefaultIODevice (1, 2);
 
     std::cin.get();
 
