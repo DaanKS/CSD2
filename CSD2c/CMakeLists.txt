@@ -1,0 +1,4 @@
+cmake_minimum_required(VERSION 3.18)
+project(daans_leuk_geluid LANGUAGES CXX)
+add_subdirectory(juce_audio_backend)
+add_subdirectory(Prototype)
