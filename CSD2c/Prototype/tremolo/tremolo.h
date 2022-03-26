@@ -1,6 +1,6 @@
-#include "sine.h"
-#include "square.h"
-#include "saw.h"
+#include <sine.h>
+#include <square.h>
+#include <saw.h>
 #include <iostream>
 
 class Tremolo{

@@ -1,55 +1,39 @@
-#include "jack_module.h"
-#include "tremolo.h"
+
 #include <iostream>
-#include <cstring>
+#include <juce_audio.h>
+#include <squarelaw.h>
+#include <sine.h>
+#include "tremolo.h"
 
-int main(int argc, char **argv){
-  //create jack_module
-  JackModule jack;
-  jack.init(argv[0]);
 
-  //start Tremolo
-  Tremolo trem(jack.getSamplerate());
-
-  //make JackModule::onProcess
-  jack.onProcess = [&trem](jack_default_audio_sample_t *inBuf,
-  jack_default_audio_sample_t *outBuf, jack_nframes_t nframes){
-    for(unsigned int sample = 0; sample < nframes; sample++){
-      outBuf[sample] = trem.outputSample(inBuf[sample]);
+struct TestCallback : AudioCallback
+{
+    void process (const float** input, float** output, int numInputChannels, int numOutputChannels, int numSamples) override
+    {
+        for (int channel = 0; channel < numOutputChannels; ++channel){
+            for (int sample = 0; sample < numSamples; ++sample){
+                output[channel][sample] = tremolo->output(input[0][sample]);
+            }
+        }
     }
+
+    //std::vector<Hypertan> hypertans;
+    Tremolo
+};
+
+
+int main()
+{
+    TestCallback callback;
+    AudioBackend audioBackend;
+
+
+    audioBackend.registerCallback (&callback);
+    audioBackend.openDefaultIODevice (1, 2);
+
+    std::cin.get();
+
+    audioBackend.closeDevice();
+
     return 0;
-  };
-
-  jack.autoConnect();
-
-  std::cout << "Press 'q' and hit ENTER to quit\n";
-  bool running = true;
-  while(running){
-    switch (std::cin.get()){
-      case 'q':
-        running = false;
-        jack.end();
-        break;
-      case 'w':
-        std::cout << "enter new rate: ";
-        double tempRate;
-        std::cin >> tempRate;
-        trem.setRate(tempRate);
-        break;
-      case 'e':
-        std::cout << "enter new amplitude: ";
-        double tempAmp;
-        std::cin >> tempAmp;
-        trem.setAmplitude(tempAmp);
-        break;
-      case 'r':
-        std::cout << "1, 2, 3";
-        int tempWave;
-        std::cin >> tempWave;
-        trem.assignWave(tempWave);
-        break;
-    }
-
-  }
-  return 0;
 }
