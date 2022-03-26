@@ -14,7 +14,7 @@ public:
   Tremolo(double samplerate);
   ~Tremolo();
 
-  double outputSample(double inputSample);
+  float output(float inputSample);
 
   void assignWave(int waveformtype);
 

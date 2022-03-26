@@ -9,7 +9,7 @@ Tremolo::~Tremolo(){
   delete osc;
   osc = nullptr;
 }
-double Tremolo::outputSample(double inputSample){
+float Tremolo::output(float inputSample){
   modSignal = osc->output();
   modSignal *= amplitude;
   modSignal += 1.0 - amplitude;

@@ -1,8 +1,7 @@
 
 #include <iostream>
 #include <juce_audio.h>
-#include <squarelaw.h>
-#include <sine.h>
+//#include <squarelaw.h>
 #include "tremolo.h"
 
 
@@ -18,7 +17,7 @@ struct TestCallback : AudioCallback
     }
 
     //std::vector<Hypertan> hypertans;
-    Tremolo
+    Tremolo* tremolo;
 };
 
 
@@ -26,6 +25,9 @@ int main()
 {
     TestCallback callback;
     AudioBackend audioBackend;
+
+    auto trem = Tremolo(44100);
+    callback.tremolo = &trem;
 
 
     audioBackend.registerCallback (&callback);
