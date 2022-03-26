@@ -1,4 +1,4 @@
-#include "bibiquad.h"
+#include "dualquad.h"
 
 Bibiquad::Bibiquad(double samplerate): AudioEffect(samplerate), m_samplerate(samplerate),
 m_cutoff(1000), m_qFactor(3.0), m_difference(300){
