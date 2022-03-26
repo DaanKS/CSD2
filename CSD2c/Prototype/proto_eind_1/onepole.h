@@ -22,8 +22,8 @@ public:
     float output(float inputSample);
     void setCoefficinets(const OnepoleCoefficients coefficients);
 
-    OnepoleCoefficients makeLowPass(float cutoff) noexcept;
-    OnepoleCoefficients makeHighPass(float cutoff) noexcept;
+    OnepoleCoefficients makeLowPass(float cutoff, float samplerate) noexcept;
+    OnepoleCoefficients makeHighPass(float cutoff, float samplerate) noexcept;
 
 
 private:

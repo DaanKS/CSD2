@@ -17,16 +17,18 @@ void Onepole::setCoefficinets(OnepoleCoefficients coefficients) {
     currentCoefficients.store(coefficients);
 }
 
-OnepoleCoefficients Onepole::makeLowPass(float cutoff) noexcept {
-    const auto y = 1 - cos(cutoff);
+OnepoleCoefficients Onepole::makeLowPass(float cutoff, float samplerate) noexcept {
+    const auto omega = 2 * M_PI * (cutoff / samplerate);
+    const auto y = 1 - cos(omega);
     return {
         .Aone = (-1 * y) + sqrt( pow(y , 2) + (2 * y) ),
         .Atwo = 1 - ((-1 * y) + sqrt( pow(y , 2) + (2 * y) ))
     };
 }
 
-OnepoleCoefficients Onepole::makeHighPass(float cutoff) noexcept {
-    const auto y = 1 - cos(cutoff);
+OnepoleCoefficients Onepole::makeHighPass(float cutoff, float samplerate) noexcept {
+    const auto omega = 2 * M_PI * (cutoff / samplerate);
+    const auto y = 1 - cos(omega);
     return{
             .Aone = (-1 * y) + sqrt( pow(y , 2) + (2 * y) ),
             .Atwo = -1 * (1 - ((-1 * y) + sqrt( pow(y , 2) + (2 * y) )))
