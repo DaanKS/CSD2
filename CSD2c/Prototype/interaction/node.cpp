@@ -12,7 +12,7 @@ Node::~Node() {
   std::cout<< "~destructor Node" <<std::endl;
 }
 
-Node* Node::makeNewNode(int data) {
+Node* Node::makeNewNode(std::string data) {
     Node* temp = new Node;
     temp->data = data;
     temp->left = temp->right = NULL;

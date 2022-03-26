@@ -47,3 +47,12 @@ void UserInput::checkAnswer(int questionSelect) {
   //set to false so the seprateLetter function can get excecuted agian
   donePrinting = false;
 }
+
+void UserInput::makeNewNode(std::string data) {
+//  Node* root = root->makeNewNode(questionSelect);
+//  root->left = root->makeNewNode(0);
+//  root->right = root->makeNewNode(1);
+//
+//  std::cout << "\nPreorder traversal of binary tree is \n";
+//  root->printPreorder(root);
+}

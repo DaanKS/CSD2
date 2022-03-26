@@ -3,6 +3,7 @@
 //
 #include <iostream>
 #include <cstring>
+#include <vector>
 #include "node.h"
 
 #ifndef MAIN_CPP_USERINPUT_H
@@ -16,9 +17,11 @@ public:
 //  char printToConsole(std::string, int sample);
     void separateLetter(std::string sentence, int sample, int nframes);
     void checkAnswer(int questionSelect);
+    void makeNewNode(std::string data);
 
     bool donePrinting = false; //false = printing, true = done
     int numAnswrdQues = 0;
+    std::vector<Node*> nodes;
 
 protected:
 private:

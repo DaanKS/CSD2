@@ -8,9 +8,9 @@ class Node {
 public:
     Node();
     ~Node();
-    Node* makeNewNode(int data);
+    Node* makeNewNode(std::string data);
     void printPreorder(Node* node);
-    int data;
+    std::string data;
     struct Node *left, *right;
 };
 
