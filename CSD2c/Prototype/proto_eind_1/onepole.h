@@ -20,7 +20,7 @@ public:
     Onepole(float cutoff, double samplerate);
     ~Onepole();
 
-    float output(float inputSample);
+    float output(float inputSample) override;
     void setCoefficinets(const OnepoleCoefficients& coefficients);
 
     OnepoleCoefficients makeLowPass(float cutoff, double samplerate) noexcept;
