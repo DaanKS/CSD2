@@ -18,7 +18,7 @@ public:
   void setSamplerate(float samplerate);
 
 protected:
-  double samplerate;
+  double m_samplerate;
   float drywet;
   //To replace Mix* and allow automatic ptr deletion
   std::unique_ptr<Mix> mix;
