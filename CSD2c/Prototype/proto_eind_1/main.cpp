@@ -8,12 +8,15 @@ struct TestCallback : AudioCallback
 {
     void process (const float** input, float** output, int numInputChannels, int numOutputChannels, int numSamples) override
     {
-        for (int channel = 0; channel < numOutputChannels; ++channel){
+
             for (int sample = 0; sample < numSamples; ++sample){
-                output[channel][sample] = input[0][sample];
+                float tempSample = datorro->output(input[0][sample]);
+                output[0][sample] = datorro->outputL(tempSample);
+                output[1][sample] = datorro->outputR(tempSample);
             }
-        }
     }
+
+    Datorro* datorro;
 
 };
 
@@ -23,8 +26,13 @@ int main()
     TestCallback callback;
     AudioBackend audioBackend;
 
+    double samplerate = 44100;
+
     audioBackend.registerCallback (&callback);
     audioBackend.openDefaultIODevice (1, 2);
+
+    auto torro = Datorro(samplerate);
+    callback.datorro = &torro;
 
     std::cin.get();
 
