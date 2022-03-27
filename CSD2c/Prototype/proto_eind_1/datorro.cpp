@@ -44,17 +44,15 @@ Datorro::Datorro(float samplerate) : m_dryWet(0.0), m_samplerate(samplerate) {
     combR_5 = new Comb(m_samplerate, 35, 1.0, 0.0);
     combR_6 = new Comb(m_samplerate, 27, 1.0, 0.0);
     combR_7 = new Comb(m_samplerate, 52, 1.0, 0.0);
-
-
 }
 
-Datorro::~Datorro() {}
+Datorro::~Datorro() {
+
+}
 
 
 
 float Datorro::output(float inputSample) {
-    //Predelay - Onepole - 4 * allpass filter
-    //std::cout << "output function called" << std::endl;
     earlyTempSample = ap_4->output(ap_3->output(ap_2->output(ap_1->output(bandWidth->output(predel->output(inputSample))))));
     return (earlyTempSample * mix->getB(m_dryWet)) + (inputSample * mix->getA(m_dryWet));
 }
