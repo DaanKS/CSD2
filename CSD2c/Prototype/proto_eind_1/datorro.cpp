@@ -9,7 +9,7 @@ Datorro::Datorro(float samplerate) : m_dryWet(0.0), m_samplerate(samplerate) {
     damping_2 = new Onepole(4000, m_samplerate);
 
     hiDamping_1 = new Onepole();
-    hiDamping_2->setCoefficinets(hiDamping_2->makeHighPass(200, m_samplerate));
+    hiDamping_1->setCoefficinets(hiDamping_1->makeHighPass(200, m_samplerate));
     hiDamping_2 = new Onepole();
     hiDamping_2->setCoefficinets(hiDamping_2->makeHighPass(200, m_samplerate));
 
@@ -55,7 +55,7 @@ Datorro::~Datorro() {}
 float Datorro::output(float inputSample) {
     //Predelay - Onepole - 4 * allpass filter
     //std::cout << "output function called" << std::endl;
-    earlyTempSample =    ap_4->output(ap_3->output(ap_2->output(ap_1->output(bandWidth->output(predel->output(inputSample))))));
+    earlyTempSample = ap_4->output(ap_3->output(ap_2->output(ap_1->output(bandWidth->output(predel->output(inputSample))))));
     return (earlyTempSample * mix->getB(m_dryWet)) + (inputSample * mix->getA(m_dryWet));
 }
 
