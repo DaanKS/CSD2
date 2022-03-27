@@ -23,7 +23,7 @@ void UserInput::separateLetter(std::string sentence, int sample, int nframes) {
   donePrinting = false;
   if(sample >= nframes - 1) {
     intervalsPassed++;
-    if (intervalsPassed >= 8) {
+    if (intervalsPassed >= 1) {
       if(letterIndex < sentence.length()) {
         std::cout << sentence[letterIndex] << std::flush;
         intervalsPassed = 0;
