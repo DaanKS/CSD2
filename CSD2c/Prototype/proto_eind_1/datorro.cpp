@@ -4,14 +4,14 @@
 Datorro::Datorro(float samplerate) : m_dryWet(0.0), m_samplerate(samplerate) {
     mix = std::make_unique<Mix>();
 
-    bandWidth = new Onepole(3000, samplerate);
-    damping_1 = new Onepole(4000, samplerate);
-    damping_2 = new Onepole(4000, samplerate);
+    bandWidth = new Onepole(3000, m_samplerate);
+    damping_1 = new Onepole(4000, m_samplerate);
+    damping_2 = new Onepole(4000, m_samplerate);
 
     hiDamping_1 = new Onepole();
-    hiDamping_2->setCoefficinets(hiDamping_2->makeHighPass(200, samplerate));
+    hiDamping_2->setCoefficinets(hiDamping_2->makeHighPass(200, m_samplerate));
     hiDamping_2 = new Onepole();
-    hiDamping_2->setCoefficinets(hiDamping_2->makeHighPass(200, samplerate));
+    hiDamping_2->setCoefficinets(hiDamping_2->makeHighPass(200, m_samplerate));
 
     ap_1 = new Allpass(0.75, 210, m_samplerate);
     ap_2 = new Allpass(0.75, 158, m_samplerate);
