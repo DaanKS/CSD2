@@ -11,12 +11,13 @@ struct TestCallback : AudioCallback
 
             for (int sample = 0; sample < numSamples; ++sample){
                 float tempSample = datorro->output(input[0][sample]);
-                output[0][sample] = datorro->outputL(tempSample);
-                output[1][sample] = datorro->outputR(tempSample);
+                output[0][sample] = dualBiquad->outputLP(datorro->outputL(tempSample));
+                output[1][sample] = dualBiquad->outputHP(datorro->outputR(tempSample));
             }
     }
 
     Datorro* datorro;
+    DualBiquad* dualBiquad;
 
 };
 
@@ -33,6 +34,8 @@ int main()
 
     auto torro = Datorro(samplerate);
     callback.datorro = &torro;
+    auto quad = DualBiquad(samplerate);
+    callback.dualBiquad = &quad;
 
     std::cin.get();
 
