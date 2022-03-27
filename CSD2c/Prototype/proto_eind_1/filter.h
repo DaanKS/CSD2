@@ -1,5 +1,5 @@
 //Base class for all filter objects (apart from biquad)
-
+#pragma once
 typedef unsigned int uint;
 
 class Filter{
