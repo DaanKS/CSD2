@@ -9,7 +9,9 @@ public:
     Node();
     ~Node();
     Node* makeNewNode(std::string data);
-    void printPreorder(Node* node);
+    std::string printPreorder(Node* node);
+    std::string printRoot(Node* node, int questionSelect);
+    std::string printLeaf(Node* node, int questionSelect);
     std::string data;
     struct Node *left, *right;
 };

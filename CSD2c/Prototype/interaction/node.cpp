@@ -19,16 +19,33 @@ Node* Node::makeNewNode(std::string data) {
     return temp;
 }
 
-void Node::printPreorder(Node *node) {
+std::string Node::printPreorder(Node *node) {
   if (node == NULL)
-    return;
+    return "";
 
-  /* first print data of node */
-  std::cout << node->data << " ";
+  std::string question = node->data;
 
-  /* then recur on left subtree */
-  printPreorder(node->left);
 
-  /* now recur on right subtree */
-  printPreorder(node->right);
+
+  return question;
+}
+
+std::string Node::printRoot(Node *node, int questionSelect) {
+  //0 = left
+  //1 = right
+  if (node == NULL)
+    return "";
+
+  std::string question = node->data;
+    return question;
+}
+
+std::string Node::printLeaf(Node *node, int questionSelect) {
+  std::string question;
+  if(questionSelect == 0){
+    question = node->left->data;
+  }else{
+    question = node->right->data;
+  }
+  return question;
 }

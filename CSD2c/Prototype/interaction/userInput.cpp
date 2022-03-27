@@ -12,18 +12,16 @@ UserInput::~UserInput() {
   std::cout<< "~destructor UserInput" <<std::endl;
 }
 
-void UserInput::chooseQuestion() {
-
-}
-
 void UserInput::separateLetter(std::string sentence, int sample, int nframes) {
   //sample = same as the amount of passed samples
   //when printing donePrinting is always false
   //makes the program wait untill all the letters are printed
+//  std::cout<< "sample" << sample <<std::endl;
+//  std::cout<< "numsamps" << nframes <<std::endl;
   donePrinting = false;
   if(sample >= nframes - 1) {
     intervalsPassed++;
-    if (intervalsPassed >= 1) {
+    if (intervalsPassed >= 8) {
       if(letterIndex < sentence.length()) {
         std::cout << sentence[letterIndex] << std::flush;
         intervalsPassed = 0;
@@ -46,13 +44,4 @@ void UserInput::checkAnswer(int questionSelect) {
   //when we've got our answer
   //set to false so the seprateLetter function can get excecuted agian
   donePrinting = false;
-}
-
-void UserInput::makeNewNode(std::string data) {
-//  Node* root = root->makeNewNode(questionSelect);
-//  root->left = root->makeNewNode(0);
-//  root->right = root->makeNewNode(1);
-//
-//  std::cout << "\nPreorder traversal of binary tree is \n";
-//  root->printPreorder(root);
 }

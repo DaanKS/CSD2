@@ -1,10 +1,10 @@
 #include <iostream>
 #include <vector>
 #include "juce_audio.h"
-#include <random>
 #include <thread>
 #include "userInput.h"
 #include "node.h"
+#include <atomic>
 
 std::string initialQ = "Instructions:\n"
                        "- You are obligated to answer the following questions out loud\n"
@@ -54,7 +54,8 @@ std::string testResult[2] = {"You have passed you baseline test and may go.\n"
 
 //make a tree depending on chosen path
 Node* node;
-
+//Node* storeAnswers[6];
+//int storeAnswerIndex = 0;
 
 void makeTrees(int questionSelect){
   //make tree for dreams
@@ -92,16 +93,6 @@ void makeTrees(int questionSelect){
   }
 }
 
-void turnLeftRight(int questionSelect){
-  //0 = left
-  //1 = right
-  if(questionSelect == 0){
-    node
-  }else{
-
-  }
-}
-
 /*
  * instructions
  *question flow:
@@ -114,10 +105,6 @@ void turnLeftRight(int questionSelect){
  */
 
 
-UserInput userInput;
-int questionSelect;
-bool initialQSwitch = true;
-bool treeChoice  = false;
 
 /*
  * Flow of userInput
@@ -126,14 +113,94 @@ bool treeChoice  = false;
  * wait for the first question to print -> get a choice -> check the question at root
  */
 
+
+
 struct TestCallback : AudioCallback
 {
+    int structSample;
+    int structNumSamples;
     void process (const float** input, float** output, int numInputChannels, int numOutputChannels, int numSamples) override
     {
-      for (int channel = 0; channel < numOutputChannels; ++channel){
-        for (int sample = 0; sample < numSamples; ++sample){
-          //wait for sperateletter() to finish
-          //then get an input
+      for (int channel = 0; channel < numOutputChannels; ++channel) {
+        for (int sample = 0; sample < numSamples; ++sample) {
+          structSample = sample;
+          structNumSamples = numSamples;
+//              std::cout << "process sample " << sample <<std::endl;
+//              std::cout<< "process numSmapes " << numSamples <<std::endl;
+//          wait for sperateletter() to finish
+//          then get an input
+//          if(userInput.donePrinting == true) {
+//            if(initialQSwitch == true){
+//              std::cin>> questionSelect;
+//              userInput.checkAnswer(questionSelect);
+//              treeChoice = true;
+//              initialQSwitch = false;
+//            }else{
+//              if(treeChoice == true){
+//                std::cin>> questionSelect;
+//                userInput.checkAnswer(questionSelect);
+//                makeTrees(questionSelect);
+//                treeChoice = false;
+//              }else{
+//                std::cout<< "we zijn hier" <<std::endl;
+//                std::cin>> questionSelect;
+//                userInput.checkAnswer(questionSelect);
+//              }
+//            }
+//            //TODO: check if numeric, check in range of questions
+//          }else{
+//            if(initialQSwitch == true) {
+//              //print intialquestions
+//              userInput.separateLetter(initialQ, sample, numSamples);
+//            }else{
+//              if(treeChoice == true){
+//                userInput.separateLetter(senseQ, sample, numSamples);
+//              }else{
+//                std::cin>> questionSelect;
+//                question = node->printRoot(node, questionSelect);
+//                userInput.separateLetter(question, sample, numSamples);
+//              }
+//            }
+//          }
+//        }
+        }
+      }
+    }
+};
+
+
+
+
+
+int main(){
+
+
+
+  bool running = true;
+
+  UserInput userInput;
+  TestCallback callback;
+  AudioBackend audioBackend;
+
+  audioBackend.registerCallback (&callback);
+  audioBackend.openDefaultIODevice (1, 2);
+
+
+//cerdits to discount Wouter, Ciska jij kent die niet...
+  auto userInputLoop = [&callback, &userInput, &running](){
+
+      int questionSelect;
+      std::string question;
+      bool initialQSwitch = true;
+      bool treeChoice  = false;
+
+      while (running){
+        int questionSelect;
+        std::string question;
+        bool initialQSwitch = true;
+        bool treeChoice  = false;
+        //wait for sperateletter() to finish
+        //then get an input
           if(userInput.donePrinting == true) {
             if(initialQSwitch == true){
               std::cin>> questionSelect;
@@ -147,6 +214,7 @@ struct TestCallback : AudioCallback
                 makeTrees(questionSelect);
                 treeChoice = false;
               }else{
+                std::cout<< "we zijn hier" <<std::endl;
                 std::cin>> questionSelect;
                 userInput.checkAnswer(questionSelect);
               }
@@ -155,40 +223,34 @@ struct TestCallback : AudioCallback
           }else{
             if(initialQSwitch == true) {
               //print intialquestions
-              userInput.separateLetter(initialQ, sample, numSamples);
-            }
-            if(treeChoice == true){
-              userInput.separateLetter(senseQ, sample, numSamples);
+              userInput.separateLetter(initialQ, callback.structSample, callback.structNumSamples);
             }else{
-              turnLeftRight(questionSelect);
-//              userInput.separateLetter()
+              if(treeChoice == true){
+                userInput.separateLetter(senseQ, callback.structSample, callback.structNumSamples);
+              }else{
+                std::cin>> questionSelect;
+                question = node->printPreorder(node);
+                userInput.separateLetter(question, callback.structSample, callback.structNumSamples);
+              }
             }
           }
-        }
       }
-    }
-};
+  };
+ auto userInputThread = std::thread {userInputLoop};
 
 
-
-int main(){
-//  makeTrees(0);
-  TestCallback callback;
-  AudioBackend audioBackend;
-
-  audioBackend.registerCallback (&callback);
-  audioBackend.openDefaultIODevice (1, 2);
-
-
-
-  bool running = true;
   while (running)
   {
     switch (std::cin.get())
     {
       case 'q':
         running = false;
+        userInputThread.join();
         audioBackend.closeDevice();
+        break;
+      case '0' :
+        break;
+      case '1' :
         break;
     }
   }

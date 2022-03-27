@@ -17,7 +17,6 @@ public:
 //  char printToConsole(std::string, int sample);
     void separateLetter(std::string sentence, int sample, int nframes);
     void checkAnswer(int questionSelect);
-    void makeNewNode(std::string data);
 
     bool donePrinting = false; //false = printing, true = done
     int numAnswrdQues = 0;
@@ -27,9 +26,6 @@ protected:
 private:
     int intervalsPassed = 0;
     int letterIndex = 0;
-    void chooseQuestion();
-    //questions
-
 };
 
 
