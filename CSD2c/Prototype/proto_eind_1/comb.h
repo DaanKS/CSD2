@@ -10,6 +10,7 @@ public:
     ~Comb();
 
     float output(float inputSample) override;
+    //TODO add setter for delaytime
 
 private:
     float m_bufferSize;
