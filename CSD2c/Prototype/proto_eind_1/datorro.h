@@ -8,7 +8,7 @@
  *Yafr2 - Randy Jones rej@2uptech.com, based on
  *Griesinger plate reverb
 */
-
+#include "filter.h"
 #include "modallpass.h"
 #include "onepole.h"
 #include "highpass.h"
@@ -16,6 +16,7 @@
 #include "fixeddelay.h"
 #include "comb.h"
 #include <squarelaw.h>
+#include <vector>
 
 #pragma once
 
@@ -36,6 +37,7 @@ public:
 
 private:
     std::unique_ptr<Mix> mix;
+    Filter* filters[27];
     float m_dryWet;
 
     double m_samplerate;

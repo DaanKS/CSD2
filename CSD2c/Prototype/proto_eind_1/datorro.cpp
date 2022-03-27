@@ -5,18 +5,19 @@ Datorro::Datorro(float samplerate) : m_dryWet(0.0), m_samplerate(samplerate) {
     mix = std::make_unique<Mix>();
 
     bandWidth = new Onepole(3000, m_samplerate);
+    filters[0] = new Onepole(3000, m_samplerate);
     damping_1 = new Onepole(4000, m_samplerate);
     damping_2 = new Onepole(4000, m_samplerate);
 
-    hiDamping_1 = new Onepole();
+    hiDamping_1 = new Onepole(m_samplerate);
     hiDamping_1->setCoefficinets(hiDamping_1->makeHighPass(200, m_samplerate));
-    hiDamping_2 = new Onepole();
+    hiDamping_2 = new Onepole(m_samplerate);
     hiDamping_2->setCoefficinets(hiDamping_2->makeHighPass(200, m_samplerate));
 
-    ap_1 = new Allpass(0.75, 210, m_samplerate);
-    ap_2 = new Allpass(0.75, 158, m_samplerate);
-    ap_3 = new Allpass(0.625, 561, m_samplerate);
-    ap_4 = new Allpass(0.625, 410, m_samplerate);
+    filters[1] = new Allpass(0.75, 210, m_samplerate);
+    filters[2] = new Allpass(0.75, 158, m_samplerate);
+    filters[3] = new Allpass(0.625, 561, m_samplerate);
+    filters[4] = new Allpass(0.625, 410, m_samplerate);
     ap_5 = new Allpass(0.5, 3931, m_samplerate);
     ap_6 = new Allpass(0.5, 2664, m_samplerate);
 
@@ -53,7 +54,7 @@ Datorro::~Datorro() {
 
 
 float Datorro::output(float inputSample) {
-    earlyTempSample = ap_4->output(ap_3->output(ap_2->output(ap_1->output(bandWidth->output(predel->output(inputSample))))));
+    earlyTempSample = filters[4]->output(filters[3]->output(filters[2]->output(filters[1]->output(filters[0]->output(predel->output(inputSample))))));
     return (earlyTempSample * mix->getB(m_dryWet)) + (inputSample * mix->getA(m_dryWet));
 }
 
