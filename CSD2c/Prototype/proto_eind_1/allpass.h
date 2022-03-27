@@ -18,10 +18,8 @@ public:
 
 protected:
     float m_coeffG;
-    float m_delayTime;
-    double m_samplerate;
-
     float tempSample;
+    float m_delayTime;
 
     CircBuffer* circ;
 };

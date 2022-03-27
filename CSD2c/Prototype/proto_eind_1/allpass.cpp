@@ -1,10 +1,10 @@
 #include "allpass.h"
 
-Allpass::Allpass(double samplerate) : Filter(samplerate) ,m_coeffG(0.0f), m_delayTime(0.0f),m_samplerate(0.0),tempSample(0.0f)  {}
+Allpass::Allpass(double samplerate) : Filter(samplerate) ,m_coeffG(0.0f), m_delayTime(0.0f), tempSample(0.0f)  {}
 
 Allpass::Allpass(float coeff_G, float delayTime, double samplerate) : Filter(samplerate),
 m_coeffG(coeff_G), m_delayTime(delayTime),
-m_samplerate(samplerate), tempSample(0.0f)
+tempSample(0.0f)
 {
     circ = new CircBuffer(m_samplerate);
 }

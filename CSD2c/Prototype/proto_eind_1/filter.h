@@ -11,5 +11,7 @@ public:
 
 protected:
     uint msToSamples(float delayMS);
-    float m_samplerate;
+    double m_samplerate;
+
+
 };

@@ -1,14 +1,14 @@
 #include "modallpass.h"
 
-ModAllPass::ModAllPass() {}
+ModAllPass::ModAllPass(double samplerate) : Filter(samplerate) {}
 ModAllPass::ModAllPass(float coeff_G, float delayTime, double samplerate, float rate, float depth)
-: Allpass(coeff_G, delayTime, samplerate),
+: Filter(samplerate), m_coeffG(coeff_G), m_delayTime(delayTime),
 m_Rate(rate), m_Depth(depth)
 {
     this->m_samplerate = samplerate;
     this->m_coeffG = coeff_G;
-    this->m_delayTime = delayTime;
 
+    circ = new CircBuffer(m_samplerate);
     sin = new Sine(m_samplerate);
     sin->setDelta(m_Rate);
 }
