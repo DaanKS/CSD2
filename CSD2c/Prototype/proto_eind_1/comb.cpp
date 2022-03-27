@@ -4,9 +4,9 @@ Comb::Comb(double samplerate) : Filter(samplerate){}
 Comb::Comb(float bufferSize, float delayTime, float feedforward, float feedback, double samplerate) : Filter(samplerate),
 m_bufferSize(bufferSize), m_delayTime(delayTime), m_feedforward(feedforward), m_feedback(feedback)
 {
-    circFF = new CircBuffer(m_bufferSize);
+    circFF = new CircBuffer(static_cast<uint>(m_bufferSize));
     circFF->setDelayTimeSamps(msToSamples(m_delayTime));
-    circFB = new CircBuffer(m_bufferSize);
+    circFB = new CircBuffer(static_cast<uint>(m_bufferSize));
     circFB->setDelayTimeSamps(msToSamples(m_delayTime));
 }
 Comb::~Comb(){
