@@ -17,6 +17,8 @@ Comb::~Comb(){
 }
 
 float Comb::output(float inputSample) {
+    //Combfilter design taken from MaxMSP reference. MSP > Objects > Comb~
+    //Y[n] = X[n] + AX[n - z] + BY[n - z]
     circFF->writeToBuffer(inputSample);
     outputSample = inputSample + (circFF->readFromBuffer() * m_feedforward) + (circFB->readFromBuffer() * m_feedback);
     circFB->writeToBuffer(outputSample);
