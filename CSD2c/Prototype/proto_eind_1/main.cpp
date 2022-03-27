@@ -1,6 +1,5 @@
 #include <iostream>
 #include <juce_audio.h>
-#include <squarelaw.h>
 #include "datorro.h"
 #include "dualbiquad.h"
 

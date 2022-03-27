@@ -1,5 +1,5 @@
-#include "circbuffer.h"
-#include "sine.h"
+#include <circbuffer.h>
+#include <sine.h>
 #include "allpass.h"
 
 #pragma once
