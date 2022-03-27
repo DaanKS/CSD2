@@ -90,8 +90,6 @@ float Datorro::outputR(float inputSample) {
 void Datorro::setPreDelay(float preDelay) {
     predel->setDelayTime(preDelay);
 }
-
-
 void Datorro::setDryWet(float drywet) {
     this->m_dryWet = drywet;
 }
