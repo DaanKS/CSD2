@@ -12,6 +12,4 @@ public:
 protected:
     uint msToSamples(float delayMS);
     double m_samplerate;
-
-
 };

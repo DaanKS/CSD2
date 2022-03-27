@@ -1,12 +1,12 @@
 #include "datorro.h"
 #include <iostream>
 
-Datorro::Datorro(float samplerate) : m_dryWet(-0.5), m_samplerate(samplerate) {
+Datorro::Datorro(float samplerate) : m_dryWet(0.0), m_samplerate(samplerate) {
     mix = std::make_unique<Mix>();
 
-    filters[0] = new Onepole(3000, m_samplerate);
-    filters[7] = new Onepole(4000, m_samplerate);
-    filters[8] = new Onepole(4000, m_samplerate);
+    filters[0] = new Onepole(4000, m_samplerate);
+    filters[7] = new Onepole(20000, m_samplerate);
+    filters[8] = new Onepole(20000, m_samplerate);
 
     filters[11] = new Onepole(m_samplerate);
     ((Onepole*)filters[11])->setCoefficinets(hiDamping_1->makeHighPass(200, m_samplerate));
