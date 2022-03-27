@@ -20,6 +20,8 @@
 
 #pragma once
 
+#define NUMFILTERS 27
+
 class Datorro{
 public:
     Datorro(float samplerate);
@@ -37,7 +39,7 @@ public:
 
 private:
     std::unique_ptr<Mix> mix;
-    Filter* filters[27];
+    Filter* filters[NUMFILTERS];
     float m_dryWet;
 
     double m_samplerate;

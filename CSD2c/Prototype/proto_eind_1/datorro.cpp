@@ -1,7 +1,7 @@
 #include "datorro.h"
 #include <iostream>
 
-Datorro::Datorro(float samplerate) : m_dryWet(0.0), m_samplerate(samplerate) {
+Datorro::Datorro(float samplerate) : m_dryWet(-0.5), m_samplerate(samplerate) {
     mix = std::make_unique<Mix>();
 
     filters[0] = new Onepole(3000, m_samplerate);
@@ -47,7 +47,10 @@ Datorro::Datorro(float samplerate) : m_dryWet(0.0), m_samplerate(samplerate) {
 }
 
 Datorro::~Datorro() {
-
+    for(auto i = 0; i < NUMFILTERS; i++){
+        delete filters[i];
+        filters[i] = nullptr;
+    }
 }
 
 
