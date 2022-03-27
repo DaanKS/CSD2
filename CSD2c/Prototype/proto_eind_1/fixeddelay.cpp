@@ -1,10 +1,10 @@
 #include "fixeddelay.h"
 
 FixedDelay::FixedDelay() {}
-FixedDelay::FixedDelay(double samplerate, float delayTime) {
+FixedDelay::FixedDelay(double samplerate, float delayTime): outputSample(0.0f) {
     this->m_samplerate = samplerate;
     circ = new CircBuffer(static_cast<uint>(samplerate));
-    circ->setDelayTimeSamps(delayTime);
+    circ->setDelayTimeSamps(static_cast<uint>(delayTime));
 }
 FixedDelay::~FixedDelay() {
     delete circ;

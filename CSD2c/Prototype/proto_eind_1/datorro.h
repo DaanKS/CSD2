@@ -50,42 +50,6 @@ private:
     FixedDelay* fixed_4;
     FixedDelay* predel;
 
-    Onepole* bandWidth;
-    Onepole* damping_1;
-    Onepole* damping_2;
-
-    Onepole* hiDamping_1;
-    Onepole* hiDamping_2;
-
-    Allpass* ap_1;
-    Allpass* ap_2;
-    Allpass* ap_3;
-    Allpass* ap_4;
-    Allpass* ap_5;
-    Allpass* ap_6;
-
-    ModAllPass* map_1;
-    ModAllPass* map_2;
-    //ModAllPass* map_3;
-    //ModAllPass* map_4;
-
-    Comb* combL_1;
-    Comb* combL_2;
-    Comb* combL_3;
-    Comb* combL_4;
-    Comb* combL_5;
-    Comb* combL_6;
-    Comb* combL_7;
-
-    Comb* combR_1;
-    Comb* combR_2;
-    Comb* combR_3;
-    Comb* combR_4;
-    Comb* combR_5;
-    Comb* combR_6;
-    Comb* combR_7;
-
-
     float feedSampleL1 = 0.0f;
     float feedSampleL2 = 0.0f;
     float feedSampleL3 = 0.0f;

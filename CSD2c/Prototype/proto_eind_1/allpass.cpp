@@ -6,7 +6,9 @@ Allpass::Allpass(float coeff_G, float delayTime, double samplerate) : Filter(sam
 m_coeffG(coeff_G), m_delayTime(delayTime),
 tempSample(0.0f)
 {
-    circ = new CircBuffer(m_samplerate);
+    circ = new CircBuffer(static_cast<uint>(m_samplerate));
+    circ->setDelayTimeSamps((m_delayTime));
+
 }
 Allpass::~Allpass() {
     delete circ;
