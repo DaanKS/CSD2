@@ -1,8 +1,8 @@
 #include "onepole.h"
 
 
-Onepole::Onepole() : xHistory_1(0.0f){}
-Onepole::Onepole(float cutoff, float samplerate) : xHistory_1(0.0f){
+Onepole::Onepole(double samplerate) : Filter(samplerate), xHistory_1(0.0f){}
+Onepole::Onepole(float cutoff, double samplerate) : Filter(samplerate), xHistory_1(0.0f){
     setCoefficinets(makeLowPass(cutoff, samplerate));
 }
 Onepole::~Onepole() = default;
@@ -17,7 +17,7 @@ void Onepole::setCoefficinets(const OnepoleCoefficients &coefficients) {
     currentCoefficients.store(coefficients);
 }
 
-OnepoleCoefficients Onepole::makeLowPass(float cutoff, float samplerate) noexcept {
+OnepoleCoefficients Onepole::makeLowPass(float cutoff, double samplerate) noexcept {
     const auto omega = 2 * M_PI * (cutoff / samplerate);
     const auto y = 1 - cos(omega);
     return {
@@ -26,7 +26,7 @@ OnepoleCoefficients Onepole::makeLowPass(float cutoff, float samplerate) noexcep
     };
 }
 
-OnepoleCoefficients Onepole::makeHighPass(float cutoff, float samplerate) noexcept {
+OnepoleCoefficients Onepole::makeHighPass(float cutoff, double samplerate) noexcept {
     const auto omega = 2 * M_PI * (cutoff / samplerate);
     const auto y = 1 - cos(omega);
     return{

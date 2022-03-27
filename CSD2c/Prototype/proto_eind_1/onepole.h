@@ -6,6 +6,7 @@
 
 #include <atomic>
 #include <cmath>
+#include "filter.h"
 
 #pragma once
 
@@ -13,17 +14,17 @@ struct OnepoleCoefficients{
     double Aone, Atwo;
 };
 
-class Onepole{
+class Onepole : public Filter{
 public:
-    Onepole();
-    Onepole(float cutoff, float samplerate);
+    Onepole(double samperate);
+    Onepole(float cutoff, double samplerate);
     ~Onepole();
 
     float output(float inputSample);
     void setCoefficinets(const OnepoleCoefficients& coefficients);
 
-    OnepoleCoefficients makeLowPass(float cutoff, float samplerate) noexcept;
-    OnepoleCoefficients makeHighPass(float cutoff, float samplerate) noexcept;
+    OnepoleCoefficients makeLowPass(float cutoff, double samplerate) noexcept;
+    OnepoleCoefficients makeHighPass(float cutoff, double samplerate) noexcept;
 
 
 private:
