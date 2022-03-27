@@ -1,11 +1,11 @@
 #include "waveshaper.h"
 
-Waveshaper::Waveshaper(double samplerate): bufferSize(4096), kValue(10.0), m_drywet(0.0f) {
+Waveshaper::Waveshaper(double samplerate): AudioEffect(samplerate),bufferSize(4096), kValue(10.0), m_drywet(0.0f), phase(0.0f) {
     mix = std::make_unique<Mix>();
 
     buffer = (float*)malloc(bufferSize * sizeof(float));
     memset(buffer, 0, bufferSize * sizeof(float));
-    generateWaveTable();
+    //generateWaveTable();
 }
 Waveshaper::~Waveshaper(){
     free(buffer);
@@ -20,6 +20,14 @@ void Waveshaper::generateWaveTable(){
         float x = mapInRange((float)i, 0, bufferSize, -1.0f, 1.0f);
         // formula: Pirkle 2013, "Designing Audio Effect Plug-ins in C++" p. 497
         buffer[i] = normalizeFactor * atan(kValue * x);
+    }
+}
+void Waveshaper::generateSawTable(float frequency) {
+    const auto delta = frequency / m_samplerate;
+    for(auto i = 0; i <bufferSize; i++) {
+        phase += delta;
+        if(phase >= 1.0) phase -= 1.0;
+        buffer[i] = phase * 2.0 - 1.0;
     }
 }
 

@@ -1,13 +1,14 @@
 #include <cmath>
 #include <iostream>
-#include "squarelaw.h"
+#include "audioeffect.h"
 
-class Waveshaper{
+class Waveshaper : public AudioEffect{
 public:
     Waveshaper(double samplerate);
     ~Waveshaper();
 
     void generateWaveTable();
+    void generateSawTable(float frequency);
 
     float output(float inputSample);
 
@@ -21,11 +22,11 @@ public:
     float clipping(float inputSample, float c_threshold);
     
 protected:
-    std::unique_ptr<Mix> mix;
     float* buffer;
-
     int bufferSize;
     float kValue;
     float m_drywet;
-    //float wetSample;
+
+    float phase;
+
 };

@@ -2,7 +2,7 @@
 #include <juce_audio.h>
 #include "datorro.h"
 #include "dualbiquad.h"
-
+#include "waveshaper.h"
 
 struct TestCallback : AudioCallback
 {
@@ -10,14 +10,15 @@ struct TestCallback : AudioCallback
     {
 
             for (int sample = 0; sample < numSamples; ++sample){
-                float tempSample = datorro->output(input[0][sample]);
-                output[0][sample] = dualBiquad->outputLP(datorro->outputL(tempSample));
-                output[1][sample] = dualBiquad->outputHP(datorro->outputR(tempSample));
+                float tempSample = datorro->output(waveshaper->output(input[0][sample]));
+                output[0][sample] = (datorro->outputL(tempSample));
+                output[1][sample] = (datorro->outputR(tempSample));
             }
     }
 
     Datorro* datorro;
     DualBiquad* dualBiquad;
+    Waveshaper* waveshaper;
 
 };
 
@@ -36,6 +37,9 @@ int main()
     callback.datorro = &torro;
     auto quad = DualBiquad(samplerate);
     callback.dualBiquad = &quad;
+    auto shape = Waveshaper(samplerate);
+    shape.generateSawTable(20);
+    callback.waveshaper = &shape;
 
     std::cin.get();
 
