@@ -29,21 +29,21 @@ Datorro::Datorro(float samplerate) : m_dryWet(0.0), m_samplerate(samplerate) {
     fixed_4 = new FixedDelay(m_samplerate, 5505);
     predel = new FixedDelay(m_samplerate, 441);
 
-    combL_1 = new Comb(m_samplerate, 110, 1.0, 0.0);
-    combL_2 = new Comb(m_samplerate, 160, 1.0, 0.0);
-    combL_3 = new Comb(m_samplerate, 50, 1.0, 0.0);
-    combL_4 = new Comb(m_samplerate, 25, 1.0, 0.0);
-    combL_5 = new Comb(m_samplerate, 69, 1.0, 0.0);
-    combL_6 = new Comb(m_samplerate, 80, 1.0, 0.0);
-    combL_7 = new Comb(m_samplerate, 75, 1.0, 0.0);
+    combL_1 = new Comb(m_samplerate, 110, 1.0, 0.0, m_samplerate);
+    combL_2 = new Comb(m_samplerate, 160, 1.0, 0.0, m_samplerate);
+    combL_3 = new Comb(m_samplerate, 50, 1.0, 0.0, m_samplerate);
+    combL_4 = new Comb(m_samplerate, 25, 1.0, 0.0, m_samplerate);
+    combL_5 = new Comb(m_samplerate, 69, 1.0, 0.0, m_samplerate);
+    combL_6 = new Comb(m_samplerate, 80, 1.0, 0.0, m_samplerate);
+    combL_7 = new Comb(m_samplerate, 75, 1.0, 0.0, m_samplerate);
 
-    combR_1 = new Comb(m_samplerate, 110, 1.0, 0.0);
-    combR_2 = new Comb(m_samplerate, 135, 1.0, 0.0);
-    combR_3 = new Comb(m_samplerate, 55, 1.0, 0.0);
-    combR_4 = new Comb(m_samplerate, 3, 1.0, 0.0);
-    combR_5 = new Comb(m_samplerate, 35, 1.0, 0.0);
-    combR_6 = new Comb(m_samplerate, 27, 1.0, 0.0);
-    combR_7 = new Comb(m_samplerate, 52, 1.0, 0.0);
+    combR_1 = new Comb(m_samplerate, 110, 1.0, 0.0, m_samplerate);
+    combR_2 = new Comb(m_samplerate, 135, 1.0, 0.0, m_samplerate);
+    combR_3 = new Comb(m_samplerate, 55, 1.0, 0.0, m_samplerate);
+    combR_4 = new Comb(m_samplerate, 3, 1.0, 0.0, m_samplerate);
+    combR_5 = new Comb(m_samplerate, 35, 1.0, 0.0, m_samplerate);
+    combR_6 = new Comb(m_samplerate, 27, 1.0, 0.0, m_samplerate);
+    combR_7 = new Comb(m_samplerate, 52, 1.0, 0.0, m_samplerate);
 }
 
 Datorro::~Datorro() {

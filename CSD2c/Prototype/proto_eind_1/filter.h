@@ -10,8 +10,6 @@ public:
     virtual float output(float inputSample) = 0;
 
 protected:
-    inline float msToSamples(float delayMS){
-        return static_cast<uint>((delayMS * (m_samplerate / 1000.0)));
-    }
+    uint msToSamples(float delayMS);
     float m_samplerate;
 };

@@ -1,7 +1,7 @@
 #include "comb.h"
 
-Comb::Comb(){}
-Comb::Comb(float bufferSize, float delayTime, float feedforward, float feedback) :
+Comb::Comb(float samplerate) : Filter(samplerate){}
+Comb::Comb(float bufferSize, float delayTime, float feedforward, float feedback, float samplerate) : Filter(samplerate),
 m_bufferSize(bufferSize), m_delayTime(delayTime), m_feedforward(feedforward), m_feedback(feedback)
 {
     circFF = new CircBuffer(m_bufferSize);
@@ -25,9 +25,4 @@ float Comb::output(float inputSample) {
     circFF->incrementIndeces();
 
     return outputSample;
-}
-
-float Comb::msToSamples(float delayTime) {
-    //cast float samples to uint
-    return static_cast<uint>((delayTime * (m_bufferSize / 1000.0)));
 }
