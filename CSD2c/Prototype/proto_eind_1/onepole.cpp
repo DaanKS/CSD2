@@ -13,7 +13,7 @@ float Onepole::output(float inputSample) {
     return xHistory_1;
 }
 
-void Onepole::setCoefficinets(OnepoleCoefficients coefficients) {
+void Onepole::setCoefficinets(const OnepoleCoefficients &coefficients) {
     currentCoefficients.store(coefficients);
 }
 
