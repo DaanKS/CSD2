@@ -45,7 +45,7 @@ Datorro::Datorro(float samplerate) : m_dryWet(0.0), m_samplerate(samplerate) {
     combR_6 = new Comb(m_samplerate, 27, 1.0, 0.0);
     combR_7 = new Comb(m_samplerate, 52, 1.0, 0.0);
 
-    std::cout << "\ndatorro constructor is a succes\n" << std::endl;
+
 }
 
 Datorro::~Datorro() {}

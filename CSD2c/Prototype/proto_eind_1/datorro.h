@@ -1,3 +1,14 @@
+/*
+ * Created by Dean, refactored on 27/03/2022
+ *
+ *Original Datorro filter design and coefficients found in
+ *Pirkle 2019, "Designing Audio Effect Plugins in C++" p. 477 - 478
+ *
+ *Parallel combfilfters on output inspired by:
+ *Yafr2 - Randy Jones rej@2uptech.com, based on
+ *Griesinger plate reverb
+*/
+
 #include "modallpass.h"
 #include "onepole.h"
 #include "highpass.h"
