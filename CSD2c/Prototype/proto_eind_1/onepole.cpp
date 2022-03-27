@@ -2,8 +2,8 @@
 
 
 Onepole::Onepole() : xHistory_1(0.0f){}
-Onepole::Onepole(float cutoff) : xHistory_1(0.0f){
-
+Onepole::Onepole(float cutoff, float samplerate) : xHistory_1(0.0f){
+    setCoefficinets(makeLowPass(cutoff, samplerate))
 }
 Onepole::~Onepole() = default;
 
@@ -30,7 +30,7 @@ OnepoleCoefficients Onepole::makeHighPass(float cutoff, float samplerate) noexce
     const auto omega = 2 * M_PI * (cutoff / samplerate);
     const auto y = 1 - cos(omega);
     return{
-            .Aone = (-1 * y) + sqrt( pow(y , 2) + (2 * y) ),
-            .Atwo = -1 * (1 - ((-1 * y) + sqrt( pow(y , 2) + (2 * y) )))
+        .Aone = (-1 * y) + sqrt( pow(y , 2) + (2 * y) ),
+        .Atwo = -1 * (1 - ((-1 * y) + sqrt( pow(y , 2) + (2 * y) )))
     };
 }

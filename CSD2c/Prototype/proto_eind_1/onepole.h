@@ -16,7 +16,7 @@ struct OnepoleCoefficients{
 class Onepole{
 public:
     Onepole();
-    Onepole(float cutoff);
+    Onepole(float cutoff, float samplerate);
     ~Onepole();
 
     float output(float inputSample);
@@ -28,7 +28,6 @@ public:
 
 private:
     std::atomic<OnepoleCoefficients> currentCoefficients;
-
     float xHistory_1;
 
 };
