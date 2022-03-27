@@ -3,7 +3,7 @@
 
 Onepole::Onepole() : xHistory_1(0.0f){}
 Onepole::Onepole(float cutoff, float samplerate) : xHistory_1(0.0f){
-    setCoefficinets(makeLowPass(cutoff, samplerate))
+    setCoefficinets(makeLowPass(cutoff, samplerate));
 }
 Onepole::~Onepole() = default;
 
