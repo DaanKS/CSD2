@@ -1,7 +1,7 @@
 #include "comb.h"
 
-Comb::Comb(float samplerate) : Filter(samplerate){}
-Comb::Comb(float bufferSize, float delayTime, float feedforward, float feedback, float samplerate) : Filter(samplerate),
+Comb::Comb(double samplerate) : Filter(samplerate){}
+Comb::Comb(float bufferSize, float delayTime, float feedforward, float feedback, double samplerate) : Filter(samplerate),
 m_bufferSize(bufferSize), m_delayTime(delayTime), m_feedforward(feedforward), m_feedback(feedback)
 {
     circFF = new CircBuffer(m_bufferSize);

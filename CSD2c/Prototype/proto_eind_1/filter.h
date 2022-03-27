@@ -4,7 +4,7 @@ typedef unsigned int uint;
 
 class Filter{
 public:
-    Filter(float samplerate);
+    Filter(double samplerate);
     virtual ~Filter();
 
     virtual float output(float inputSample) = 0;

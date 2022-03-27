@@ -1,9 +1,10 @@
 #include <circbuffer.h>
+#include "filter.h"
 #pragma once
 
-class Allpass{
+class Allpass : public Filter{
 public:
-    Allpass();
+    Allpass(float samplerate);
     Allpass(float coeff_G, float delayTime, double samplerate);
     virtual ~Allpass();
 

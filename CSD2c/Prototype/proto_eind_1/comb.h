@@ -5,8 +5,8 @@
 
 class Comb : public Filter{
 public:
-    Comb(float samplerate);
-    Comb(float bufferSize, float delayTime, float feedforward, float feedback, float samplerate);
+    Comb(double samplerate);
+    Comb(float bufferSize, float delayTime, float feedforward, float feedback, double samplerate);
     ~Comb();
 
     float output(float inputSample) override;

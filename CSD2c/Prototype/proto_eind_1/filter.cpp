@@ -1,6 +1,6 @@
 #include "filter.h"
 
-Filter::Filter(float samplerate) : m_samplerate(samplerate) {}
+Filter::Filter(double samplerate) : m_samplerate(samplerate) {}
 Filter::~Filter() = default;
 
 uint Filter::msToSamples(float delayMS){
