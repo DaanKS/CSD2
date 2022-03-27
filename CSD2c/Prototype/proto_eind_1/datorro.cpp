@@ -23,11 +23,11 @@ Datorro::Datorro(float samplerate) : m_dryWet(0.0), m_samplerate(samplerate) {
     map_1 = new ModAllPass(0.7, 1343, m_samplerate, 0.1, 12);
     map_2 = new ModAllPass(0.7, 995, m_samplerate, 0.3, 12);
 
-    fixed_1 = new PreDelay(m_samplerate, 6241);
-    fixed_2 = new PreDelay(m_samplerate, 6590);
-    fixed_3 = new PreDelay(m_samplerate, 4641);
-    fixed_4 = new PreDelay(m_samplerate, 5505);
-    predel = new PreDelay(m_samplerate, 441);
+    fixed_1 = new FixedDelay(m_samplerate, 6241);
+    fixed_2 = new FixedDelay(m_samplerate, 6590);
+    fixed_3 = new FixedDelay(m_samplerate, 4641);
+    fixed_4 = new FixedDelay(m_samplerate, 5505);
+    predel = new FixedDelay(m_samplerate, 441);
 
     combL_1 = new Comb(m_samplerate, 110, 1.0, 0.0);
     combL_2 = new Comb(m_samplerate, 160, 1.0, 0.0);

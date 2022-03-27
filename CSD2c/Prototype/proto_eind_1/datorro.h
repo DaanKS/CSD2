@@ -2,7 +2,7 @@
 #include "onepole.h"
 #include "highpass.h"
 #include "allpass.h"
-#include "predelay.h"
+#include "fixeddelay.h"
 #include "comb.h"
 #include <squarelaw.h>
 
@@ -29,11 +29,11 @@ private:
 
     double m_samplerate;
 
-    PreDelay* fixed_1;
-    PreDelay* fixed_2;
-    PreDelay* fixed_3;
-    PreDelay* fixed_4;
-    PreDelay* predel;
+    FixedDelay* fixed_1;
+    FixedDelay* fixed_2;
+    FixedDelay* fixed_3;
+    FixedDelay* fixed_4;
+    FixedDelay* predel;
 
     Onepole* bandWidth;
     Onepole* damping_1;

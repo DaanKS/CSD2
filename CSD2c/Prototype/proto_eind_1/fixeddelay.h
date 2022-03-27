@@ -2,11 +2,11 @@
 #pragma once
 
 //TODO --> Rename to FixedDelay
-class PreDelay{
+class FixedDelay{
 public:
-    PreDelay();
-    PreDelay(double samplerate, float delayTime);
-    ~PreDelay();
+    FixedDelay();
+    FixedDelay(double samplerate, float delayTime);
+    ~FixedDelay();
 
     float output(float inputSample);
 
