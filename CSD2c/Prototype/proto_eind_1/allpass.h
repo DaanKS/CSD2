@@ -4,7 +4,7 @@
 
 class Allpass : public Filter{
 public:
-    Allpass(float samplerate);
+    Allpass(double samplerate);
     Allpass(float coeff_G, float delayTime, double samplerate);
     virtual ~Allpass();
 
@@ -14,7 +14,6 @@ public:
     void setDelayTime(float delayTime);
 
     void setSamplerate(double samplerate);
-    float msToSamples(float delayTime);
     void initializeBuffer();
 
 protected:

@@ -1,8 +1,8 @@
 #include "allpass.h"
 
-Allpass::Allpass(float samplerate) : m_coeffG(0.0f), m_delayTime(0.0f),m_samplerate(0.0),tempSample(0.0f)  {}
+Allpass::Allpass(double samplerate) : Filter(samplerate) ,m_coeffG(0.0f), m_delayTime(0.0f),m_samplerate(0.0),tempSample(0.0f)  {}
 
-Allpass::Allpass(float coeff_G, float delayTime, double samplerate) :
+Allpass::Allpass(float coeff_G, float delayTime, double samplerate) : Filter(samplerate),
 m_coeffG(coeff_G), m_delayTime(delayTime),
 m_samplerate(samplerate), tempSample(0.0f)
 {
@@ -30,10 +30,6 @@ void Allpass::setDelayTime(float delayTime){
 }
 void Allpass::setSamplerate(double samplerate){
     this->m_samplerate = samplerate;
-}
-float Allpass::msToSamples(float delayTime) {
-    //cast float samples to uint
-    return static_cast<uint>((delayTime * (m_samplerate / 1000.0)));
 }
 void Allpass::initializeBuffer() {
     circ = new CircBuffer(m_samplerate);
