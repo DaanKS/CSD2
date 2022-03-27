@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <juce_audio.h>
 #include <squarelaw.h>
@@ -12,11 +11,10 @@ struct TestCallback : AudioCallback
     {
         for (int channel = 0; channel < numOutputChannels; ++channel){
             for (int sample = 0; sample < numSamples; ++sample){
-                output[channel][sample] = output(input[0][sample]);
+                output[channel][sample] = input[0][sample];
             }
         }
     }
-
 
 };
 
@@ -25,11 +23,6 @@ int main()
 {
     TestCallback callback;
     AudioBackend audioBackend;
-
-    auto trem = Tremolo(44100);
-    trem.setRate(1.0);
-    callback.tremolo = &trem;
-
 
     audioBackend.registerCallback (&callback);
     audioBackend.openDefaultIODevice (1, 2);
