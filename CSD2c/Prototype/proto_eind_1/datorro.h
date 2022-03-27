@@ -4,7 +4,7 @@
 #include "allpass.h"
 #include "predelay.h"
 #include "comb.h"
-#include "squarelaw.h"
+#include <squarelaw.h>
 
 #pragma once
 
@@ -39,8 +39,8 @@ private:
     Onepole* damping_1;
     Onepole* damping_2;
 
-    Highpass* hiDamping_1;
-    Highpass* hiDamping_2;
+    Onepole* hiDamping_1;
+    Onepole* hiDamping_2;
 
     Allpass* ap_1;
     Allpass* ap_2;
