@@ -15,10 +15,11 @@ public:
   UserInput();
   ~UserInput();
 //  char printToConsole(std::string, int sample);
-    void separateLetter(std::string sentence, int sample, int nframes);
+    void separateLetter(std::string sentence);
     void checkAnswer(int questionSelect);
 
     bool donePrinting = false; //false = printing, true = done
+    bool printedALetter = false;
     int numAnswrdQues = 0;
     std::vector<Node*> nodes;
 

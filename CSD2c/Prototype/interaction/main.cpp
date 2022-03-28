@@ -117,14 +117,18 @@ void makeTrees(int questionSelect){
 
 struct TestCallback : AudioCallback
 {
-    int structSample;
-    int structNumSamples;
+    bool print = false;
+    int sampleCount;
     void process (const float** input, float** output, int numInputChannels, int numOutputChannels, int numSamples) override
     {
       for (int channel = 0; channel < numOutputChannels; ++channel) {
         for (int sample = 0; sample < numSamples; ++sample) {
-          structSample = sample;
-          structNumSamples = numSamples;
+          print = false;
+          sampleCount++;
+          if(sampleCount >= 400){
+            print = true;
+            sampleCount = 0;
+          }
 //              std::cout << "process sample " << sample <<std::endl;
 //              std::cout<< "process numSmapes " << numSamples <<std::endl;
 //          wait for sperateletter() to finish
@@ -174,11 +178,9 @@ struct TestCallback : AudioCallback
 
 int main(){
 
-
-
   bool running = true;
-
   UserInput userInput;
+
   TestCallback callback;
   AudioBackend audioBackend;
 
@@ -189,52 +191,18 @@ int main(){
 //cerdits to discount Wouter, Ciska jij kent die niet...
   auto userInputLoop = [&callback, &userInput, &running](){
 
+    while(running){
+      
       int questionSelect;
-      std::string question;
-      bool initialQSwitch = true;
-      bool treeChoice  = false;
+      std::cout<< initialQ <<std::endl;
+      std::cin>> questionSelect;
+      std::cout<< senseQ <<std::endl;
+      std::cin>> questionSelect;
+      makeTrees(questionSelect);
+      std::cout<< node->printRoot(node, questionSelect);
+      std::cin>> questionSelect;
+    }
 
-      while (running){
-        int questionSelect;
-        std::string question;
-        bool initialQSwitch = true;
-        bool treeChoice  = false;
-        //wait for sperateletter() to finish
-        //then get an input
-          if(userInput.donePrinting == true) {
-            if(initialQSwitch == true){
-              std::cin>> questionSelect;
-              userInput.checkAnswer(questionSelect);
-              treeChoice = true;
-              initialQSwitch = false;
-            }else{
-              if(treeChoice == true){
-                std::cin>> questionSelect;
-                userInput.checkAnswer(questionSelect);
-                makeTrees(questionSelect);
-                treeChoice = false;
-              }else{
-                std::cout<< "we zijn hier" <<std::endl;
-                std::cin>> questionSelect;
-                userInput.checkAnswer(questionSelect);
-              }
-            }
-            //TODO: check if numeric, check in range of questions
-          }else{
-            if(initialQSwitch == true) {
-              //print intialquestions
-              userInput.separateLetter(initialQ, callback.structSample, callback.structNumSamples);
-            }else{
-              if(treeChoice == true){
-                userInput.separateLetter(senseQ, callback.structSample, callback.structNumSamples);
-              }else{
-                std::cin>> questionSelect;
-                question = node->printPreorder(node);
-                userInput.separateLetter(question, callback.structSample, callback.structNumSamples);
-              }
-            }
-          }
-      }
   };
  auto userInputThread = std::thread {userInputLoop};
 
