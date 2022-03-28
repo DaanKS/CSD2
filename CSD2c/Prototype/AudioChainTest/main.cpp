@@ -28,8 +28,8 @@ struct TestCallback : AudioCallback
                 tempSample = waveshaper->output(kam->output(input[0][sample]));// + (tempSample * ysis->returnControlValue()));
 
                 float tempSample_2 = datorro.output(tempSample);
-                 output[0][sample] = datorro.outputL(tempSample_2);
-                 output[1][sample] = datorro.outputR(tempSample_2);
+                 output[0][sample] = ap1->output(datorro.outputL(tempSample_2));
+                 output[1][sample] = ap2->output(datorro.outputR(tempSample_2));
 
 
 
@@ -40,8 +40,8 @@ struct TestCallback : AudioCallback
             }
     }
     Comb* kam;
-    /*Allpass* ap1;
-    Allpass* ap2; */
+    Allpass* ap1;
+    Allpass* ap2;
     Analysis* ysis;
 
     Datorro datorro = Datorro(44100);
@@ -84,13 +84,13 @@ int main()
 
     auto anal = Analysis(10);
     callback.ysis = &anal;
-/*
+
     auto ap__1 = Allpass(0.7, 400, samplerate);
     callback.ap1 = &ap__1;
     auto ap__2 = Allpass(0.7, 400, samplerate);
     callback.ap2 = &ap__2; */
-    auto mok = Comb(samplerate, 10, 1.0, 0.0, samplerate);
-    callback.kam = &mok;
+   // auto mok = Comb(samplerate, 10, 1.0, 0.0, samplerate);
+   // callback.kam = &mok;
 
     auto running = true;
     auto tempValue = 0.0f;
@@ -103,28 +103,17 @@ int main()
                 running = false;
                 break;
             case 'w':
-                std::cout << "new value for drywet: ";
-                std::cin >> tempValue;
-                //torro.setDryWet(tempValue);
 
-                /*
+
                 std::cout << "set new value for delayTimeAP1: ";
                 std::cin >> tempValue;
                 ap__1.setDelayTime(tempValue);
                 std::cout << "set new value for delayTimeAP2: ";
                 std::cin >> tempValue;
                 ap__2.setDelayTime(tempValue);
-                 */
+
                 break;
             case ' ':
-                //start recording
-                recordStartStop = boolswitcher(recordStartStop);
-                if(recordStartStop) {
-                    sampleCount = 1;
-                    pos++;
-                    askQuestion(pos);
-                }
-
                 break;
             }
 
