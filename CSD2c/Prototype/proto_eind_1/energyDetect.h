@@ -10,8 +10,7 @@
 class EnergyDetect{
 public:
     EnergyDetect();
-    EnergyDetect(float inputBuffer[], int inputBufSize, int numberFx,
-                 unsigned int samplerate);
+    EnergyDetect(float inputBuffer[], int inputBufSize, int numberParams);
     ~EnergyDetect();
 
     float* envBuffer;
@@ -25,7 +24,6 @@ public:
     float** envAmpBuffer;
 
 private:
-    unsigned int m_samplerate;
     //fraction is blockszie of samplepoints (needs to be float because castig)
     float fraction = 10;
     void averageEnvAmp(float inputBuffer[], int inputBufSize);

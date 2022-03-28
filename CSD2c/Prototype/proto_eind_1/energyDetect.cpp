@@ -2,8 +2,7 @@
 
 EnergyDetect::EnergyDetect() {}
 
-EnergyDetect::EnergyDetect(float inputBuffer[], int inputBufSize, int numberFx,
-                           unsigned int samplerate) : m_samplerate(samplerate){
+EnergyDetect::EnergyDetect(float inputBuffer[], int inputBufSize, int numberParams){
   std::cout<< "constructor EnergyDetect" <<std::endl;
   //TODO: fit all that buffer shit in some nice ellegant function
   //10 seconds of audio
@@ -25,18 +24,18 @@ EnergyDetect::EnergyDetect(float inputBuffer[], int inputBufSize, int numberFx,
 #endif
   //the total buffer of energy values devided by the number of fx
   //this way every fx gets its own envelope piece
-  envAmpBufferSize = bufferSize / numberFx;
+  envAmpBufferSize = bufferSize / numberParams;
 
   //create a 2d array, the number of rows = number of fx
   //the number of collums = the number envelope points in a buffer
-  envAmpBuffer = new float* [numberFx];
-  for(int i = 0; i < numberFx; i++){
+  envAmpBuffer = new float* [numberParams];
+  for(int i = 0; i < numberParams; i++){
     envAmpBuffer[i] = new float [envAmpBufferSize];
   }
 
   //fill each row with a chunck of the envBuffer
   //depending on the number of fx
-  for (int i = 0; i < numberFx; i++){
+  for (int i = 0; i < numberParams; i++){
     for (int j = 0; j < envAmpBufferSize; j++){
       envAmpBuffer[i][j] = envBuffer[j + envChunckForFx];
 #if DEBUG > 2

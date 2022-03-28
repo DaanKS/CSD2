@@ -6,18 +6,15 @@
 
 class Generator{
 public:
-    Generator(float inputBuffer[], int inputBufSize, int numberFx,
-              int fxIndex, unsigned int samplerate);
+    Generator(float inputBuffer[], int inputBufSize, int numberParams);
     ~Generator();
 
-    float envAtSamp(int fxIndex);
+    float envAtSamp(int paramNumber);
 
 protected:
     int inputBufSize;
-
-    unsigned int samplerate;
     void calcSampsBetweenAmps();
-    void calcSlopeIncrement(int fxIndex);
+    void calcSlopeIncrement(int paramNumber);
 private:
     EnergyDetect* energyDetect;
     //starting points from with to calculte amplitude
