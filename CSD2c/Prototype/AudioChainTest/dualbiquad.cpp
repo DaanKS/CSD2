@@ -1,7 +1,7 @@
 #include "dualbiquad.h"
 
 DualBiquad::DualBiquad(double samplerate): AudioEffect(samplerate), m_samplerate(samplerate),
-m_cutoff(400), m_qFactor(3.0), m_difference(300){
+m_cutoff(400), m_qFactor(3.0), m_difference(100){
     Lopass = new Biquad(m_samplerate);
     Hipass = new Biquad(m_samplerate);
     Lopass->setCoefficients(Lopass->makeLowPass(m_cutoff, m_qFactor, m_samplerate));
@@ -31,6 +31,6 @@ void DualBiquad::setDifference(float difference) {
     this->m_difference = difference;
 }
 void DualBiquad::makeFilters(){
-    Lopass->makeLowPass(m_cutoff, m_qFactor, m_samplerate);
-    Hipass->makeHighPass(m_cutoff + m_difference, m_qFactor, m_samplerate);
+    Lopass->setCoefficients(Lopass->makeLowPass(m_cutoff, m_qFactor, m_samplerate));
+    Hipass->setCoefficients(Hipass->makeHighPass(m_cutoff + m_difference, m_qFactor, m_samplerate));
 }

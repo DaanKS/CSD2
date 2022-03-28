@@ -12,22 +12,23 @@ struct TestCallback : AudioCallback
     {
             for (int sample = 0; sample < numSamples; ++sample){
 
-                float tempSample = waveshaper->output(input[0][sample]);
+                float tempSample = input[0][sample] + input[1][sample];
 
-                float tempSample_2 = datorro.output(tempSample);
-                 output[0][sample] = ap1->output(datorro.outputL(tempSample_2));
-                 output[1][sample] = ap2->output(datorro.outputR(tempSample_2));
+                float tempSample_1 = (waveshaper1->output(dualBiquad->outputHP(tempSample)));
+                float tempSample_2 = (waveshaper2->output(dualBiquad->outputLP(tempSample)));
+                float tempSample_3 = datorro.output(tempSample_1 + tempSample_2);
+                 output[0][sample] = ap1->output(datorro.outputL(tempSample_3));
+                 output[1][sample] = ap2->output(datorro.outputR(tempSample_3));
 
             }
     }
 
-    Comb* kam;
     Allpass* ap1;
     Allpass* ap2;
-    Analysis* ysis;
     Datorro datorro = Datorro(44100);
     DualBiquad* dualBiquad;
-    Waveshaper* waveshaper;
+    Waveshaper* waveshaper1;
+    Waveshaper* waveshaper2;
 
 };
 
@@ -44,10 +45,16 @@ int main()
     /*auto torro = Datorro(samplerate);
     callback.datorro = &torro; */
     auto quad = DualBiquad(samplerate);
+    quad.setDifference(-100);
+    quad.makeFilters();
     callback.dualBiquad = &quad;
+
     auto shape = Waveshaper(samplerate);
     shape.generateSawTable(80.0);
-    callback.waveshaper = &shape;
+    callback.waveshaper1 = &shape;
+    auto shape_2 = Waveshaper(samplerate);
+    shape_2.generateWaveTable();
+    callback.waveshaper2 = &shape_2;
 
     auto anal = Analysis(10);
     callback.ysis = &anal;
@@ -74,8 +81,13 @@ int main()
                 std::cout << "set new value for delayTimeAP2: ";
                 std::cin >> tempValue;
                 ap__2.setDelayTime(tempValue);
-
                 break;
+            case 'e':
+                std::cout << "new value for cutoff: ";
+                std::cin >> tempValue;
+                quad.setCutoffFrequency(tempValue);
+                quad.makeFilters();
+
             case ' ':
                 break;
             }
