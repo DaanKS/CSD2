@@ -6,12 +6,6 @@
 #include "waveshaper.h"
 
 
-
-
-
-
-int sampleCount = 0;
-
 struct TestCallback : AudioCallback
 {
     bool doneRecording = false;
