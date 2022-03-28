@@ -13,35 +13,21 @@ UserInput::~UserInput() {
 }
 
 void UserInput::separateLetter(std::string sentence) {
-  //sample = same as the amount of passed samples
-  //when printing donePrinting is always false
-  //makes the program wait untill all the letters are printed
-//  std::cout<< "sample" << sample <<std::endl;
-//  std::cout<< "numsamps" << nframes <<std::endl;
-//  donePrinting = false;
-//  if(sample >= nframes - 1) {
-//    intervalsPassed++;
-//    std::cout<< "print " << print <<std::endl;
 
-      if(letterIndex < sentence.length()) {
-        std::cout << sentence[letterIndex] << std::flush;
-        letterIndex++;
-      }
-//      if(letterIndex >= sentence.length()){
-//        //when all the letters are reached retrun true so we can get an answer
-//        donePrinting = true;
-//        letterIndex = 0;
-//        std::cout << "doneprinting: " << donePrinting <<std::endl;
-//      }
-
-//  }
+  std::cout << sentence[letterIndex] << std::flush;
+  letterIndex++;
+    if(letterIndex >= sentence.length()){
+      //when all the letters are reached retrun true so we can get an answer
+      printedALetter = false;
+      letterIndex = 0;
+    }
 }
 
 void UserInput::checkAnswer(int questionSelect) {
-  std::cout<< "questionSelect: " << questionSelect <<std::endl;
-  //get audio Input make envelope
-  numAnswrdQues++;
-  //when we've got our answer
-  //set to false so the seprateLetter function can get excecuted agian
-  donePrinting = false;
+//  std::cout<< "questionSelect: " << questionSelect <<std::endl;
+//  //get audio Input make envelope
+//  numAnswrdQues++;
+//  //when we've got our answer
+//  //set to false so the seprateLetter function can get excecuted agian
+//  donePrinting = false;
 }

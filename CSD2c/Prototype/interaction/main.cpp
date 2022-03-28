@@ -4,6 +4,7 @@
 #include <thread>
 #include "userInput.h"
 #include "node.h"
+#include <unistd.h>
 #include <atomic>
 
 std::string initialQ = "Instructions:\n"
@@ -113,18 +114,22 @@ void makeTrees(int questionSelect){
  * wait for the first question to print -> get a choice -> check the question at root
  */
 
+int questionSelect;
+bool initialQSwitch = true;
+bool treeChoice = false;
+std::string question;
 
 
 struct TestCallback : AudioCallback
 {
+    int sampleCount = 0;
     bool print = false;
-    int sampleCount;
     void process (const float** input, float** output, int numInputChannels, int numOutputChannels, int numSamples) override
     {
       for (int channel = 0; channel < numOutputChannels; ++channel) {
         for (int sample = 0; sample < numSamples; ++sample) {
-          print = false;
           sampleCount++;
+//          std::cout<< "audioLoop bool " << print <<std::endl;
           if(sampleCount >= 400){
             print = true;
             sampleCount = 0;
@@ -166,7 +171,6 @@ struct TestCallback : AudioCallback
 //              }
 //            }
 //          }
-//        }
         }
       }
     }
@@ -190,19 +194,13 @@ int main(){
 
 //cerdits to discount Wouter, Ciska jij kent die niet...
   auto userInputLoop = [&callback, &userInput, &running](){
+      while(running){
+        while (userInput.printedALetter){
+            userInput.separateLetter(initialQ);
+            usleep(50000);
+          }
 
-    while(running){
-      
-      int questionSelect;
-      std::cout<< initialQ <<std::endl;
-      std::cin>> questionSelect;
-      std::cout<< senseQ <<std::endl;
-      std::cin>> questionSelect;
-      makeTrees(questionSelect);
-      std::cout<< node->printRoot(node, questionSelect);
-      std::cin>> questionSelect;
     }
-
   };
  auto userInputThread = std::thread {userInputLoop};
 

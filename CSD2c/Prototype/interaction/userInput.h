@@ -18,8 +18,7 @@ public:
     void separateLetter(std::string sentence);
     void checkAnswer(int questionSelect);
 
-    bool donePrinting = false; //false = printing, true = done
-    bool printedALetter = false;
+    bool printedALetter = true;
     int numAnswrdQues = 0;
     std::vector<Node*> nodes;
 
