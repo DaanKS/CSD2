@@ -8,48 +8,26 @@
 
 struct TestCallback : AudioCallback
 {
-    bool doneRecording = false;
     void process (const float** input, float** output, int numInputChannels, int numOutputChannels, int numSamples) override
     {
-
             for (int sample = 0; sample < numSamples; ++sample){
-               // tempSample = waveshaper->output(kam->output(input[0][sample]));// + (tempSample * ysis->returnControlValue()));
-                //ysis->takeAverage(tempSample);
-                //std::cout << ysis->returnControlValue() << std::endl;
-                /*
-                output[0][sample] = ap1->output(tempSample);
-                output[1][sample] = ap2->output(tempSample);
-                */
 
-//                std::cout << "Greta: " << std::endl;
-             //if(doneRecording == true) {
-                 //float jemoeder = envelope->envAtSamp(0);
-                // datorro.setDryWet();
-                tempSample = waveshaper->output(kam->output(input[0][sample]));// + (tempSample * ysis->returnControlValue()));
+                float tempSample = waveshaper->output(input[0][sample]);
 
                 float tempSample_2 = datorro.output(tempSample);
                  output[0][sample] = ap1->output(datorro.outputL(tempSample_2));
                  output[1][sample] = ap2->output(datorro.outputR(tempSample_2));
 
-
-
-
-
-
-
             }
     }
+
     Comb* kam;
     Allpass* ap1;
     Allpass* ap2;
     Analysis* ysis;
-
     Datorro datorro = Datorro(44100);
     DualBiquad* dualBiquad;
     Waveshaper* waveshaper;
-    float tempSample;
-    int recordedSamps = 0;
-    int sempleKount = 0;
 
 };
 
@@ -68,7 +46,7 @@ int main()
     auto quad = DualBiquad(samplerate);
     callback.dualBiquad = &quad;
     auto shape = Waveshaper(samplerate);
-    shape.generateSawTable(20.0);
+    shape.generateSawTable(80.0);
     callback.waveshaper = &shape;
 
     auto anal = Analysis(10);
@@ -78,8 +56,8 @@ int main()
     callback.ap1 = &ap__1;
     auto ap__2 = Allpass(0.7, 400, samplerate);
     callback.ap2 = &ap__2;
-   // auto mok = Comb(samplerate, 10, 1.0, 0.0, samplerate);
-   // callback.kam = &mok;
+    auto mok = Comb(samplerate, 100, 1.0, 0.0, samplerate);
+    callback.kam = &mok;
 
     auto running = true;
     auto tempValue = 0.0f;
