@@ -2,6 +2,11 @@
 
 Generator::Generator(float inputBuffer[], int inputBufSize, int numberParams) :
                      inputBufSize(inputBufSize){
+  for(int i = 0; i < inputBufSize; i++){
+    std::cout<< "inputBuffer" << inputBuffer[i] <<std::endl;
+  }
+  std::cout<< "input`bufsize" << inputBufSize <<std::endl;
+  std::cout<< "numberParmas" << numberParams <<std::endl;
 #if DEBUG > 0
   std::cout<< "constructor Generator" <<std::endl;
 #endif

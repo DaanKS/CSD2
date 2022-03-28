@@ -25,7 +25,7 @@ public:
 
 private:
     //fraction is blockszie of samplepoints (needs to be float because castig)
-    float fraction = 10;
+    float fraction = 1000;
     void averageEnvAmp(float inputBuffer[], int inputBufSize);
 
 };

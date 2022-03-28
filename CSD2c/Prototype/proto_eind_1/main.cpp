@@ -9,9 +9,8 @@
 
 std::string questions[10] = {"Instructions:\n"
                              "- You are obligated to answer the following questions out loud\n"
-                             "- Choose between options using the number keys, then enter\n"
                              "- Press the space bar at the beginning of your answer, "
-                             "press the spacebar again at the end of your answer\n- "
+                             "press the space bar again at the end of your answer\n- "
                              "You have agreed to the requiered terms and conditions\n"
                              "\nWelcome to Human Diagnostics, please choose one of the following login options:\n"
                              "\n0: recite your registration number\n"
@@ -31,6 +30,8 @@ std::string questions[10] = {"Instructions:\n"
 float inbuffer[BUFFERLENGTH];
 bool recordStartStop = false;
 bool createEnv = false;
+Generator* envelope;
+
 
 int sampleCount = 0;
 
@@ -41,13 +42,6 @@ struct TestCallback : AudioCallback
     {
 
             for (int sample = 0; sample < numSamples; ++sample) {
-              // tempSample = waveshaper->output(kam->output(input[0][sample]));// + (tempSample * ysis->returnControlValue()));
-              //ysis->takeAverage(tempSample);
-              //std::cout << ysis->returnControlValue() << std::endl;
-              /*
-              output[0][sample] = ap1->output(tempSample);
-              output[1][sample] = ap2->output(tempSample);
-              */
               if (recordStartStop) {
                 if (sampleCount < BUFFERLENGTH) {
                   inbuffer[sampleCount] = input[0][sample];
@@ -55,17 +49,8 @@ struct TestCallback : AudioCallback
                   sampleCount++;
                   if (sampleCount >= BUFFERLENGTH - 1) { sampleCount -= BUFFERLENGTH - 1; }
                 }
-              }else{
-                if(createEnv){
-                  //if the recoring is done, create an envelope
-                  std::cout<< "we zijn hier geraakt" <<std::endl;
-//                  envelope = new Generator(inbuffer, sampleCount, NUMBERENV);
-                  createEnv = false;
-                }
               }
-
-//                envelope->envAtSamp(0);
-                tempSample = inbuffer[sempleKount] + input[1][sample];
+                tempSample = inbuffer[sempleKount]; //+ input[0][sample];
                 sempleKount++;
                 if (sempleKount >= sampleCount) { sempleKount = 0; }
                 float tempSample_1 = (waveshaper1.output(dualBiquad.outputHP(tempSample)));
@@ -73,6 +58,8 @@ struct TestCallback : AudioCallback
                 float tempSample_3 = datorro.output(tempSample_1 + tempSample_2);
                 output[0][sample] = ap1.output(datorro.outputL(tempSample_3));
                 output[1][sample] = ap2.output(datorro.outputR(tempSample_3));
+
+//                envelope->envAtSamp(0);
 
                 datorro.setDryWet(0.0); // -1 tot 1
                 ap1.setDelayTime(0.0); // 1 tot 800
@@ -89,7 +76,6 @@ struct TestCallback : AudioCallback
     Allpass ap1 = Allpass(0.7, 400, samplerate);
     Allpass ap2 = Allpass(0.7, 400, 44100);
     Datorro datorro = Datorro(44100);
-//    Generator* envelope;
     DualBiquad dualBiquad = DualBiquad(44100);
     Waveshaper waveshaper1 = Waveshaper(44100, 80);
     Waveshaper waveshaper2 = Waveshaper(44100);
@@ -118,14 +104,21 @@ int main()
     double samplerate = 44100;
 
     audioBackend.registerCallback (&callback);
-    audioBackend.openDefaultIODevice (2, 2);
+    audioBackend.openDefaultIODevice (1, 2);
 
     auto running = true;
     auto tempValue = 0.0f;
     auto pos = 0;
 
-    askQuestion(pos);
+  int timesSwitched = 0;
+
+  askQuestion(pos);
     while(running){
+        if(timesSwitched > 1){
+          std::cout<< "created an env" <<std::endl;
+          envelope = new Generator(inbuffer, sampleCount, NUMBERENV);
+          timesSwitched = 0;
+        }
         switch (std::cin.get()) {
             case 'q':
                 running = false;
@@ -136,11 +129,16 @@ int main()
             case ' ':
                 //start recording
                 recordStartStop = boolswitcher(recordStartStop);
+                timesSwitched++;
+                std::cout<< "timesSwitched" << timesSwitched <<std::endl;
                 if(recordStartStop) {
+                    timesSwitched = 0;
                     sampleCount = 1;
+                    if(pos >= 10){
+//                      questions[]
+                    }
                     pos++;
                     askQuestion(pos);
-                    createEnv = true;
                 }
 
                 break;
