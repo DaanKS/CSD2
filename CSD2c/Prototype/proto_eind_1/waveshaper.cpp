@@ -5,8 +5,17 @@ Waveshaper::Waveshaper(double samplerate): AudioEffect(samplerate),bufferSize(40
 
     buffer = (float*)malloc(bufferSize * sizeof(float));
     memset(buffer, 0, bufferSize * sizeof(float));
-    //generateWaveTable();
+    generateWaveTable();
 }
+Waveshaper::Waveshaper(double samplerate, float frequency): AudioEffect(samplerate), bufferSize(4096), kValue(10.0)
+, m_drywet(0.0f), phase(0.0){
+    mix = std::make_unique<Mix>();
+
+    buffer = (float*)malloc(bufferSize * sizeof(float));
+    memset(buffer, 0, bufferSize * sizeof(float));
+    generateSawTable(frequency);
+}
+
 Waveshaper::~Waveshaper(){
     free(buffer);
 }

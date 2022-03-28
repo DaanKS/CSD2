@@ -5,6 +5,7 @@
 class Waveshaper : public AudioEffect{
 public:
     Waveshaper(double samplerate);
+    Waveshaper(double samplerate, float frequency);
     ~Waveshaper();
 
     void generateWaveTable();

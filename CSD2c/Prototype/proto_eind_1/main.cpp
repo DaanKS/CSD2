@@ -100,34 +100,39 @@ struct TestCallback : AudioCallback
                         if (sampleCount >= BUFFERLENGTH - 1) { sampleCount -= BUFFERLENGTH - 1; }
                     }
                 }
-//                std::cout << "Greta: " << std::endl;
+
              //if(doneRecording == true) {
                  //float jemoeder = envelope->envAtSamp(0);
-                // datorro.setDryWet();
-                tempSample = waveshaper->output(kam->output(inbuffer[sempleKount]));// + (tempSample * ysis->returnControlValue()));
+
+                tempSample = inbuffer[sempleKount] + input[1][sample];
                 sempleKount++;
                 if (sempleKount >= sampleCount) { sempleKount = 0; }
-                datorro.setDryWet()
-                float tempSample_2 = datorro.output(tempSample);
-                 output[0][sample] = datorro.outputL(tempSample_2);
-                 output[1][sample] = datorro.outputR(tempSample_2);
 
+                float tempSample_1 = (waveshaper1.output(dualBiquad.outputHP(tempSample)));
+                float tempSample_2 = (waveshaper2.output(dualBiquad.outputLP(tempSample)));
+                float tempSample_3 = datorro.output(tempSample_1 + tempSample_2);
+                output[0][sample] = ap1.output(datorro.outputL(tempSample_3));
+                output[1][sample] = ap2.output(datorro.outputR(tempSample_3));
 
+                datorro.setDryWet(0.0); // -1 tot 1
+                ap1.setDelayTime(0.0); // 1 tot 800
+                ap2.setDelayTime(0.0); // 1 tot 800 (wel anders dan ap1)
 
+                dualBiquad.setCutoffFrequency(0.0); // 400 tot 1000
 
-
-
+                waveshaper1.setDryWet(0.0); // -1 tot 1
+                waveshaper2.setDryWet(0.0); // -1 tot 1
 
             }
     }
-    Comb* kam;
-    /*Allpass* ap1;
-    Allpass* ap2; */
-    Analysis* ysis;
-
+    double samplerate = 44100;
+    Allpass ap1 = Allpass(0.7, 400, samplerate);
+    Allpass ap2 = Allpass(0.7, 400, 44100);
     Datorro datorro = Datorro(44100);
-    DualBiquad* dualBiquad;
-    Waveshaper* waveshaper;
+    DualBiquad dualBiquad = DualBiquad(44100);
+
+    Waveshaper waveshaper1 = Waveshaper(44100, 80);
+    Waveshaper waveshaper2 = Waveshaper(44100);
     float tempSample;
     int recordedSamps = 0;
     int sempleKount = 0;
@@ -155,24 +160,6 @@ int main()
     audioBackend.registerCallback (&callback);
     audioBackend.openDefaultIODevice (2, 2);
 
-    /*auto torro = Datorro(samplerate);
-    callback.datorro = &torro; */
-    auto quad = DualBiquad(samplerate);
-    callback.dualBiquad = &quad;
-    auto shape = Waveshaper(samplerate);
-    shape.generateSawTable(20.0);
-    callback.waveshaper = &shape;
-
-    auto anal = Analysis(10);
-    callback.ysis = &anal;
-/*
-    auto ap__1 = Allpass(0.7, 400, samplerate);
-    callback.ap1 = &ap__1;
-    auto ap__2 = Allpass(0.7, 400, samplerate);
-    callback.ap2 = &ap__2; */
-    auto mok = Comb(samplerate, 10, 1.0, 0.0, samplerate);
-    callback.kam = &mok;
-
     auto running = true;
     auto tempValue = 0.0f;
     auto pos = 0;
@@ -184,18 +171,7 @@ int main()
                 running = false;
                 break;
             case 'w':
-                std::cout << "new value for drywet: ";
-                std::cin >> tempValue;
-                //torro.setDryWet(tempValue);
 
-                /*
-                std::cout << "set new value for delayTimeAP1: ";
-                std::cin >> tempValue;
-                ap__1.setDelayTime(tempValue);
-                std::cout << "set new value for delayTimeAP2: ";
-                std::cin >> tempValue;
-                ap__2.setDelayTime(tempValue);
-                 */
                 break;
             case ' ':
                 //start recording
