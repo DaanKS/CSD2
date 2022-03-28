@@ -52,17 +52,6 @@ struct TestCallback : AudioCallback
     int sempleKount = 0;
 
 };
-int questionIndex = 0;
-void askQuestion(int position){
-    std::cout<< questions[position] <<std::endl;
-}
-bool boolswitcher(bool recordSwitch){
-    if(recordSwitch){
-        return false;
-    }else{
-        return true;
-    }
-}
 
 int main()
 {
@@ -88,23 +77,19 @@ int main()
     auto ap__1 = Allpass(0.7, 400, samplerate);
     callback.ap1 = &ap__1;
     auto ap__2 = Allpass(0.7, 400, samplerate);
-    callback.ap2 = &ap__2; */
+    callback.ap2 = &ap__2;
    // auto mok = Comb(samplerate, 10, 1.0, 0.0, samplerate);
    // callback.kam = &mok;
 
     auto running = true;
     auto tempValue = 0.0f;
-    auto pos = 0;
 
-    askQuestion(pos);
     while(running){
         switch (std::cin.get()) {
             case 'q':
                 running = false;
                 break;
             case 'w':
-
-
                 std::cout << "set new value for delayTimeAP1: ";
                 std::cin >> tempValue;
                 ap__1.setDelayTime(tempValue);
