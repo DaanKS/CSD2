@@ -60,12 +60,12 @@ struct TestCallback : AudioCallback
                 if(createEnv){
                   //if the recoring is done, create an envelope
                   std::cout<< "we zijn hier geraakt" <<std::endl;
-                  envelope = new Generator(inbuffer, sampleCount, NUMBERENV);
+//                  envelope = new Generator(inbuffer, sampleCount, NUMBERENV);
                   createEnv = false;
                 }
               }
 
-                envelope->envAtSamp(0);
+//                envelope->envAtSamp(0);
                 tempSample = inbuffer[sempleKount] + input[1][sample];
                 sempleKount++;
                 if (sempleKount >= sampleCount) { sempleKount = 0; }
@@ -90,7 +90,7 @@ struct TestCallback : AudioCallback
     Allpass ap1 = Allpass(0.7, 400, samplerate);
     Allpass ap2 = Allpass(0.7, 400, 44100);
     Datorro datorro = Datorro(44100);
-    Generator* envelope;
+//    Generator* envelope;
     DualBiquad dualBiquad = DualBiquad(44100);
     Waveshaper waveshaper1 = Waveshaper(44100, 80);
     Waveshaper waveshaper2 = Waveshaper(44100);
