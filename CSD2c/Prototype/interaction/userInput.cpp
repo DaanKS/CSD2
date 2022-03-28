@@ -14,9 +14,14 @@ UserInput::~UserInput() {
 
 void UserInput::separateLetter(std::string sentence) {
 
-  std::cout << sentence[letterIndex] << std::flush;
-  letterIndex++;
-    if(letterIndex >= sentence.length()){
+  if(printedALetter == true){
+    std::cout << sentence[letterIndex] << std::flush;
+    letterIndex++;
+    usleep(5000);
+  }
+
+
+  if(letterIndex >= sentence.length()){
       //when all the letters are reached retrun true so we can get an answer
       printedALetter = false;
       letterIndex = 0;

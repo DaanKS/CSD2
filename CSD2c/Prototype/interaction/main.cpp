@@ -182,6 +182,8 @@ struct TestCallback : AudioCallback
 
 int main(){
 
+  std::string question = initialQ;
+
   bool running = true;
   UserInput userInput;
 
@@ -193,11 +195,10 @@ int main(){
 
 
 //cerdits to discount Wouter, Ciska jij kent die niet...
-  auto userInputLoop = [&callback, &userInput, &running](){
+  auto userInputLoop = [&question, &userInput, &running](){
       while(running){
         while (userInput.printedALetter){
-            userInput.separateLetter(initialQ);
-            usleep(50000);
+            userInput.separateLetter(question);
           }
 
     }
@@ -215,8 +216,9 @@ int main(){
         audioBackend.closeDevice();
         break;
       case '0' :
-        break;
-      case '1' :
+
+        question = senseQ;
+        userInput.printedALetter = true;
         break;
     }
   }

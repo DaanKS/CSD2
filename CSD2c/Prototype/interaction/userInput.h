@@ -5,7 +5,7 @@
 #include <cstring>
 #include <vector>
 #include "node.h"
-
+#include <unistd.h>
 #ifndef MAIN_CPP_USERINPUT_H
 #define MAIN_CPP_USERINPUT_H
 
