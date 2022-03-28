@@ -5,7 +5,7 @@
 #include "envelope.h"
 #include "dualbiquad.h"
 #include "waveshaper.h"
-#define BUFFERLENGTH 88200
+#define BUFFERLENGTH 410000
 std::string initialQ = "Instructions:\n"
                        "- You are obligated to answer the following questions out loud\n"
                        "- Choose between options using the number keys, then enter\n"
@@ -76,6 +76,8 @@ Envelope* envelope;
 float inbuffer[BUFFERLENGTH];
 bool recordStartStop = false;
 
+int sampleCount = 0;
+
 struct TestCallback : AudioCallback
 {
     bool doneRecording = false;
@@ -104,7 +106,8 @@ struct TestCallback : AudioCallback
                 // datorro.setDryWet();
                 tempSample = waveshaper->output(kam->output(inbuffer[sempleKount]));// + (tempSample * ysis->returnControlValue()));
                 sempleKount++;
-                if (sempleKount >= BUFFERLENGTH - 1) { sempleKount -= BUFFERLENGTH - 1; }
+                if (sempleKount >= sampleCount) { sempleKount = 0; }
+                datorro.setDryWet()
                 float tempSample_2 = datorro.output(tempSample);
                  output[0][sample] = datorro.outputL(tempSample_2);
                  output[1][sample] = datorro.outputR(tempSample_2);
@@ -126,7 +129,7 @@ struct TestCallback : AudioCallback
     DualBiquad* dualBiquad;
     Waveshaper* waveshaper;
     float tempSample;
-    int sampleCount = 0;
+    int recordedSamps = 0;
     int sempleKount = 0;
 
 };
@@ -198,9 +201,11 @@ int main()
                 //start recording
                 recordStartStop = boolswitcher(recordStartStop);
                 if(recordStartStop) {
+                    sampleCount = 1;
                     pos++;
                     askQuestion(pos);
                 }
+
                 break;
             }
 
