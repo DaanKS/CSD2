@@ -62,7 +62,6 @@ struct TestCallback : AudioCallback
     bool makeEnvelope = false;
     void process (const float** input, float** output, int numInputChannels, int numOutputChannels, int numSamples) override
     {
-
             for (int sample = 0; sample < numSamples; ++sample) {
               if (recordStartStop) {
                 if (sampleCount < BUFFERLENGTH) {
@@ -71,7 +70,7 @@ struct TestCallback : AudioCallback
                   if (sampleCount >= BUFFERLENGTH - 1) { sampleCount -= BUFFERLENGTH - 1; }
                 }
               }
-                tempSample = inbuffer[sempleKount]; //+ input[0][sample];
+                tempSample = inbuffer[sempleKount] + input[0][sample];
                 sempleKount++;
                 if (sempleKount >= sampleCount) { sempleKount = 0; }
                 float tempSample_1 = (waveshaper1.output(dualBiquad.outputHP(tempSample)));
@@ -82,6 +81,7 @@ struct TestCallback : AudioCallback
 
               if(envFirstTime){
                 //turns on and stays on after the first question
+                //turns and stays on after the first question
                 //otherwise we will get segmentation fault cus the envelope object doesn't exist yet
                   datorroDryWet = envelope->envAtSamp(0);
                   ap1DelayTime = envelope->envAtSamp(1);
@@ -94,9 +94,7 @@ struct TestCallback : AudioCallback
                 datorro.setDryWet(datorroDryWet); // max -1 tot 1
                 ap1.setDelayTime((ap1DelayTime + 1) * 800); // max 1 tot 800
                 ap2.setDelayTime((ap2DelayTime + 1) * 800); // max 1 tot 800 (wel anders dan ap1)
-
                 dualBiquad.setCutoffFrequency((biquadCutOff + 1) * 200); // max 400 tot 1000
-
                 waveshaper1.setDryWet(waveshape1DryWwt); // max -1 tot 1
                 waveshaper2.setDryWet(waveshape2DryWet); // max -1 tot 1
 
@@ -134,7 +132,7 @@ int main()
     double samplerate = 44100;
 
     audioBackend.registerCallback (&callback);
-    audioBackend.openDefaultIODevice (1, 2);
+    audioBackend.openDefaultIODevice (2, 2);
 
     auto running = true;
     auto tempValue = 0.0f;
