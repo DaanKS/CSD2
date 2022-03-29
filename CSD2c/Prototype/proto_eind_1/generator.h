@@ -25,6 +25,7 @@ private:
     float slopeIncrement;
     int sampsBetweenAmps;
     float slope = 0;
+    int timesExecuted = 0;
 };
 
 #endif //EINDOPDRACHT_GENERATOR_H

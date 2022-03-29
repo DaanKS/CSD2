@@ -5,7 +5,7 @@
 #include "dualbiquad.h"
 #include "waveshaper.h"
 #define BUFFERLENGTH 410000
-#define NUMBERENV 5
+#define NUMBERENV 6
 
 std::string questions[10] = {"Instructions:\n"
                              "- You are obligated to answer the following questions out loud\n"
@@ -69,7 +69,12 @@ struct TestCallback : AudioCallback
                 output[1][sample] = ap2.output(datorro.outputR(tempSample_3));
               if(envFirstTime){
                   datorroDryWet = envelope->envAtSamp(0);
-//                  std::cout<< "datorroDryWet" << datorroDryWet <<std::endl;
+//                  ap1DelayTime = envelope->envAtSamp(1);
+//                  ap2DelayTime = envelope->envAtSamp(2);
+//                  biquadCutOff = envelope->envAtSamp(3);
+                  waveshape1DryWwt = envelope->envAtSamp(4);
+                  waveshape2DryWet = envelope->envAtSamp(5);
+
                 }
 
                 datorro.setDryWet(datorroDryWet); // -1 tot 1

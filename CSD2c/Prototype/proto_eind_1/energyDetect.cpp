@@ -38,7 +38,6 @@ EnergyDetect::EnergyDetect(float inputBuffer[], int inputBufSize, int numberPara
   for (int i = 0; i < numberParams; i++){
     for (int j = 0; j < envAmpBufferSize; j++){
       envAmpBuffer[i][j] = envBuffer[j + envChunckForFx];
-      std::cout<< "envAmpBuffer[i][j]"<< envAmpBuffer[0][j]<<std::endl;
 #if DEBUG > 2
       std::cout<< "envAmpBuffer [i]: " << envAmpBuffer[i] << " [j]: " <<  envAmpBuffer[i][j] <<std::endl;
 #endif
@@ -66,8 +65,16 @@ void EnergyDetect::averageEnvAmp(float inputBuffer[], int inputBufSize) {
     sampleCount++;
     if(sampleCount >= fraction){
       //take the average of a sample block and write the to the EnvArray
-//      std::cout<< "inputBufSampVal: " << inputBufSampVal <<std::endl;
-      float averageAmp = inputBufSampVal / fraction;
+  //      std::cout<< "inputBufSampVal: " << inputBufSampVal <<std::endl;
+        //super nasty 100 but quick fix
+         float averageAmp;
+      averageAmp = (inputBufSampVal / fraction) * 100;
+      if(averageAmp > 1){
+        averageAmp = 1;
+      }
+      if(averageAmp < -1){
+        averageAmp = -1;
+      }
       envBuffer[envBufferIndex] = averageAmp;
       envBufferIndex++;
       //reset the counter for the if statement
