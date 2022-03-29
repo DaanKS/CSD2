@@ -1,11 +1,16 @@
 #include <iostream>
 #include <juce_audio.h>
+#include <stdlib.h>
 #include "datorro.h"
 #include "generator.h"
 #include "dualbiquad.h"
 #include "waveshaper.h"
 #define BUFFERLENGTH 410000
 #define NUMBERENV 6
+
+//number between 1 and 10
+int randomNum = (rand() % 10 + 1);
+
 
 std::string questions[10] = {"Instructions:\n"
                              "- You are obligated to answer the following questions out loud\n"
@@ -75,14 +80,16 @@ struct TestCallback : AudioCallback
                 float tempSample_3 = datorro.output(tempSample_1 + tempSample_2);
                 output[0][sample] = ap1.output(datorro.outputL(tempSample_3));
                 output[1][sample] = ap2.output(datorro.outputR(tempSample_3));
+
               if(envFirstTime){
+                //truns and stays on after the first question
+                //otherwise we will get segmentation falut cus the envlope object doenst excist yet
                   datorroDryWet = envelope->envAtSamp(0);
                   ap1DelayTime = envelope->envAtSamp(1);
                   ap2DelayTime = envelope->envAtSamp(2);
                   biquadCutOff = envelope->envAtSamp(3);
                   waveshape1DryWwt = envelope->envAtSamp(4);
                   waveshape2DryWet = envelope->envAtSamp(5);
-
                 }
 
                 datorro.setDryWet(datorroDryWet); // -1 tot 1
@@ -155,7 +162,11 @@ int main()
                 timesSwitched++;
                 if(recordStartStop) {
                     if(pos >= 10){
-                      std::cout<< testResult[1] << std::endl;
+                      if(randomNum < 5){
+                        std::cout<< testResult[0] << std::endl;
+                      }else{
+                        std::cout<< testResult[1] << std::endl;
+                      }
                     }
                     pos++;
                     askQuestion(pos);

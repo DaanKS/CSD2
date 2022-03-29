@@ -3,7 +3,6 @@
 EnergyDetect::EnergyDetect() {}
 
 EnergyDetect::EnergyDetect(float inputBuffer[], int inputBufSize, int numberParams){
-  std::cout<< "constructor EnergyDetect" <<std::endl;
   //TODO: fit all that buffer shit in some nice ellegant function
   //10 seconds of audio
   //+1 cuz envelope ends with a 0
