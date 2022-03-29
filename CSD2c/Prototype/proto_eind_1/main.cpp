@@ -67,7 +67,6 @@ struct TestCallback : AudioCallback
               if (recordStartStop) {
                 if (sampleCount < BUFFERLENGTH) {
                   inbuffer[sampleCount] = input[0][sample];
-                  //  std::cout << "Mila: " << sampleCount << std::endl;
                   sampleCount++;
                   if (sampleCount >= BUFFERLENGTH - 1) { sampleCount -= BUFFERLENGTH - 1; }
                 }
@@ -82,8 +81,8 @@ struct TestCallback : AudioCallback
                 output[1][sample] = ap2.output(datorro.outputR(tempSample_3));
 
               if(envFirstTime){
-                //truns and stays on after the first question
-                //otherwise we will get segmentation falut cus the envlope object doenst excist yet
+                //turns on and stays on after the first question
+                //otherwise we will get segmentation fault cus the envelope object doesn't exist yet
                   datorroDryWet = envelope->envAtSamp(0);
                   ap1DelayTime = envelope->envAtSamp(1);
                   ap2DelayTime = envelope->envAtSamp(2);
@@ -92,14 +91,14 @@ struct TestCallback : AudioCallback
                   waveshape2DryWet = envelope->envAtSamp(5);
                 }
 
-                datorro.setDryWet(datorroDryWet); // -1 tot 1
-                ap1.setDelayTime((ap1DelayTime + 1) * 800); // 1 tot 800
-                ap2.setDelayTime((ap2DelayTime + 1) * 800); // 1 tot 800 (wel anders dan ap1)
+                datorro.setDryWet(datorroDryWet); // max -1 tot 1
+                ap1.setDelayTime((ap1DelayTime + 1) * 800); // max 1 tot 800
+                ap2.setDelayTime((ap2DelayTime + 1) * 800); // max 1 tot 800 (wel anders dan ap1)
 
-                dualBiquad.setCutoffFrequency(biquadCutOff); // 400 tot 1000
+                dualBiquad.setCutoffFrequency((biquadCutOff + 1) * 200); // max 400 tot 1000
 
-                waveshaper1.setDryWet(waveshape1DryWwt); // -1 tot 1
-                waveshaper2.setDryWet(waveshape2DryWet); // -1 tot 1
+                waveshaper1.setDryWet(waveshape1DryWwt); // max -1 tot 1
+                waveshaper2.setDryWet(waveshape2DryWet); // max -1 tot 1
 
             }
     }

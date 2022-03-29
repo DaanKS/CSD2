@@ -17,7 +17,7 @@ protected:
     void calcSlopeIncrement(int paramNumber);
 private:
     EnergyDetect* energyDetect;
-    //starting points from with to calculte amplitude
+    //starting points from which to calculate amplitude
     int envPoint1 = 0;
     int envPoint2 = 1;
     float ampEnvPoint1;
