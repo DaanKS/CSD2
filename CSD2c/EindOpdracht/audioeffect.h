@@ -3,9 +3,11 @@
 #include <cstring>
 #include <vector>
 #include <memory>
-#include "squarelaw.h"
+#include <squarelaw.h>
 
 #pragma once
+
+//TODO - Make appropriate methods "noexcept"
 
 class AudioEffect{
 public:

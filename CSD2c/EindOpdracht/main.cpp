@@ -100,13 +100,16 @@ struct TestCallback : AudioCallback
 
             }
     }
+    //TODO --> due to envelopes working in audio a quick and easy solution to threading issue is to statically allocate
+    //effect objects. Refer to /Prototype/AudioChainTest for more dynamic implementation of object allocation.
+    //Not yet possible to retrieve samplerate from backend.
     double samplerate = 44100;
     Allpass ap1 = Allpass(0.7, 400, samplerate);
-    Allpass ap2 = Allpass(0.7, 400, 44100);
-    Datorro datorro = Datorro(44100);
-    DualBiquad dualBiquad = DualBiquad(44100);
-    Waveshaper waveshaper1 = Waveshaper(44100, 80);
-    Waveshaper waveshaper2 = Waveshaper(44100);
+    Allpass ap2 = Allpass(0.7, 400, samplerate);
+    Datorro datorro = Datorro(samplerate);
+    DualBiquad dualBiquad = DualBiquad(samplerate);
+    Waveshaper waveshaper1 = Waveshaper(samplerate, 80);
+    Waveshaper waveshaper2 = Waveshaper(samplerate);
     float tempSample;
     int recordedSamps = 0;
     int sempleKount = 0;
@@ -129,13 +132,10 @@ int main()
     TestCallback callback;
     AudioBackend audioBackend;
 
-    double samplerate = 44100;
-
     audioBackend.registerCallback (&callback);
     audioBackend.openDefaultIODevice (2, 2);
 
     auto running = true;
-    auto tempValue = 0.0f;
     auto pos = 0;
 
 

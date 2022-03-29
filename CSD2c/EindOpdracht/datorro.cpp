@@ -3,7 +3,9 @@
 
 Datorro::Datorro(float samplerate) : m_dryWet(-0.5), m_samplerate(samplerate) {
     mix = std::make_unique<Mix>();
-
+    //TODO -- Factory Class for object creation
+    //Other options available, however, not implemented in this version due to heavy workload.
+    //Nonetheless the advice and help is appreciated.
     filters[0] = new Onepole(2000, m_samplerate);
     filters[7] = new Onepole(2000, m_samplerate);
     filters[8] = new Onepole(2000, m_samplerate);
@@ -54,13 +56,13 @@ Datorro::~Datorro() {
 }
 
 
-
+//Refer to signal flow for clarification
 float Datorro::output(float inputSample) {
     earlyTempSample = filters[4]->output(filters[3]->output(filters[2]->output(filters[1]->output(filters[0]->output(predel->output(inputSample))))));
     return (earlyTempSample * mix->getB(m_dryWet)) + (inputSample * mix->getA(m_dryWet));
 }
 
-//Modulated AP, fixed delay, onepole filter, AP, fixed delay
+
 float Datorro::outputL(float inputSample) {
     feedSampleL1 = filters[5]->output(inputSample + (feedSampleR6 * 0.9));
     feedSampleL2 = fixed_1->output(feedSampleL1);
@@ -72,7 +74,6 @@ float Datorro::outputL(float inputSample) {
     tempSample_1 = (filters[13]->output(feedSampleL1) + filters[14]->output(feedSampleL1) + filters[16]->output(feedSampleL2) + ( -1 * (filters[15]->output(feedSampleL4) + filters[17]->output(feedSampleR1) + filters[18]->output(feedSampleR4) + filters[19]->output(feedSampleR3))) ) * 0.15f;
 
     return (tempSample_1 * mix->getB(m_dryWet)) + (inputSample * mix->getA(m_dryWet));
-    //return fixed_3->output(ap_5->output(damping_1->output(fixed_1->output(map_1->output(inputSample)))));
 }
 float Datorro::outputR(float inputSample) {
     feedSampleR1 = filters[6]->output(inputSample + (feedSampleL6 * 0.9));
@@ -85,7 +86,6 @@ float Datorro::outputR(float inputSample) {
     tempSample_2 = (filters[20]->output(feedSampleR1) + filters[21]->output(feedSampleR1) + filters[23]->output(feedSampleR2) + ( -1 * (filters[22]->output(feedSampleR4) + filters[24]->output(feedSampleL1) + filters[25]->output(feedSampleL4) + filters[26]->output(feedSampleL3))) ) * 0.15f;
 
     return (tempSample_2 * mix->getB(m_dryWet)) + (inputSample * mix->getA(m_dryWet));
-    //return fixed_4->output(ap_6->output(damping_2->output(fixed_2->output(map_2->output(inputSample)))));
 }
 
 void Datorro::setPreDelay(float preDelay) {

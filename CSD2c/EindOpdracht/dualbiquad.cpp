@@ -10,6 +10,7 @@ m_cutoff(800), m_qFactor(3.0), m_difference(-100){
 DualBiquad::~DualBiquad() = default;
 
 float DualBiquad::output(float inputSample) {
+    //this one won't be used.
     return 0;
 }
 
