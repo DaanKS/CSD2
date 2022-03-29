@@ -7,8 +7,7 @@ Go to CSD2/CSD2c/juce_audio_backend and type:
 
 Go to CSD2/CSD2c folder and type:
 >cmake -S . -B build 
-
->cmake --build build
+cmake --build build
 
 Go to CSD2/CSD2c/build/EindOpdracht and type: 
 >make
