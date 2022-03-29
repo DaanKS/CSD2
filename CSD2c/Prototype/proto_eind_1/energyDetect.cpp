@@ -38,6 +38,7 @@ EnergyDetect::EnergyDetect(float inputBuffer[], int inputBufSize, int numberPara
   for (int i = 0; i < numberParams; i++){
     for (int j = 0; j < envAmpBufferSize; j++){
       envAmpBuffer[i][j] = envBuffer[j + envChunckForFx];
+      std::cout<< "envAmpBuffer[i][j]"<< envAmpBuffer[0][j]<<std::endl;
 #if DEBUG > 2
       std::cout<< "envAmpBuffer [i]: " << envAmpBuffer[i] << " [j]: " <<  envAmpBuffer[i][j] <<std::endl;
 #endif

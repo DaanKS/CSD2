@@ -29,7 +29,16 @@ std::string questions[10] = {"Instructions:\n"
 
 float inbuffer[BUFFERLENGTH];
 bool recordStartStop = false;
-bool createEnv = false;
+bool ampAtSamp = false;
+bool envFirstTime = false;
+int timesSwitched = 0;
+float datorroDryWet = 0.0;
+float ap1DelayTime = 0.0;
+float ap2DelayTime = 0.0;
+float biquadCutOff = 0.0;
+float waveshape1DryWwt = 0.0;
+float waveshape2DryWet = 0.0;
+
 Generator* envelope;
 
 
@@ -58,17 +67,19 @@ struct TestCallback : AudioCallback
                 float tempSample_3 = datorro.output(tempSample_1 + tempSample_2);
                 output[0][sample] = ap1.output(datorro.outputL(tempSample_3));
                 output[1][sample] = ap2.output(datorro.outputR(tempSample_3));
+              if(envFirstTime){
+                  datorroDryWet = envelope->envAtSamp(0);
+//                  std::cout<< "datorroDryWet" << datorroDryWet <<std::endl;
+                }
 
-//                envelope->envAtSamp(0);
+                datorro.setDryWet(datorroDryWet); // -1 tot 1
+                ap1.setDelayTime(ap1DelayTime); // 1 tot 800
+                ap2.setDelayTime(ap2DelayTime); // 1 tot 800 (wel anders dan ap1)
 
-                datorro.setDryWet(0.0); // -1 tot 1
-                ap1.setDelayTime(0.0); // 1 tot 800
-                ap2.setDelayTime(0.0); // 1 tot 800 (wel anders dan ap1)
+                dualBiquad.setCutoffFrequency(biquadCutOff); // 400 tot 1000
 
-                dualBiquad.setCutoffFrequency(0.0); // 400 tot 1000
-
-                waveshaper1.setDryWet(0.0); // -1 tot 1
-                waveshaper2.setDryWet(0.0); // -1 tot 1
+                waveshaper1.setDryWet(waveshape1DryWwt); // -1 tot 1
+                waveshaper2.setDryWet(waveshape2DryWet); // -1 tot 1
 
             }
     }
@@ -110,13 +121,13 @@ int main()
     auto tempValue = 0.0f;
     auto pos = 0;
 
-  int timesSwitched = 0;
 
   askQuestion(pos);
     while(running){
         if(timesSwitched > 1){
           std::cout<< "created an env" <<std::endl;
           envelope = new Generator(inbuffer, sampleCount, NUMBERENV);
+          envFirstTime = true;
           timesSwitched = 0;
         }
         switch (std::cin.get()) {
@@ -132,11 +143,9 @@ int main()
                 timesSwitched++;
                 std::cout<< "timesSwitched" << timesSwitched <<std::endl;
                 if(recordStartStop) {
-                    timesSwitched = 0;
-                    sampleCount = 1;
-                    if(pos >= 10){
-//                      questions[]
-                    }
+//                    if(pos >= 10){
+////                      questions[]
+//                    }
                     pos++;
                     askQuestion(pos);
                 }
