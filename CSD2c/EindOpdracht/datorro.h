@@ -11,7 +11,6 @@
 #include "filter.h"
 #include "modallpass.h"
 #include "onepole.h"
-#include "highpass.h"
 #include "allpass.h"
 #include "fixeddelay.h"
 #include "comb.h"
