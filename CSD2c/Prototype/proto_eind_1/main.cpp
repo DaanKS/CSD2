@@ -26,6 +26,14 @@ std::string questions[10] = {"Instructions:\n"
                              "describe change\n",
                              "have you fulfilled any goals lately\n"
                              };
+std::string testResult[2] = {"You have passed you baseline test and may go.\n"
+                             "All the gathered personal data will now be "
+                             "erased from the systems memory"
+                             "Please leave this program by pressing 'q'\n",
+                             "You have not passed your baseline test and are"
+                             "obligate to report. Terms and conditions will"
+                             "be applied, effective immediately.\n"
+                             "Please leave this program by pressing 'q'\n"};
 
 float inbuffer[BUFFERLENGTH];
 bool recordStartStop = false;
@@ -69,17 +77,17 @@ struct TestCallback : AudioCallback
                 output[1][sample] = ap2.output(datorro.outputR(tempSample_3));
               if(envFirstTime){
                   datorroDryWet = envelope->envAtSamp(0);
-//                  ap1DelayTime = envelope->envAtSamp(1);
-//                  ap2DelayTime = envelope->envAtSamp(2);
-//                  biquadCutOff = envelope->envAtSamp(3);
+                  ap1DelayTime = envelope->envAtSamp(1);
+                  ap2DelayTime = envelope->envAtSamp(2);
+                  biquadCutOff = envelope->envAtSamp(3);
                   waveshape1DryWwt = envelope->envAtSamp(4);
                   waveshape2DryWet = envelope->envAtSamp(5);
 
                 }
 
                 datorro.setDryWet(datorroDryWet); // -1 tot 1
-                ap1.setDelayTime(ap1DelayTime); // 1 tot 800
-                ap2.setDelayTime(ap2DelayTime); // 1 tot 800 (wel anders dan ap1)
+                ap1.setDelayTime((ap1DelayTime + 1) * 800); // 1 tot 800
+                ap2.setDelayTime((ap2DelayTime + 1) * 800); // 1 tot 800 (wel anders dan ap1)
 
                 dualBiquad.setCutoffFrequency(biquadCutOff); // 400 tot 1000
 
@@ -130,7 +138,6 @@ int main()
   askQuestion(pos);
     while(running){
         if(timesSwitched > 1){
-          std::cout<< "created an env" <<std::endl;
           envelope = new Generator(inbuffer, sampleCount, NUMBERENV);
           envFirstTime = true;
           timesSwitched = 0;
@@ -146,11 +153,10 @@ int main()
                 //start recording
                 recordStartStop = boolswitcher(recordStartStop);
                 timesSwitched++;
-                std::cout<< "timesSwitched" << timesSwitched <<std::endl;
                 if(recordStartStop) {
-//                    if(pos >= 10){
-////                      questions[]
-//                    }
+                    if(pos >= 10){
+                      std::cout<< testResult[1] << std::endl;
+                    }
                     pos++;
                     askQuestion(pos);
                 }
