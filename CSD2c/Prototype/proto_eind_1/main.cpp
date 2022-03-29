@@ -72,7 +72,7 @@ struct TestCallback : AudioCallback
                   if (sampleCount >= BUFFERLENGTH - 1) { sampleCount -= BUFFERLENGTH - 1; }
                 }
               }
-                tempSample = inbuffer[sempleKount]; //+ input[0][sample];
+                tempSample = inbuffer[sempleKount] + input[0][sample];
                 sempleKount++;
                 if (sempleKount >= sampleCount) { sempleKount = 0; }
                 float tempSample_1 = (waveshaper1.output(dualBiquad.outputHP(tempSample)));
@@ -82,8 +82,8 @@ struct TestCallback : AudioCallback
                 output[1][sample] = ap2.output(datorro.outputR(tempSample_3));
 
               if(envFirstTime){
-                //truns and stays on after the first question
-                //otherwise we will get segmentation falut cus the envlope object doenst excist yet
+                //turns and stays on after the first question
+                //otherwise we will get segmentation fault cus the envelope object doesn't exist yet
                   datorroDryWet = envelope->envAtSamp(0);
                   ap1DelayTime = envelope->envAtSamp(1);
                   ap2DelayTime = envelope->envAtSamp(2);
@@ -135,7 +135,7 @@ int main()
     double samplerate = 44100;
 
     audioBackend.registerCallback (&callback);
-    audioBackend.openDefaultIODevice (1, 2);
+    audioBackend.openDefaultIODevice (2, 2);
 
     auto running = true;
     auto tempValue = 0.0f;
