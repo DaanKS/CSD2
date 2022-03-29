@@ -1,0 +1,56 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Project",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "proto_1::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-proto_1-Debug-a09a0ea3376e732dd55b.json",
+					"name" : "proto_1",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/Users/mila/Dropbox/Mijn Mac (MacBook Pro van Mila)/Documents/Muziek_Technologie/MT_jaar_2/CSD2_pull/Dean/CSD2/CSD2c/Prototype/proto_eind_1/cmake-build-debug",
+		"source" : "/Users/mila/Dropbox/Mijn Mac (MacBook Pro van Mila)/Documents/Muziek_Technologie/MT_jaar_2/CSD2_pull/Dean/CSD2/CSD2c/Prototype/proto_eind_1"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

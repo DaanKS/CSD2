@@ -1,0 +1,41 @@
+file(REMOVE_RECURSE
+  "CMakeFiles/proto_1.dir/allpass.o"
+  "CMakeFiles/proto_1.dir/allpass.o.d"
+  "CMakeFiles/proto_1.dir/analysis.o"
+  "CMakeFiles/proto_1.dir/analysis.o.d"
+  "CMakeFiles/proto_1.dir/audioeffect.o"
+  "CMakeFiles/proto_1.dir/audioeffect.o.d"
+  "CMakeFiles/proto_1.dir/biquad.o"
+  "CMakeFiles/proto_1.dir/biquad.o.d"
+  "CMakeFiles/proto_1.dir/comb.o"
+  "CMakeFiles/proto_1.dir/comb.o.d"
+  "CMakeFiles/proto_1.dir/datorro.o"
+  "CMakeFiles/proto_1.dir/datorro.o.d"
+  "CMakeFiles/proto_1.dir/dualbiquad.o"
+  "CMakeFiles/proto_1.dir/dualbiquad.o.d"
+  "CMakeFiles/proto_1.dir/energyDetect.o"
+  "CMakeFiles/proto_1.dir/energyDetect.o.d"
+  "CMakeFiles/proto_1.dir/filter.o"
+  "CMakeFiles/proto_1.dir/filter.o.d"
+  "CMakeFiles/proto_1.dir/fixeddelay.o"
+  "CMakeFiles/proto_1.dir/fixeddelay.o.d"
+  "CMakeFiles/proto_1.dir/generator.o"
+  "CMakeFiles/proto_1.dir/generator.o.d"
+  "CMakeFiles/proto_1.dir/highpass.o"
+  "CMakeFiles/proto_1.dir/highpass.o.d"
+  "CMakeFiles/proto_1.dir/main.o"
+  "CMakeFiles/proto_1.dir/main.o.d"
+  "CMakeFiles/proto_1.dir/modallpass.o"
+  "CMakeFiles/proto_1.dir/modallpass.o.d"
+  "CMakeFiles/proto_1.dir/onepole.o"
+  "CMakeFiles/proto_1.dir/onepole.o.d"
+  "CMakeFiles/proto_1.dir/waveshaper.o"
+  "CMakeFiles/proto_1.dir/waveshaper.o.d"
+  "proto_1"
+  "proto_1.pdb"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang CXX)
+  include(CMakeFiles/proto_1.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()
