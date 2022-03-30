@@ -43,7 +43,7 @@ int main() {
     auto running = true;
 
     while(running){
-        std::cout << "Enter amount of delay lines: ";
+        std::cout << "Enter amount of delay lines / Press T for Pi in quarters: ";
         switch(std::cin.get()) {
             case 'q':
                 running = false;
@@ -78,7 +78,21 @@ int main() {
                     H[j] = coeff_1 + (coeff_2 * exp(-i * omega)) + (coeff_3 * exp(-i * 2.0 * omega));
                     std::cout << abs(H[j]) << std::endl;
                 }
+                break;
+            case 'T':
+                std::cout << "Give the first coefficient: ";
+                std::cin >> tempValue;
+                coeff_1.real(tempValue);
+                std::cout << "Give the second Coefficient: ";
+                std::cin >> tempValue;
+                coeff_2.real(tempValue);
+                std::complex<double>negativeTwo(-2.0, 0.0);
 
+                for (int j = 0; j < 5; j++){
+                    double omega = ((double) j / 4.0) * (Pie);
+                    H[j] = coeff_1 + (coeff_2 * exp(negativeTwo * i * omega));
+                    std::cout << abs(H[j]) << std::endl;
+                }
                 break;
         }
     }
