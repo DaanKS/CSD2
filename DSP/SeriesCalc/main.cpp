@@ -21,8 +21,8 @@ int main() {
         nn.real(n);
         complexResult += (exp(i * nn * complexPi / four) + exp(-i * nn * complexPi / four) / two);
     }
-    //std::cout << "\nThe Answer is: " << result << std::endl;
-    std::cout << "\nThe Answer is: " << complexResult << std::endl;
+    std::cout << "\nThe Answer is: " << result << std::endl;
+    //std::cout << "\nThe Answer is: " << complexResult << std::endl;
 
 
     return 0;
