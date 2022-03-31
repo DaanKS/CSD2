@@ -2,7 +2,7 @@
 
 Install JUCE Backend at https://github.com/w-ensink/juce_audio_backend
 
-Go to CSD2/CSD2c/juce_audio_backend and type:
+Go to CSD2/CSD2c and type:
 >git clone --recursive https://github.com/w-ensink/juce_audio_backend.git 
 
 Go to CSD2/CSD2c folder and type:
