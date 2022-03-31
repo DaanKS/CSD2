@@ -1,6 +1,6 @@
 //This code is intellectual property of Ciska Vriezenga.
 //I altered some of the naamgeving for my own understanding.
-
+#include <cstring>
 #include <iostream>
 #pragma once
 
