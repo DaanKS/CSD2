@@ -9,6 +9,7 @@
  *Griesinger plate reverb
 */
 #include "filter.h"
+#include "audioeffect.h"
 #include "modallpass.h"
 #include "onepole.h"
 #include "allpass.h"
@@ -21,12 +22,12 @@
 
 #define NUMFILTERS 27
 
-class Datorro{
+class Datorro : public AudioEffect{
 public:
     Datorro(float samplerate);
     ~Datorro();
 
-    float output(float inputSample);
+    float output(float inputSample) override;
     float outputL(float inputSample);
     float outputR(float inputSample);
 

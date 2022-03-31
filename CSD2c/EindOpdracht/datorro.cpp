@@ -1,7 +1,7 @@
 #include "datorro.h"
 #include <iostream>
 
-Datorro::Datorro(float samplerate) : m_dryWet(-0.5), m_samplerate(samplerate) {
+Datorro::Datorro(float samplerate) : AudioEffect(samplerate), m_dryWet(-0.5), m_samplerate(samplerate) {
     mix = std::make_unique<Mix>();
     //TODO -- Factory Class for object creation
     //Other options available, however, not implemented in this version due to heavy workload.
