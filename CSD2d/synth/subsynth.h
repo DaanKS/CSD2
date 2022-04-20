@@ -1,7 +1,8 @@
-#include "sine.h"
-#include "saw.h"
-#include "square.h"
+#include <sine.h>
+#include <saw.h>
+#include <square.h>
 #include "onepole.h"
+#include "oversampler.h"
 #include "synth.h"
 
 #pragma once
@@ -12,9 +13,9 @@ public:
   ~Subsynth();
 
   double output() override;
+  double calculate();
 
-  void setFeedback(double feedback);
-  double getFeedback();
+  void setCutoff(double feedback);
   void setDetune(double detune);
 
   void updatePitches() override;
@@ -22,14 +23,15 @@ public:
 
 
 private:
-  double feedback;
-  double detune;
+
+  double m_detune;
 
   Oscillator* osc_1;
   Oscillator* osc_2;
 
-  Lowpass lpf_1;
-  Lowpass lpf_2;
+  Onepole lpf_1;
+  Onepole lpf_2;
 
+  Oversampler* over;
 
 };

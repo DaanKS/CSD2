@@ -1,9 +1,11 @@
 #include "subsynth.h"
 
 Subsynth::Subsynth(double samplerate) : Synth(samplerate),
-feedback(0.9), detune(-12){
+ m_detune(-12){
   osc_1 = new Saw(samplerate);
   osc_2 = new Square(samplerate);
+
+   over = new Oversampler(samplerate);
 }
 Subsynth::~Subsynth(){
   delete osc_1;
@@ -12,30 +14,35 @@ Subsynth::~Subsynth(){
   osc_2 = nullptr;
 }
 
-//Oscillators are accumulated and go through 2 Onepole filters (serially)
 double Subsynth::output(){
-    return (lpf_2.tick(lpf_1.tick((osc_1->tick() + osc_2->tick() / 2.0)))/ 2.0);
+    //filtering done here
+    return lpf_2.output(lpf_1.output(calculate()));
 }
 
+double Subsynth::calculate() {
+    //oversampling done here
+    over->input((osc_1->output() + osc_2->output()) / 2.0f );
+    for(auto i = 0; i < 4; ++i) {
+        over->setOverSampledBuffer(over->getOverSampledBuffer(i), i);
+    }
+    return over->getOutputBuffer();
+}
 
-void Subsynth::setFeedback(double feedback){
-  this->feedback = feedback;
-  lpf_1.setFeedback(feedback);
-  lpf_2.setFeedback(feedback);
+void Subsynth::setCutoff(double cutoff){
+   const auto tempCoefficients = lpf_1.makeLowPass(cutoff ,samplerate);
+   lpf_1.setCoefficinets(tempCoefficients);
+   lpf_2.setCoefficinets(tempCoefficients);
 }
-double Subsynth::getFeedback(){
-  return feedback;
-}
+
 void Subsynth::setDetune(double detune){
-  this->detune = detune;
+  this->m_detune = detune;
 }
-
 
 void Subsynth::updatePitches(){
   newPitch = getPitch();
   if(newPitch != oldPitch){
     osc_1->setDelta(mtof(getPitch()));
-    osc_2->setDelta(mtof(getPitch() + detune));
+    osc_2->setDelta(mtof(getPitch() + m_detune));
     oldPitch = newPitch;
   }
 }
