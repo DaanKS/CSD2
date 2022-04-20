@@ -12,3 +12,6 @@ Go to CSD2/CSD2c folder and type:
 
 Go to CSD2/CSD2c/build/EindOpdracht and type: 
 >make
+
+If you run into issues with CURL on Ubuntu add the following to /juce_audio_backend/CMakeLists.txt: 
+>target_compile_definitions(${PROJECT_NAME} PRIVATE -DJUCE_USE_CURL=0)
