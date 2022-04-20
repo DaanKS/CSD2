@@ -14,7 +14,7 @@ struct OnepoleCoefficients{
 
 class Onepole{
 public:
-    Onepole(double samperate);
+    Onepole();
     Onepole(float cutoff, double samplerate);
     ~Onepole();
 

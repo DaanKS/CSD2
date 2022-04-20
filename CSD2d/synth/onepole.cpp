@@ -1,6 +1,6 @@
 #include "onepole.h"
 
-Onepole::Onepole(double samplerate) : xHistory_1(0.0f){}
+Onepole::Onepole() : xHistory_1(0.0f){}
 Onepole::Onepole(float cutoff, double samplerate) : xHistory_1(0.0f){
     setCoefficinets(makeLowPass(cutoff, samplerate));
 }
