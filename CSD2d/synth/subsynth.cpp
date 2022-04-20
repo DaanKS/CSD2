@@ -36,6 +36,9 @@ void Subsynth::setCutoff(float cutoff){
 void Subsynth::setDetune(float detune){
   this->m_detune = detune;
 }
+void Subsynth::setPitch(float pitch) {
+    this->m_pitch = pitch;
+}
 
 void Subsynth::updatePitches(){
   const auto newPitch = getPitch();

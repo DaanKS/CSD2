@@ -24,11 +24,15 @@ auto main() -> int{
     double samplerate = 44100;
 
     auto subby = Subsynth(samplerate);
-    for(auto i = 0; i < 2; ++i)
-        callback.synth[i] = &subby;
+    auto subbx = Subsynth(samplerate);
+
+        callback.synth[0] = &subby;
+        callback.synth[1] = &subbx;
 
     subby.setPitch(25);
-
+    subbx.setPitch(25);
+    subby.setCutoff(500);
+    subbx.setCutoff(500);
 
     audioBackend.registerCallback (&callback);
     audioBackend.openDefaultIODevice (2, 2);
