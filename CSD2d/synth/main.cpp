@@ -29,8 +29,10 @@ auto main() -> int{
         callback.synth[0] = &subby;
         callback.synth[1] = &subbx;
 
-    subby.setPitch(25);
-    subbx.setPitch(25);
+    subby.setPitch(20);
+    subbx.setPitch(20);
+    subby.setDetune(0.2);
+    subbx.setDetune(0.2);
     subby.setCutoff(500);
     subbx.setCutoff(500);
 
