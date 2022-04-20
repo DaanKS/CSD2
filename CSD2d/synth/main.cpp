@@ -1,25 +1,19 @@
 #include <iostream>
-#include <saw.h>
 #include <juce_audio.h>
-
+#include "subsynth.h"
 
 struct TestCallback : AudioCallback
 {
     void process (const float** input, float** output, int numInputChannels, int numOutputChannels, int numSamples) override
     {
-        for (int sample = 0; sample < numSamples; ++sample){
-            overL.input(input[0][sample]);
-            overR.input(input[0][sample]);
-
-            for(auto i = 0; i < 4; ++i){
-                overL.setOverSampledBuffer(shaperL->output(overL.getOverSampledBuffer(i)), i);
-                overR.setOverSampledBuffer(shaperR->output(overR.getOverSampledBuffer(i)), i);
+        for(int channel = 0; channel < numOutputChannels; ++channel) {
+            for (int sample = 0; sample < numSamples; ++sample) {
+                output[channel][sample] = synth[channel]->output();
+                synth[channel]->updatePitches();
             }
-            output[0][sample] = overL.getOutputBuffer();
-            output[1][sample] = overR.getOutputBuffer();
         }
     }
-
+    Subsynth* synth[2];
 };
 
 auto main() -> int{
@@ -28,6 +22,13 @@ auto main() -> int{
     AudioBackend audioBackend;
 
     double samplerate = 44100;
+
+    auto subby = Subsynth(samplerate);
+    for(auto i = 0; i < 2; ++i)
+        callback.synth[i] = &subby;
+
+    subby.setPitch(25);
+
 
     audioBackend.registerCallback (&callback);
     audioBackend.openDefaultIODevice (2, 2);

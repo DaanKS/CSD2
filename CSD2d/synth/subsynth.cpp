@@ -1,11 +1,10 @@
 #include "subsynth.h"
 
-Subsynth::Subsynth(double samplerate) : Synth(samplerate),
- m_detune(-12){
-  osc_1 = new Saw(samplerate);
-  osc_2 = new Square(samplerate);
-
-   over = new Oversampler(samplerate);
+Subsynth::Subsynth(double samplerate) : m_samplerate(samplerate),
+ m_pitch(50),m_detune(-12){
+  osc_1 = new Saw(m_samplerate);
+  osc_2 = new Square(m_samplerate);
+  over = new Oversampler(m_samplerate);
 }
 Subsynth::~Subsynth(){
   delete osc_1;
@@ -28,18 +27,18 @@ double Subsynth::calculate() {
     return over->getOutputBuffer();
 }
 
-void Subsynth::setCutoff(double cutoff){
-   const auto tempCoefficients = lpf_1.makeLowPass(cutoff ,samplerate);
+void Subsynth::setCutoff(float cutoff){
+   const auto tempCoefficients = lpf_1.makeLowPass(cutoff ,m_samplerate);
    lpf_1.setCoefficinets(tempCoefficients);
    lpf_2.setCoefficinets(tempCoefficients);
 }
 
-void Subsynth::setDetune(double detune){
+void Subsynth::setDetune(float detune){
   this->m_detune = detune;
 }
 
 void Subsynth::updatePitches(){
-  newPitch = getPitch();
+  const auto newPitch = getPitch();
   if(newPitch != oldPitch){
     osc_1->setDelta(mtof(getPitch()));
     osc_2->setDelta(mtof(getPitch() + m_detune));
