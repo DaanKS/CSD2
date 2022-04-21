@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.18)
 project(CSD2d LANGUAGES CXX)
-add_subdirectory(juce_audio_backend)
+add_subdirectory(JUCE)
 add_subdirectory(sharedCode)
 add_subdirectory(synth)

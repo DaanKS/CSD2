@@ -1,3 +1,6 @@
 [submodule "CSD2d/juce_audio_backend"]
 	path = CSD2d/juce_audio_backend
 	url = https://github.com/w-ensink/juce_audio_backend.git
+[submodule "CSD2d/JUCE"]
+	path = CSD2d/JUCE
+	url = https://github.com/juce-framework/JUCE.git
