@@ -1,5 +1,7 @@
 #include "subsynth.h"
 
+Subsynth::Subsynth() {}
+
 Subsynth::Subsynth(double samplerate) : m_samplerate(samplerate),
  m_pitch(50),m_detune(-12){
   osc_1 = new Saw(m_samplerate);
@@ -12,6 +14,18 @@ Subsynth::~Subsynth(){
   osc_1 = nullptr;
   osc_2 = nullptr;
 }
+
+void Subsynth::Initialize(double samplerate, float pitch, float detune, float cutoff){
+   this->m_samplerate = samplerate;
+    setPitch(pitch);
+    setDetune(detune);
+    setCutoff(cutoff);
+
+    osc_1 = new Saw(m_samplerate);
+    osc_2 = new Square(m_samplerate);
+    over = new Oversampler(m_samplerate);
+}
+
 
 double Subsynth::output(){
     //filtering done here

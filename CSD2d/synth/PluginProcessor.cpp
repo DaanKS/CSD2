@@ -10,12 +10,24 @@ AudioPluginAudioProcessor::AudioPluginAudioProcessor()
                       #endif
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
-                       )
+                       ),
+       SubSynthParams(*this, nullptr, "Parameters",{
+           std::make_unique<juce::AudioParameterFloat>("uCutoff", "Cutoff", 10.0f, 20000.0f, 3500.0f),
+           std::make_unique<juce::AudioParameterFloat>("uDetune", "Detune", -12.0f, 12.0f, 0.0f)
+       })
+
 {
+    for(auto i = 0; i < getBusesLayout().getNumChannels(true, 0); i++){
+        subsynth[i] = new Subsynth();
+    }
 }
 
 AudioPluginAudioProcessor::~AudioPluginAudioProcessor()
 {
+    for(auto i = 0; i < getBusesLayout().getNumChannels(true, 0); i++){
+        delete subsynth[i];
+        subsynth[i] = nullptr;
+    }
 }
 
 //==============================================================================
@@ -88,7 +100,10 @@ void AudioPluginAudioProcessor::prepareToPlay (double sampleRate, int samplesPer
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
-    juce::ignoreUnused (sampleRate, samplesPerBlock);
+    for (auto& sub : subsynth){
+        sub->Initialize(sampleRate, 50, 0.0f, 3500);
+    }
+    juce::ignoreUnused (samplesPerBlock);
 }
 
 void AudioPluginAudioProcessor::releaseResources()
@@ -124,7 +139,24 @@ bool AudioPluginAudioProcessor::isBusesLayoutSupported (const BusesLayout& layou
 void AudioPluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
                                               juce::MidiBuffer& midiMessages)
 {
-    juce::ignoreUnused (midiMessages);
+    for (auto& sub : subsynth){
+        sub->setCutoff(*Cutoff);
+        sub->setDetune(*Detune);
+    }
+
+    //juce::ignoreUnused (midiMessages);
+    juce::MidiBuffer processedMidi;
+
+    for(const auto metadata : midiMessages){
+        auto message = metadata.getMessage();
+        //const auto time = metadata.samplePosition;
+        if (message.isNoteOn()){
+            for(auto& sub : subsynth){
+                sub->setPitch(message.getNoteNumber());
+            }
+        }
+
+    }
 
     juce::ScopedNoDenormals noDenormals;
     auto totalNumInputChannels  = getTotalNumInputChannels();
@@ -148,7 +180,10 @@ void AudioPluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
         auto* channelData = buffer.getWritePointer (channel);
-        juce::ignoreUnused (channelData);
+            for(auto sample = 0; sample < buffer.getNumSamples(); ++sample){
+                channelData[sample] = subsynth[channel]->output();
+                subsynth[channel]->updatePitches();
+            }
         // ..do something to the data...
     }
 }
@@ -161,7 +196,7 @@ bool AudioPluginAudioProcessor::hasEditor() const
 
 juce::AudioProcessorEditor* AudioPluginAudioProcessor::createEditor()
 {
-    return new AudioPluginAudioProcessorEditor (*this);
+    return new AudioPluginAudioProcessorEditor (*this, SubSynthParams);
 }
 
 //==============================================================================
@@ -170,14 +205,25 @@ void AudioPluginAudioProcessor::getStateInformation (juce::MemoryBlock& destData
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
-    juce::ignoreUnused (destData);
+    std::unique_ptr<juce::XmlElement> xml (new juce::XmlElement ("SubSynthParams"));
+    xml->setAttribute("uCutoff" , (double) *Cutoff);
+    xml->setAttribute("uDetune", (double) *Detune);
+    copyXmlToBinary(*xml, destData);
+    //juce::ignoreUnused (destData);
 }
 
 void AudioPluginAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
-    juce::ignoreUnused (data, sizeInBytes);
+    std::unique_ptr<juce::XmlElement> xmlState (getXmlFromBinary(data, sizeInBytes));
+        if(xmlState.get() !=nullptr){
+            if(xmlState->hasTagName("SubSynthParams")){
+                *Cutoff = (float) xmlState->getDoubleAttribute("uCutoff", 3500.0f);
+                *Detune = (float) xmlState->getDoubleAttribute("uDetune", 0.0f);
+            }
+        }
+    //juce::ignoreUnused (data, sizeInBytes);
 }
 
 //==============================================================================

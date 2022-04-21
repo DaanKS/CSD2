@@ -9,8 +9,11 @@
 
 class Subsynth {
 public:
+    Subsynth();
     Subsynth(double samplerate);
     ~Subsynth();
+
+    void Initialize(double samplerate, float pitch, float detune, float cutoff);
 
     double output();
     double calculate();
