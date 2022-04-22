@@ -20,6 +20,8 @@ AudioPluginAudioProcessor::AudioPluginAudioProcessor()
     for(auto i = 0; i < getBusesLayout().getNumChannels(true, 0); i++){
         subsynth[i] = new Subsynth();
     }
+    Cutoff = SubSynthParams.getRawParameterValue("uCutoff");
+    Detune = SubSynthParams.getRawParameterValue("uDetune");
 }
 
 AudioPluginAudioProcessor::~AudioPluginAudioProcessor()
@@ -155,7 +157,6 @@ void AudioPluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
                 sub->setPitch(message.getNoteNumber());
             }
         }
-
     }
 
     juce::ScopedNoDenormals noDenormals;
