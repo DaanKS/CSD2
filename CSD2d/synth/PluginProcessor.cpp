@@ -102,8 +102,9 @@ void AudioPluginAudioProcessor::prepareToPlay (double sampleRate, int samplesPer
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
-    for (auto& sub : subsynth){
-        sub->Initialize(sampleRate, 50, 0.0f, 3500);
+
+    for(auto i = 0; i < getBusesLayout().getNumChannels(true, 0); i++){
+        subsynth[i]->Initialize(sampleRate, 50, 0.0f, 3500);
     }
     juce::ignoreUnused (samplesPerBlock);
 }
@@ -141,9 +142,10 @@ bool AudioPluginAudioProcessor::isBusesLayoutSupported (const BusesLayout& layou
 void AudioPluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
                                               juce::MidiBuffer& midiMessages)
 {
-    for (auto& sub : subsynth){
-        sub->setCutoff(*Cutoff);
-        sub->setDetune(*Detune);
+
+    for(auto i = 0; i < getBusesLayout().getNumChannels(true, 0); i++){
+        subsynth[i]->setCutoff(*Cutoff);
+        subsynth[i]->setDetune(*Detune);
     }
 
     //juce::ignoreUnused (midiMessages);
@@ -153,8 +155,8 @@ void AudioPluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
         auto message = metadata.getMessage();
         //const auto time = metadata.samplePosition;
         if (message.isNoteOn()){
-            for(auto& sub : subsynth){
-                sub->setPitch(message.getNoteNumber());
+            for(auto i = 0; i < getBusesLayout().getNumChannels(true, 0); i++){
+                subsynth[i]->setPitch(message.getNoteNumber());
             }
         }
     }

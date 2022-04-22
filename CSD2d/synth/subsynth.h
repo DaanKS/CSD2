@@ -13,6 +13,13 @@ public:
     Subsynth(double samplerate);
     ~Subsynth();
 
+    Subsynth(const Subsynth& other){
+        m_samplerate = other.m_samplerate;
+        m_pitch = other.m_pitch;
+        m_detune = other.m_detune;
+        oldPitch = other.oldPitch;
+    }
+
     void Initialize(double samplerate, float pitch, float detune, float cutoff);
 
     double output();

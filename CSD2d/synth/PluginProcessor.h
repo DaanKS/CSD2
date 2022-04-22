@@ -47,7 +47,7 @@ public:
 
 private:
     //==============================================================================
-    std::atomic<float> *Cutoff, *Detune, *Pitch;
+    std::atomic<float> *Cutoff, *Detune;
     juce::AudioProcessorValueTreeState SubSynthParams;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioPluginAudioProcessor)

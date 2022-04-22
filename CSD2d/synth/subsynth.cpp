@@ -17,13 +17,13 @@ Subsynth::~Subsynth(){
 
 void Subsynth::Initialize(double samplerate, float pitch, float detune, float cutoff){
    this->m_samplerate = samplerate;
-    setPitch(pitch);
-    setDetune(detune);
-    setCutoff(cutoff);
-
     osc_1 = new Saw(m_samplerate);
     osc_2 = new Square(m_samplerate);
     over = new Oversampler(m_samplerate);
+    setPitch(pitch);
+    updatePitches();
+    setDetune(detune);
+    setCutoff(cutoff);
 }
 
 
@@ -48,7 +48,7 @@ void Subsynth::setCutoff(float cutoff){
 }
 
 void Subsynth::setDetune(float detune){
-  this->m_detune = detune;
+   this->m_detune = detune;
 }
 void Subsynth::setPitch(float pitch) {
     this->m_pitch = pitch;

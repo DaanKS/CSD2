@@ -5,18 +5,18 @@
 AudioPluginAudioProcessorEditor::AudioPluginAudioProcessorEditor (AudioPluginAudioProcessor& p, juce::AudioProcessorValueTreeState& Reference)
     : AudioProcessorEditor (&p), processorRef (p), Reference(Reference)
 {
-    juce::ignoreUnused (processorRef);
+    //juce::ignoreUnused (processorRef);
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
     addAndMakeVisible(cutoffSlider);
     cutoffSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
     cutoffSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 100, 20);
-    CutoffAttachment = std::make_unique<SliderAttachment>(Reference, "uKvalue1", cutoffSlider);
+    CutoffAttachment = std::make_unique<SliderAttachment>(Reference, "uCutoff", cutoffSlider);
 
     addAndMakeVisible(detuneSlider);
     detuneSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
     detuneSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 100, 20);
-    DetuneAttachment = std::make_unique<SliderAttachment>(Reference, "uKvalue1", detuneSlider);
+    DetuneAttachment = std::make_unique<SliderAttachment>(Reference, "uDetune", detuneSlider);
 
     setSize (400, 300);
 }
@@ -43,5 +43,5 @@ void AudioPluginAudioProcessorEditor::resized()
     auto width = getWidth() / 3.0f;
     auto height = getHeight() / 2.0f;
     cutoffSlider.setBounds(width * 1, height, 100, 100);
-    detuneSlider.setBounds(width * 3, height, 100, 100);
+    detuneSlider.setBounds(width * 2, height, 100, 100);
 }
