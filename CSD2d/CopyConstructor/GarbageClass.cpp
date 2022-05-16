@@ -9,7 +9,7 @@ m_samplerate(4) {}
 GarbageClass::GarbageClass(double samplerate) : bufferSize(5), buffer(new float[bufferSize]),
                                                 m_samplerate(4) {}
 GarbageClass::~GarbageClass() {
-    free(buffer);
+    delete[] buffer;
 }
 
 

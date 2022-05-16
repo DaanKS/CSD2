@@ -3,6 +3,7 @@
 //
 #include <cstring>
 #include <cmath>
+#include <algorithm>
 #include <iostream>
 
 #pragma once
@@ -13,12 +14,23 @@ public:
     GarbageClass(double samplerate);
     ~GarbageClass();
 
-/*
+    /*
     GarbageClass(const GarbageClass& other) : bufferSize(other.bufferSize),
-    buffer(new float[bufferSize]), m_samplerate(other.m_samplerate){
-        std::cout << "Copy Constructor" << std::endl;
-        ciska = other.ciska;
-        marc = other.marc;
+                                            buffer(new float[bufferSize]),
+                                            m_samplerate(other.m_samplerate){
+        std::copy(other.buffer, other.buffer + bufferSize, buffer);
+        poep = other.poep;
+        pis = other.pis;
+    } */
+    /*
+    GarbageClass& operator = (const GarbageClass& other){
+        bufferSize = other.bufferSize;
+        delete[] buffer;
+        buffer = new float [bufferSize];
+        std::copy(other.buffer, other.buffer + bufferSize, buffer);
+        poep = other.poep;
+        pis = other.pis;
+        return *this;
     } */
 
     void method();
@@ -30,7 +42,7 @@ private:
     float* buffer;
 
     double m_samplerate;
-    float ciska;
-    std::string marc;
+    float poep;
+    std::string pis;
 };
 
